@@ -1,0 +1,614 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{467C0022-3FD4-483D-B977-4630AD27456C}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ProgramacionAmbientes</RootNamespace>
+    <AssemblyName>ProgramacionAmbientes</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <IncludeIisSettings>false</IncludeIisSettings>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ClosedXML, Version=0.80.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.80.1\lib\net40-client\ClosedXML.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LinqToExcel, Version=1.10.1.0, Culture=neutral, PublicKeyToken=9c8ea65a58f03f1f, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel_x64.1.10.1\lib\LinqToExcel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.0.1011, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=1.2.3.246, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.1.2.3\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=1.2.3.246, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.1.2.3\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=1.2.3.246, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.1.2.3\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=1.2.3.246, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.1.2.3\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=1.2.3.246, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.1.2.3\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=1.2.3.490, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.1.2.3\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Remotion, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel_x64.1.10.1\lib\Remotion.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Remotion.Data.Linq, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel_x64.1.10.1\lib\Remotion.Data.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Remotion.Interfaces, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel_x64.1.10.1\lib\Remotion.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\bootstrap-datepicker.min.css" />
+    <Content Include="css\bootstrap-datetimepicker.min.css" />
+    <Content Include="css\bootstrap-multiselect.css" />
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\component.css" />
+    <Content Include="css\demo.css" />
+    <Content Include="css\estilos.css" />
+    <Content Include="css\font-awesome.css" />
+    <Content Include="css\fullcalendar.css" />
+    <Content Include="css\fullcalendar.print.css" />
+    <Content Include="css\jquery-ui-1.9.2.custom.css" />
+    <Content Include="css\jquery-ui.min.css" />
+    <Content Include="css\ng-table.min.css" />
+    <Content Include="css\normalize.css" />
+    <Content Include="css\select2.css" />
+    <Content Include="Global.asax" />
+    <Content Include="img\Logo-SRA.png" />
+    <Content Include="img\logo.png" />
+    <Content Include="img\LogoHorizontal.png" />
+    <Content Include="img\logo_sena.jpg" />
+    <Content Include="img\portada.jpg" />
+    <Content Include="Modelo\Ambiente\Ambiente.js" />
+    <Content Include="Modelo\Ambiente\AmbienteService.js" />
+    <Content Include="Modelo\Area\Area.js" />
+    <Content Include="Modelo\Area\AreaService.js" />
+    <Content Include="Modelo\Basicas\Basicas.js" />
+    <Content Include="Modelo\Basicas\BasicasService.js" />
+    <Content Include="Modelo\Competencia\Competencia.js" />
+    <Content Include="Modelo\Competencia\CompetenciaService.js" />
+    <Content Include="Modelo\Coordinacion\Coordinacion.js" />
+    <Content Include="Modelo\Coordinacion\CoordinacionService.js" />
+    <Content Include="Modelo\FichasInstructor\FichasInstructor.js" />
+    <Content Include="Modelo\FichasInstructor\FichasInstructorService.js" />
+    <Content Include="Modelo\Ficha\Ficha.js" />
+    <Content Include="Modelo\Ficha\FichaService.js" />
+    <Content Include="Modelo\Filter.js" />
+    <Content Include="Modelo\General.js" />
+    <Content Include="Modelo\Instructor\Instructor.js" />
+    <Content Include="Modelo\Instructor\InstructorService.js" />
+    <Content Include="Modelo\Login\Login.js" />
+    <Content Include="Modelo\Login\LoginService.js" />
+    <Content Include="Modelo\PEspecial\PEspecial.js" />
+    <Content Include="Modelo\PEspecial\PEspecialService.js" />
+    <Content Include="Modelo\Principal.js" />
+    <Content Include="Modelo\Programacion\Programacion.js" />
+    <Content Include="Modelo\Programacion\ProgramacionService.js" />
+    <Content Include="Modelo\Programa\Programa.js" />
+    <Content Include="Modelo\Programa\ProgramaService.js" />
+    <Content Include="Modelo\Reporte\Reporte.js" />
+    <Content Include="Modelo\Reporte\ReporteEspecial.js" />
+    <Content Include="Modelo\Reporte\ReporteFicha.js" />
+    <Content Include="Modelo\Reporte\ReporteLista.js" />
+    <Content Include="Modelo\Resultado\Resultado.js" />
+    <Content Include="Modelo\Resultado\ResultadoService.js" />
+    <Content Include="Modelo\Sede\Sede.js" />
+    <Content Include="Modelo\Sede\SedeService.js" />
+    <Content Include="Modelo\Solicitud\Solicitud.js" />
+    <Content Include="Modelo\Solicitud\SolicitudService.js" />
+    <Content Include="Modelo\Tecnica\Tecnica.js" />
+    <Content Include="Modelo\Tecnica\TecnicaService.js" />
+    <Content Include="Modelo\Virtualidad2\Virtualidad2.js" />
+    <Content Include="Modelo\Virtualidad2\Virtualidad2Service.js" />
+    <Content Include="Modelo\Virtualidad\Virtualidad.js" />
+    <Content Include="Modelo\Virtualidad\VirtualidadService.js" />
+    <Content Include="Principal.html" />
+    <Content Include="Reporte\ReporteEspecialPDF.aspx" />
+    <Content Include="Reporte\ReporteFichaCPDF.aspx" />
+    <Content Include="Reporte\ReporteFichaPDF.aspx" />
+    <Content Include="Reporte\ReporteListaPDF.aspx" />
+    <Content Include="Reporte\ReportePDF.aspx" />
+    <Content Include="scripts\ai.0.15.0-build58334.js" />
+    <Content Include="scripts\ai.0.15.0-build58334.min.js" />
+    <Content Include="scripts\alasql.min.js" />
+    <Content Include="scripts\angular-animate.min.js" />
+    <Content Include="scripts\angular-aria.min.js" />
+    <Content Include="scripts\angular-cookies.js" />
+    <Content Include="scripts\angular-material.min.js" />
+    <Content Include="scripts\angular-messages.min.js" />
+    <Content Include="scripts\angular-notify.js" />
+    <Content Include="scripts\Angular-Route.js" />
+    <Content Include="scripts\angular-route1.js" />
+    <Content Include="scripts\angular.min.js" />
+    <Content Include="scripts\bootbox.min.js" />
+    <Content Include="scripts\bootstrap-datepicker.es.js" />
+    <Content Include="scripts\bootstrap-datepicker.js" />
+    <Content Include="scripts\bootstrap-datetimepicker.min.js" />
+    <Content Include="scripts\bootstrap-multiselect.js" />
+    <Content Include="scripts\bootstrap-toggle\css\bootstrap-toggle.css" />
+    <Content Include="scripts\bootstrap-toggle\css\bootstrap-toggle.min.css" />
+    <Content Include="scripts\bootstrap-toggle\css\bootstrap2-toggle.css" />
+    <Content Include="scripts\bootstrap-toggle\css\bootstrap2-toggle.min.css" />
+    <Content Include="scripts\bootstrap-toggle\doc\header.png" />
+    <Content Include="scripts\bootstrap-toggle\doc\nyt.png" />
+    <Content Include="scripts\bootstrap-toggle\doc\nytdev.svg" />
+    <Content Include="scripts\bootstrap-toggle\doc\script.js" />
+    <Content Include="scripts\bootstrap-toggle\doc\stylesheet.css" />
+    <Content Include="scripts\bootstrap-toggle\Gruntfile.js" />
+    <Content Include="scripts\bootstrap-toggle\index.html" />
+    <Content Include="scripts\bootstrap-toggle\js\bootstrap-toggle.js" />
+    <Content Include="scripts\bootstrap-toggle\js\bootstrap-toggle.min.js" />
+    <Content Include="scripts\bootstrap-toggle\js\bootstrap2-toggle.js" />
+    <Content Include="scripts\bootstrap-toggle\js\bootstrap2-toggle.min.js" />
+    <Content Include="scripts\bootstrap.js" />
+    <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="scripts\calendar.js" />
+    <Content Include="scripts\Calendario\fullcalendar.js" />
+    <Content Include="scripts\Calendario\gcal.js" />
+    <Content Include="scripts\Calendario\jquery-ui-1.9.2.custom.min.js" />
+    <Content Include="scripts\Calendario\jquery.miniColors.js" />
+    <Content Include="scripts\Calendario\view_calendar.js" />
+    <Content Include="scripts\classie.js" />
+    <Content Include="scripts\DataTables\lenguaje.json" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\ecoicons\ecoicons.ttf" />
+    <Content Include="fonts\ecoicons\ecoicons.woff" />
+    <Content Include="css\sweetalert2.min.css" />
+    <None Include="Properties\PublishProfiles\calendar.pubxml" />
+    <None Include="Properties\PublishProfiles\Calendar365 - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\Calendar365 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\Calendar365.pubxml" />
+    <None Include="Properties\PublishProfiles\CalendarT365.pubxml" />
+    <None Include="Properties\PublishProfiles\gestionambientes - FTP %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\gestionambientes - FTP %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\gestionambientes - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\gestionambientes - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\gestionambientes - Web Deploy %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\gestionambientes - Web Deploy.pubxml" />
+    <Content Include="scripts\fullcalendar-3.5.1\demos\json\events.json" />
+    <Content Include="scripts\fullcalendar-3.5.1\demos\php\get-events.php" />
+    <Content Include="scripts\fullcalendar-3.5.1\demos\php\get-timezones.php" />
+    <Content Include="scripts\fullcalendar-3.5.1\demos\php\utils.php" />
+    <Content Include="Reporte\DataSet1.xsc">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Content>
+    <None Include="Reporte\DataSet1.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Reporte\DataSet1.xss">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Content>
+    <Content Include="scripts\bootstrap-toggle\bower.json" />
+    <Content Include="scripts\bootstrap-toggle\js\bootstrap-toggle.min.js.map" />
+    <Content Include="scripts\bootstrap-toggle\js\bootstrap2-toggle.min.js.map" />
+    <Content Include="scripts\bootstrap-toggle\LICENSE" />
+    <Content Include="scripts\bootstrap-toggle\package.json" />
+    <Content Include="scripts\bootstrap-toggle\README.md" />
+    <None Include="scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="scripts\daypilot-all.min.js" />
+    <Content Include="scripts\dirPagination.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\CHANGELOG.txt" />
+    <Content Include="scripts\fullcalendar-3.5.1\CONTRIBUTING.txt" />
+    <Content Include="scripts\fullcalendar-3.5.1\demos\agenda-views.html" />
+    <Content Include="scripts\fullcalendar-3.5.1\demos\background-events.html" />
+    <Content Include="scripts\fullcalendar-3.5.1\demos\basic-views.html" />
+    <Content Include="scripts\fullcalendar-3.5.1\demos\default.html" />
+    <Content Include="scripts\fullcalendar-3.5.1\demos\external-dragging.html" />
+    <Content Include="scripts\fullcalendar-3.5.1\demos\gcal.html" />
+    <Content Include="scripts\fullcalendar-3.5.1\demos\json.html" />
+    <Content Include="scripts\fullcalendar-3.5.1\demos\js\theme-chooser.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\demos\list-views.html" />
+    <Content Include="scripts\fullcalendar-3.5.1\demos\locales.html" />
+    <Content Include="scripts\fullcalendar-3.5.1\demos\selectable.html" />
+    <Content Include="scripts\fullcalendar-3.5.1\demos\themes.html" />
+    <Content Include="scripts\fullcalendar-3.5.1\demos\timezones.html" />
+    <Content Include="scripts\fullcalendar-3.5.1\demos\week-numbers.html" />
+    <Content Include="scripts\fullcalendar-3.5.1\fullcalendar.css" />
+    <Content Include="scripts\fullcalendar-3.5.1\fullcalendar.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\fullcalendar.min.css" />
+    <Content Include="scripts\fullcalendar-3.5.1\fullcalendar.min.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\fullcalendar.print.css" />
+    <Content Include="scripts\fullcalendar-3.5.1\fullcalendar.print.min.css" />
+    <Content Include="scripts\fullcalendar-3.5.1\gcal.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\gcal.min.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\lib\jquery-ui.min.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\lib\jquery.min.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\lib\moment.min.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\LICENSE.txt" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale-all.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\af.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\ar-dz.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\ar-kw.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\ar-ly.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\ar-ma.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\ar-sa.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\ar-tn.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\ar.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\bg.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\ca.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\cs.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\da.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\de-at.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\de-ch.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\de.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\el.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\en-au.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\en-ca.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\en-gb.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\en-ie.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\en-nz.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\es-do.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\es.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\et.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\eu.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\fa.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\fi.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\fr-ca.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\fr-ch.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\fr.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\gl.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\he.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\hi.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\hr.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\hu.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\id.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\is.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\it.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\ja.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\kk.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\ko.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\lb.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\lt.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\lv.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\mk.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\ms-my.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\ms.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\nb.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\nl-be.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\nl.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\nn.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\pl.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\pt-br.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\pt.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\ro.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\ru.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\sk.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\sl.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\sr-cyrl.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\sr.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\sv.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\th.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\tr.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\uk.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\vi.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\zh-cn.js" />
+    <Content Include="scripts\fullcalendar-3.5.1\locale\zh-tw.js" />
+    <Content Include="scripts\gcal.js" />
+    <Content Include="scripts\gnmenu.js" />
+    <Content Include="scripts\jpages.js" />
+    <Content Include="scripts\jquery-3.2.1.js" />
+    <Content Include="scripts\jquery-1.10.2.min.js" />
+    <None Include="scripts\jquery-1.7-vsdoc.js" />
+    <Content Include="scripts\jquery-1.7.js" />
+    <Content Include="scripts\jquery-1.7.min.js" />
+    <Content Include="scripts\jquery-ui.custom.min.js" />
+    <Content Include="scripts\jspdf.debug.js" />
+    <Content Include="scripts\jsPDF.js" />
+    <Content Include="scripts\lang-all.js" />
+    <Content Include="scripts\modernizr.custom.js" />
+    <Content Include="scripts\moment.js" />
+    <Content Include="scripts\moment.min.js" />
+    <Content Include="scripts\ng-table.js" />
+    <Content Include="scripts\Select2.min.js" />
+    <Content Include="scripts\sweetalert2.min.js" />
+    <Content Include="scripts\xlsx.core.min.js" />
+    <Content Include="Views\AmbienteView.html" />
+    <Content Include="Views\AreaView.html" />
+    <Content Include="Views\Basicas.html" />
+    <Content Include="Views\CompetenciaView.html" />
+    <Content Include="Views\CoordinacionView.html" />
+    <Content Include="Views\FichasInstructorView.html" />
+    <Content Include="Views\FichaView.html" />
+    <Content Include="Views\InstructorView.html" />
+    <Content Include="Views\LoginView.html" />
+    <Content Include="Views\PEspecial.html" />
+    <Content Include="Views\ProgramacionView.html" />
+    <Content Include="Views\ProgramaView.html" />
+    <Content Include="Views\Reporte.html" />
+    <Content Include="Views\ReporteEspecial.html" />
+    <Content Include="Views\ReporteFicha.html" />
+    <Content Include="Views\ReporteLista.html" />
+    <Content Include="Views\ResultadoView.html" />
+    <Content Include="Views\SedeView.html" />
+    <Content Include="Views\SolicitudView.html" />
+    <Content Include="Views\Tecnica.html" />
+    <Content Include="Views\Virtualidad.html" />
+    <Content Include="Views\Virtualidad2.html" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BasicasController.cs" />
+    <Compile Include="Controllers\EspecialController.cs" />
+    <Compile Include="Controllers\FichasInstructorController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
+    <Compile Include="Controllers\InstructorController.cs" />
+    <Compile Include="Controllers\ProgramaController.cs" />
+    <Compile Include="Controllers\TecnicaController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Controllers\Virtualidad2Controller.cs" />
+    <Compile Include="Controllers\VirtualidadController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Parametros\ParametrosDTO.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reporte\DataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reporte\ReporteEspecialPDF.aspx.cs">
+      <DependentUpon>ReporteEspecialPDF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reporte\ReporteEspecialPDF.aspx.designer.cs">
+      <DependentUpon>ReporteEspecialPDF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reporte\ReporteFichaCPDF.aspx.cs">
+      <DependentUpon>ReporteFichaCPDF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reporte\ReporteFichaCPDF.aspx.designer.cs">
+      <DependentUpon>ReporteFichaCPDF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reporte\ReporteFichaPDF.aspx.cs">
+      <DependentUpon>ReporteFichaPDF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reporte\ReporteFichaPDF.aspx.designer.cs">
+      <DependentUpon>ReporteFichaPDF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reporte\ReporteListaPDF.aspx.cs">
+      <DependentUpon>ReporteListaPDF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reporte\ReporteListaPDF.aspx.designer.cs">
+      <DependentUpon>ReporteListaPDF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reporte\ReportePDF.aspx.cs">
+      <DependentUpon>ReportePDF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reporte\ReportePDF.aspx.designer.cs">
+      <DependentUpon>ReportePDF.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="scripts\jquery-1.10.2.min.map" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+    <Folder Include="Plantillas\" />
+    <Folder Include="UploadedFiles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Datos\Datos.csproj">
+      <Project>{09fdcb44-3f1f-4816-a8b1-e753ee1a86c1}</Project>
+      <Name>Datos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogicaNegocio\LogicaNegocio.csproj">
+      <Project>{18ef380c-1cb6-4e30-9917-f96ce37688be}</Project>
+      <Name>LogicaNegocio</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reporte\Informe\Report1.rdlc" />
+    <EmbeddedResource Include="Reporte\Informe\Report2.rdlc" />
+    <EmbeddedResource Include="Reporte\Informe\Report3.rdlc" />
+    <EmbeddedResource Include="Reporte\Informe\Report4.rdlc" />
+    <EmbeddedResource Include="Reporte\Informe\Report5.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>61996</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:61996/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <UserProperties scripts_4bootstrap-toggle_4package_1json__JSONSchema="http://json.schemastore.org/prettierrc" />
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

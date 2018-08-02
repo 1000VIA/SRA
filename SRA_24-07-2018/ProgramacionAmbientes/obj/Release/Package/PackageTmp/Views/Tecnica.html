@@ -1,0 +1,3284 @@
+﻿<div>
+    <div style="position:absolute; margin-top:48.7%; margin-left:50%; transform:translateX(-50%);">
+        <footer class="text-center" style="color:white; font-weight:600; font-size:18px; z-index:5;">Fábrica de Software - 2018</footer>
+    </div>
+    <div id="Prueba" class="Principal Transicion" style="padding-top: 75px !important;">
+        <div class="col-md-12">
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2 style="padding:0% 0% 2% 1%;">Articulación Sena con la Educación Media</h2>
+
+                    <div class="col-md-3" style="float:right;">
+                        <!--<button ng-click="BorrarSeleccionados()">Eliminar</button>-->
+                        <input class="form-control" ng-keyup="Filtrar($event)" id="Buscar" />
+                        <input class="form-control" ng-keyup="Filtrar2($event)" id="Buscar2" />
+                        <input class="form-control" ng-keyup="Filtrar3($event)" id="Buscar3" />
+                        <input class="form-control" ng-keyup="Filtrar4($event)" id="Buscar4" />
+                        <input type="hidden" class="form-control" ng-keyup="FiltrarA($event)" id="BuscarA" />
+                        <input class="form-control" ng-keyup="FiltrarF($event)" id="BuscarF" />
+                    </div>
+
+                    <ul class="nav nav-tabs" role="tablist" id="menuInstruc">
+                        <li class="nav-item active  menuInstruc" id="btn1">
+                            <a class="nav-link" data-toggle="tab" role="tab">Inst. Educativas</a>
+                        </li>
+                        <li class="nav-item menuInstruc" id="btn2">
+                            <a class="nav-link" data-toggle="tab" role="tab">Programas Activos</a>
+                        </li>
+                        <li class="nav-item menuInstruc" id="btn3">
+                            <a class="nav-link" data-toggle="tab" role="tab">Docente Par</a>
+                        </li>
+                        <li class="nav-item menuInstruc" id="btn4">
+                            <a class="nav-link" data-toggle="tab" role="tab">Instructor Sena</a>
+                        </li>
+                        <li class="nav-item <!--menuInstruc-->" id="btnA">
+                            <a class="nav-link" data-toggle="tab" role="tab">Aprendices</a>
+                        </li>
+                        <li class="nav-item menuInstruc" id="btnF">
+                            <a class="nav-link" data-toggle="tab" role="tab">Fichas</a>
+                        </li>
+                        <li class="nav-item  <!--menuInstruc-->" id="btn5">
+                            <a class="nav-link" data-toggle="tab" role="tab">Calendario</a>
+                        </li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+
+                        <div class="tab-pane active tabOcult" id="tabInstituciones" role="tabpanel">
+                            <br />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-default" type="button" id="nuevo" ng-click="modalRegistrarInstitucion()" title="Agregar Institución" style="height: 34px;color:green">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                    </button>
+                                    <button class="btn btn-default" type="button" id="eliminar" ng-click="CambiarEstado()" title="Inhabilitar Registros" style="height: 34px;color:red">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                    </button>
+                                    <button class="btn btn-default" type="button" id="modificar" ng-click="Modificar()" title="Editar Registro" style="height: 34px; color:blue">
+                                        <i class="glyphicon glyphicon-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-default" type="button" id="verDetalle" ng-click="verDetalleInst()" title="Ver Detalle" style="height: 34px; color:sandybrown">
+                                        <i class="glyphicon glyphicon-eye-open"></i>
+                                    </button>
+                                    <button class="btn btn-default" type="button" id="listacq" ng-click="AbrirLista()" title="Verificación cumplimiento listas de chequeo" style="height: 34px; color:brown">
+                                        <i class="glyphicon glyphicon-check"></i>
+                                    </button>
+                                    <br />
+                                    <br />
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:20px"></th>
+                                                <th class="paginationclass" style="font-weight:bold;">Nombre</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Email</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Dirección</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Municipio</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Tipo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="searchable">
+                                            <tr class="paginationclass" ng-repeat="datalist in datalistsInst | pagination: curPage * pageSize | limitTo: pageSize | filter:searchText">
+                                                <td><input ng-model="datalist.Seleccionado" type="checkbox" id="{{datalist.Id}}" /></td>
+                                                <td>{{datalist.Nombre_Colegio }}</td>
+                                                <td>{{datalist.Correo_Colegio }}</td>
+                                                <td>{{datalist.Direccion}}</td>
+                                                <td>{{datalist.Municipio}}</td>
+                                                <td>{{datalist.Tipo}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <div class="pagination pagination-centered" ng-show="datalistsInst.length" style="float:right">
+                                        <ul class="pagination-controle pagination">
+                                            <li>
+                                                <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                                        ng-click="curPage=curPage-1">
+                                                    Anterior
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <span>Pág {{curPage + 1}} de {{ numberOfPages() }}</span>
+                                            </li>
+                                            <li>
+                                                <button type="button" class="btn btn-primary"
+                                                        ng-disabled="curPage >= datalistsInst.length/pageSize - 1"
+                                                        ng-click="curPage = curPage+1">
+                                                    Siguiente
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="tabProgramas" role="tabpanel">
+                            <br />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!--<button class="btn btn-default" type="button" id="nuevo" ng-click="modalRegistrarPrograma()" title="Agregar Programas" style="height: 34px;color:green">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                    </button>-->
+                                    <!--<button class="btn btn-default" type="button" id="eliminar" ng-click="CambiarEstado2()" title="Inhabilitar Registros" style="height: 34px;color:red">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                    </button>
+                                    <button class="btn btn-default" type="button" id="modificar" ng-click="Modificar2()" title="Editar Registro" style="height: 34px; color:blue">
+                                        <i class="glyphicon glyphicon-pencil"></i>
+                                    </button>-->
+                                    <!--<button class="btn btn-default" type="button" disabled id="addProgramas" ng-click="modalAgregarProgramas()" title="Agregar Programas a una institución" style="height: 34px; color:green">
+                                        <i class="glyphicon glyphicon-list"></i>
+                                    </button>
+                                    <button class="btn btn-default" type="button" disabled id="filtrar" ng-click="filltrarProg()" title="Filtrar programas por institución" style="height: 34px; color:mediumpurple">
+                                        <i class="glyphicon glyphicon-filter"></i>
+                                    </button>-->
+                                    <br />
+                                    <br />
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:20px"></th>
+                                                <th class="paginationclass" style="font-weight:bold;">Código Programa</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Nivel</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Versión</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Nombre Programa</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Área</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="searchable">
+                                            <tr class="paginationclass" ng-repeat="datalist in datalistsProg | pagination: curPage * pageSize | limitTo: pageSize | filter:searchText">
+                                                <td><input ng-model="datalist.Seleccionado" type="checkbox" id="{{datalist.IdPrograma}}" /></td>
+                                                <td>{{datalist.CodigoPrograma }}</td>
+                                                <td>{{datalist.Nivel}}</td>
+                                                <td>{{datalist.Version_Programa}}</td>
+                                                <td>{{datalist.NombrePrograma }}</td>
+                                                <td>{{datalist.Area }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <div class="pagination pagination-centered" ng-show="datalistsProg.length" style="float:right">
+                                        <ul class="pagination-controle pagination">
+                                            <li>
+                                                <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                                        ng-click="curPage=curPage-1">
+                                                    Anterior
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <span>Pág {{curPage + 1}} de {{ numberOfPages() }}</span>
+                                            </li>
+                                            <li>
+                                                <button type="button" class="btn btn-primary"
+                                                        ng-disabled="curPage >= datalistsProg.length/pageSize - 1"
+                                                        ng-click="curPage = curPage+1">
+                                                    Siguiente
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="tabDocentePar" role="tabpanel">
+                            <br />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-default" type="button" id="nuevo" ng-click="modalRegistrarDocentePar()" title="Agregar Docente Par" style="height: 34px;color:green">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                    </button>
+                                    <button class="btn btn-default" type="button" id="modificar" ng-click="Modificar3()" title="Editar Registro" style="height: 34px; color:blue">
+                                        <i class="glyphicon glyphicon-pencil"></i>
+                                    </button>
+                                    <br />
+                                    <br />
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:20px"></th>
+                                                <th class="paginationclass" style="font-weight:bold;">Nombres</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Apellidos</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Email</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Teléfono</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Institución</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Programa</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody class="searchable">
+                                            <tr class="paginationclass" ng-repeat="datalist in datalistsDocPar | pagination: curPage * pageSize | limitTo: pageSize | filter:searchText">
+                                                <td><input ng-model="datalist.Seleccionado" type="checkbox" id="{{datalist.Id}}" /></td>
+                                                <td>{{datalist.Nombres }}</td>
+                                                <td>{{datalist.Apellidos }}</td>
+                                                <td>{{datalist.Email }}</td>
+                                                <td>{{datalist.Telefono }}</td>
+                                                <td>{{datalist.Institucion }}</td>
+                                                <td>{{datalist.Programa }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <div class="pagination pagination-centered" ng-show="datalistsDocPar.length" style="float:right">
+                                        <ul class="pagination-controle pagination">
+                                            <li>
+                                                <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                                        ng-click="curPage=curPage-1">
+                                                    Anterior
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <span>Pág {{curPage + 1}} de {{ numberOfPages() }}</span>
+                                            </li>
+                                            <li>
+                                                <button type="button" class="btn btn-primary"
+                                                        ng-disabled="curPage >= datalistsDocPar.length/pageSize - 1"
+                                                        ng-click="curPage = curPage+1">
+                                                    Siguiente
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="tabInstructor" role="tabpanel">
+                            <br />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!--<button class="btn btn-default" type="button" id="nuevo" ng-click="modalRegistrarInstructor()" title="Agregar Instructor Sena" style="height: 34px;color:green">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                    </button>-->
+                                    <!--<button class="btn btn-default" type="button" id="modificar" ng-click="Modificar4()" title="Editar Registro" style="height: 34px; color:blue">
+                                        <i class="glyphicon glyphicon-pencil"></i>
+                                    </button>-->
+                                    <!--<button class="btn btn-default" type="button" ng-click="verTodo()" title="Ver Todo" style="height: 34px; color:sandybrown">
+                                        <i class="glyphicon glyphicon-eye-open"></i>
+                                    </button>-->
+                                    <br />
+                                    <br />
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:20px"></th>
+                                                <th class="paginationclass" style="font-weight:bold;">Cédula</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Nombre</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Apellidos</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Email</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Teléfono</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Tipo Viculación</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="searchable">
+                                            <tr class="paginationclass" ng-repeat="datalist in datalistsI | pagination: curPage * pageSize | limitTo: pageSize | filter:searchText">
+                                                <td><input ng-model="datalist.Seleccionado" type="checkbox" id="{{datalist.IdInstructor}}" /></td>
+                                                <td>{{datalist.Cedula }}</td>
+                                                <td>{{datalist.Nombre}}</td>
+                                                <td>{{datalist.Apellido}}</td>
+                                                <td>{{datalist.Email }}</td>
+                                                <td>{{datalist.Telefono }}</td>
+                                                <td>{{datalist.TipoContrato}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <div class="pagination pagination-centered" ng-show="datalistsI.length" style="float:right">
+                                        <ul class="pagination-controle pagination">
+                                            <li>
+                                                <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                                        ng-click="curPage=curPage-1">
+                                                    Anterior
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <span>Pág {{curPage + 1}} de {{ numberOfPages() }}</span>
+                                            </li>
+                                            <li>
+                                                <button type="button" class="btn btn-primary"
+                                                        ng-disabled="curPage >= datalistsI.length/pageSize - 1"
+                                                        ng-click="curPage = curPage+1">
+                                                    Siguiente
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="tabA" role="tabpanel">
+                            <br />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-default" type="button" id="nuevo" ng-click="agregarRegistroA()" title="Agregar Aprendiz" style="height: 34px;color:green">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                    </button>
+                                    <button class="btn btn-default" type="button" id="modificar" ng-click="ModificarA()" title="Editar Registro" style="height: 34px; color:blue">
+                                        <i class="glyphicon glyphicon-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-default" type="button" id="modificar" ng-click="cambiarEstadoA()" title="Cambiar Estado" style="height: 34px; color:red">
+                                        <i class="glyphicon glyphicon-refresh"></i>
+                                    </button>
+                                    <button class="btn btn-default" type="button" id="modificar" ng-click="cambiarFichaA()" title="Cambiar de Ficha" style="height: 34px; color:purple">
+                                        <i class="glyphicon glyphicon-random"></i>
+                                    </button>
+                                    <!--<button class="btn btn-default" type="button" id="BorrarF" ng-click="BorrarFiltro()" title="Borrar Filtro" style="height: 34px; color:red; position:absolute; right:2%;">
+                                        <i class="glyphicon glyphicon glyphicon-remove"></i>
+                                    </button>-->
+                                    <button class="btn btn-default" type="button" id="filtrar" ng-click="filtrarAprendices()" title="Filtrar Aprendices" style="height: 34px; color:black; position:absolute; right:2%;">
+                                        <i class="glyphicon glyphicon-filter"></i>
+                                    </button>
+                                    <br />
+                                    <br />
+                                    <table class="table table-bordered col-md-12" style="font-size:13.1px !important;">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:20px"></th>
+                                                <th class="paginationclass" style="font-weight:bold;">Ficha</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Institución</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Tipo Documento</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Documento</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Nombre</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Apellido</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Correo</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Teléfono Aprendiz</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Estado</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Descripción</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Nombre Acudiente</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Teléfono Acudiente</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Dirección</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="searchable">
+                                            <tr class="paginationclass" ng-repeat="datalist in datalistsApren | pagination: curPage * pageSize | limitTo: pageSize | filter:searchText">
+                                                <td><input ng-model="datalist.Seleccionado" type="checkbox" id="{{datalist.Id}}" /></td>
+                                                <td>{{datalist.Ficha}}</td>
+                                                <td>{{datalist.Institucion}}</td>
+                                                <td>{{datalist.TipoDocumento }}</td>
+                                                <td>{{datalist.Documento }}</td>
+                                                <td>{{datalist.Nombre}}</td>
+                                                <td>{{datalist.Apellido}}</td>
+                                                <td>{{datalist.Email}}</td>
+                                                <td>{{datalist.Telefono}}</td>
+                                                <td>{{datalist.Estado}}</td>
+                                                <td>{{datalist.Descripcion}}</td>
+                                                <td>{{datalist.NomAcudiente}}</td>
+                                                <td>{{datalist.TelefonoAcud}}</td>
+                                                <td>{{datalist.Direccion}}</td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="text-center" id="LabelAprendices">
+                                        <label style="font-size: 18px; font-weight: bold; ">No hay Coincidencia de Datos</label>
+                                    </div>
+                                    <div class="pagination pagination-centered" ng-show="datalistsApren.length" style="float:right">
+                                        <ul class="pagination-controle pagination">
+                                            <li>
+                                                <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                                        ng-click="curPage=curPage-1">
+                                                    Anterior
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <span>Pág {{curPage + 1}} de {{ numberOfPages() }}</span>
+                                            </li>
+                                            <li>
+                                                <button type="button" class="btn btn-primary"
+                                                        ng-disabled="curPage >= datalistsApren.length/pageSize - 1"
+                                                        ng-click="curPage = curPage+1">
+                                                    Siguiente
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="tabF" role="tabpanel">
+                            <br />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-default" type="button" id="nuevoF" ng-click="agregarRegistroF()" title="Agregar Ficha" style="height: 34px;color:green">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                    </button>
+                                    <button class="btn btn-default" type="button" id="modificarF" ng-click="ModificarF()" title="Editar Registro" style="height: 34px; color:blue">
+                                        <i class="glyphicon glyphicon-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-default" type="button" id="modificarF" ng-click="cambiarEstadoF()" title="Cambiar Estado" style="height: 34px; color:red">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                    </button>
+                                    <button class="btn btn-default" type="button" id="modificar" ng-click="verAprendices()" title="Ver Aprendices asociados a una ficha" style="height: 34px; color:chocolate">
+                                        <i class="glyphicon glyphicon-th-list"></i>
+                                    </button>
+                                    <button class="btn btn-default" type="button" id="modificar" ng-click="verNovedades()" title="Novedades" style="height: 34px; color:purple">
+                                        <i class="glyphicon glyphicon-star"></i>
+                                    </button>
+                                    <br />
+                                    <br />
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:20px"></th>
+                                                <th class="paginationclass" style="font-weight:bold;">Ficha</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Fecha Inicio</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Fecha Fin</th>
+                                                <th class="paginationclass" style="font-weight:bold;">N° Aprendices</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Programa</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Institucion</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="searchable">
+                                            <tr class="paginationclass" ng-repeat="datalist in datalistsFichas | pagination: curPage * pageSize | limitTo: pageSize | filter:searchText">
+                                                <td><input ng-model="datalist.Seleccionado" type="checkbox" id="{{datalist.Id}}" /></td>
+                                                <td>{{datalist.Num_Ficha }}</td>
+                                                <td>{{datalist.Fecha_Inicio}}</td>
+                                                <td>{{datalist.Fecha_Fin}}</td>
+                                                <td>{{datalist.Num_Aprendices}}</td>
+                                                <td>{{datalist.Programa}}</td>
+                                                <td>{{datalist.Institucion}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="pagination pagination-centered" ng-show="datalistsFichas.length" style="float:right">
+                                        <ul class="pagination-controle pagination">
+                                            <li>
+                                                <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                                        ng-click="curPage=curPage-1">
+                                                    Anterior
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <span>Pág {{curPage + 1}} de {{ numberOfPages() }}</span>
+                                            </li>
+                                            <li>
+                                                <button type="button" class="btn btn-primary"
+                                                        ng-disabled="curPage >= datalistsFichas.length/pageSize - 1"
+                                                        ng-click="curPage = curPage+1">
+                                                    Siguiente
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="tabProgramacion" role="tabpanel">
+                            <br />
+                            <input id="fileUploadWeb5" type="file" accept=".xlsx" style="display: none;" />
+                            <div class="col-md-2" style="padding-right:0px;">
+                                <button class="btn btn-default coord RegistrarProgramacion" id="boton" style="width:100%; border-color:#286090;color:#286090;" ng-click="ModalProgramacion()">Registrar Programación</button>
+                            </div>
+                            <div class="col-md-2" style="padding-right:0px;">
+                                <button class="btn btn-default coord ModalFiltrarProgramacion" id="transversal" style="width:100%; border-color:#286090;color:#286090;" ng-click="ModalFiltrarProgramacion()">Filtrar Programación</button>
+                            </div>
+                            <!--<div class="col-md-2" style="padding-right:0px;">
+                                <button class="btn btn-default coord" id="borrarFiltro" style="width:100%; border-color:#286090;color:#286090;">Borrar Filtro</button>
+                            </div>-->
+                            <div class="col-md-2" style="padding-right:0px;">
+                                <button class="btn btn-default  GenerarReporte" id="btnReporte1" title="Generar Reporte" style="border-color:#286090;color:#286090;" ng-click="GenerarReporte()"><i class="glyphicon glyphicon-download-alt"></i></button>
+                            </div>
+                            <br />
+                            <br />
+
+                            <div id='wrap' class="panel-body">
+                                <div id='calendar' class="col-md-12"></div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal ver detalle de la institucion-->
+<div class="modal fade" id="ModalDetalleInst" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Detalle Institución</h4></center>
+            </div>
+            <div class="modal-body">
+                <h1 style="margin-top:-1%" class="text-center" id="titulo"></h1>
+                <div class="row">
+                    <div style="margin-right:-1%" class="col-md-4">
+                        <h4>Información Básica</h4>
+                        <br />
+                        <div class="info">
+                            <strong>NIT: </strong> <span id="nitInst"></span>
+                        </div>
+                        <br />
+                        <div class="info">
+                            <strong>Codigo DANE: </strong> <span id="daneInst"></span>
+                        </div>
+                        <br />
+                        <div class="info">
+                            <strong>Dirección: </strong> <span id="direccionInst"></span>
+                        </div>
+                        <br />
+                        <div class="info">
+                            <strong>Munucipio: </strong> <span id="municipioInst"></span>
+                        </div>
+                        <br />
+                        <div class="info">
+                            <strong>N° Resolución: </strong> <span id="resolucionInst"></span>
+                        </div>
+                        <br />
+                        <div class="info">
+                            <strong>Tipo: </strong> <span id="tipoInst"></span>
+                        </div>
+                        <br />
+                        <div class="info">
+                            <strong>Correo: </strong> <span id="correoInst"></span>
+                        </div>
+                        <br />
+                        <div class="info">
+                            <strong>Categoría: </strong> <span id="CategoriaI"></span>
+                        </div>
+                    </div>
+                    <div id="barra_vertical"></div>
+                    <div style="margin-right:-1%" class="col-md-4">
+                        <h4>Información del Rector</h4>
+                        <br />
+                        <div class="info">
+                            <strong>Nombre: </strong> <span id="nombreRector"></span>
+                        </div>
+                        <br />
+                        <div class="info">
+                            <strong>Apellidos: </strong> <span id="apellidosRector"></span>
+                        </div>
+                        <br />
+                        <div class="info">
+                            <strong>Teléfono: </strong> <span id="telefonoRector"></span>
+                        </div>
+                        <br />
+                        <div class="info">
+                            <strong>Correo: </strong> <span id="correoRector"></span>
+                        </div>
+                    </div>
+                    <div id="barra_vertical"></div>
+                    <div class="col-md-4">
+                        <h4>Información del Coordinador</h4>
+                        <br />
+                        <div class="info">
+                            <strong>Nombre: </strong> <span id="nombreCoord"></span>
+                        </div>
+                        <br />
+                        <div class="info">
+                            <strong>Apellidos: </strong> <span id="apellidosCoord"></span>
+                        </div>
+                        <br />
+                        <div class="info">
+                            <strong>Teléfono: </strong> <span id="telefonoCoord"></span>
+                        </div>
+                        <br />
+                        <div class="info">
+                            <strong>Correo: </strong> <span id="correoCoord"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Registro Colegio-->
+<div class="modal fade" id="modalRegistrarInstitucion" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Registrar Institución</h4></center>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+
+                    <button id="bol1" class="btn" style="border-radius:100%; margin-left:10%; background-color:#286090; color:white;  border: 1px solid #286090">1</button>
+                    <hr style="height:1px; background-color:#286090; width: 70%; margin-top:-3%;" />
+                    <button id="bol2" class="btn" style="border-radius:100%; margin-left:48%; margin-top:-10.8%; background-color:white; color:#286090; border: 1px solid #286090">2</button>
+                    <button id="bol3" class="btn" style="border-radius:100%; margin-left:85%; margin-top:-17%; background-color:white; color:#286090; border: 1px solid #286090">3</button>
+                </div>
+
+                <h3 style="margin-top:-3%; margin-bottom: 5%" class="text-center" id="titlePanel"></h3>
+
+                <form name="institucion" id="institucion">
+
+                    <div id="modalPanel1">
+                        <div class="form-group">
+
+                            <div>
+                                <label class="control-label col-md-3">NIT</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="number" name="nit" id="nit" ng-required="true" ng-maxlength="10" ng-model="Institucion.NIT" />
+                                    <span ng-if="institucion.nit.$error.maxlength" class="text-danger">El NIT puede tener máximo 10 caracteres </span>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <div class="form-group">
+
+                            <div>
+                                <label class="control-label col-md-3">Código DANE</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="number" name="dane" id="dane" ng-required="true" ng-maxlength="10" ng-model="Institucion.Codigo_DANE" />
+                                    <span ng-if="institucion.dane.$error.maxlength" class="text-danger">El Código DANE puede tener máximo 10 caracteres </span>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Nombre</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="nombre" id="nombre" ng-required="true" ng-maxlength="50" ng-model="Institucion.Nombre_Colegio" />
+                                    <span ng-if="institucion.nombre.$error.maxlength" class="text-danger">El nombre puede tener máximo 50 caracteres </span>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Dirección</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="direccion" id="direccion" ng-required="true" ng-model="Institucion.Direccion" />
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Correo</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="email" name="correo" id="correo" ng-required="true" ng-maxlength="50" ng-model="Institucion.Correo_Colegio" />
+                                    <span class="text-danger" ng-if="institucion.correo.$error.email">Debe ingresar un email válido</span>
+                                    <span ng-if="institucion.correo.$error.maxlength" class="text-danger">El correo puede tener máximo 50 caracteres </span>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">N° Resolución</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="number" name="resolucion" id="resolucion" ng-required="true" ng-maxlength="10" ng-model="Institucion.Num_Resolucion" />
+                                    <span ng-if="institucion.resolucion.$error.maxlength" class="text-danger">El numero de resolución puede tener máximo 10 caracteres </span>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+
+                            <div>
+                                <label class="control-label col-md-3">Municipio</label>
+                                <div class="col-md-9">
+                                    <select style="width:100%;" class="form-control select2" name="municipio" id="municipio" ng-required="true" ng-model="Institucion.Municipio">
+                                        <option value=""></option>
+                                        <option ng-repeat="municipio in Municipio" title="{{municipio.NombreMunicipio}}" value="{{municipio.IdMunicipio}}">{{municipio.NombreMunicipio | uppercase}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Tipo</label>
+                                <div class="col-md-9">
+                                    <select style="width:100%;" class="form-control select2" type="text" name="tipo" id="tipo" ng-required="true" ng-model="Institucion.Tipo">
+                                        <option value=""></option>
+                                        <option value="PUBLICO">PUBLICO</option>
+                                        <option value="PRIVADO">PRIVADO</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Categoría</label>
+                                <div class="col-md-9">
+                                    <select style="width:100%;" class="form-control select2" type="text" name="Categoria" id="Categoria" ng-required="true" ng-model="Institucion.Categoria">
+                                        <option value=""></option>
+                                        <option value="TÉCNICA">TÉCNICA</option>
+                                        <option value="ACADÉMICA">ACADÉMICA</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                    </div>
+
+                    <div id="modalPanel2">
+                        <div class="form-group">
+
+                            <div>
+                                <label class="control-label col-md-3">Nombre</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="nombreRectorM" id="nombreRectorM" ng-required="true" ng-model="Institucion.Nombre_Rector" />
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Apellidos</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="apellidosRectorM" id="apellidosRectorM" ng-required="true" ng-maxlength="50" ng-model="Institucion.Apellidos_Rector" />
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Teléfono</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="telefonoRectorM" id="telefonoRectorM" ng-minlength="7" ng-required="true" ng-model="Institucion.Telefono_Rector" />
+                                    <span ng-if="institucion.telefonoRectorM.$error.minlength" class="text-danger">El teléfono puede tener mínimo 7 caracteres </span>
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Correo</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="email" name="correoRectorM" id="correoRectorM" ng-required="true" ng-maxlength="50" ng-model="Institucion.Correo_Rector" />
+                                    <span class="text-danger" ng-if="institucion.correoRectorM.$error.email">Debe ingresar un email válido</span>
+                                    <span ng-if="institucion.correoRectorM.$error.maxlength" class="text-danger">El correo puede tener máximo 50 caracteres </span>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                    </div>
+
+                    <div id="modalPanel3">
+                        <div class="form-group">
+
+                            <div>
+                                <label class="control-label col-md-3">Nombre</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="nombreCoordM" id="nombreCoordM" ng-required="true" ng-model="Institucion.Nombre_Coordinador" />
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Apellidos</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="apellidosCoordM" id="apellidosCoordM" ng-required="true" ng-maxlength="50" ng-model="Institucion.Apellidos_Coordinador" />
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Teléfono</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="telefonoCoordM" ng-minlength="7" id="telefonoCoordM" ng-required="true" ng-model="Institucion.Telefono_Coordinador" />
+                                    <span ng-if="institucion.telefonoCoordM.$error.minlength" class="text-danger">El teléfono puede tener mínimo 7 caracteres </span>
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Correo</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="email" name="correoCoordM" id="correoCoordM" ng-required="true" ng-maxlength="50" ng-model="Institucion.Correo_Coordinador" />
+                                    <span class="text-danger" ng-if="institucion.correoCoordM.$error.email">Debe ingresar un email válido</span>
+                                    <span ng-if="institucion.correoCoordM.$error.maxlength" class="text-danger">El correo puede tener máximo 50 caracteres </span>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button style="float:left" id="atras1" class="btn btn-info">Anterior</button>
+                <button style="float:left" id="atras2" class="btn btn-info">Anterior</button>
+                <button style="float:left" id="siguiente1" class="btn btn-info">Siguiente</button>
+                <button style="float:left" id="siguiente2" class="btn btn-info">Siguiente</button>
+                <button class="btn btn-success" ng-disabled="!institucion.$valid" ng-click="GuardarInstitucion()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Eliminar Registro Institucion-->
+<div class="modal fade" id="modalInhabilitarInstitucion" role="dialog">
+    <div class="modal-dialog" style="width: 400px;">
+        <!--Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center>
+                    <h4 style="color:#1C75BB;">
+                        CONFIRMAR INHABILITACIÓN
+                    </h4>
+                </center>
+
+            </div>
+            <div class="modal-body" overflow auto;">
+                <div class="form-group">
+                    <label>¿Está seguro que desea inhabilitar el registro? </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success  btn-default" data-dismiss="modal" ng-click="inhabilitarinstitucion()">Aceptar</button>
+                <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Modificar Institucion-->
+<div class="modal fade" id="modalModificarInstitucion" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Modificar Institución</h4></center>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+
+                    <button id="bol1Edit" class="btn" style="border-radius:100%; margin-left:10%; background-color:#286090; color:white;  border: 1px solid #286090">1</button>
+                    <hr style="height:1px; background-color:#286090; width: 70%; margin-top:-3%;" />
+                    <button id="bol2Edit" class="btn" style="border-radius:100%; margin-left:48%; margin-top:-10.8%; background-color:white; color:#286090; border: 1px solid #286090">2</button>
+                    <button id="bol3Edit" class="btn" style="border-radius:100%; margin-left:85%; margin-top:-17%; background-color:white; color:#286090; border: 1px solid #286090">3</button>
+                </div>
+
+                <h3 style="margin-top:-3%; margin-bottom: 5%" class="text-center" id="titlePanelEdit"></h3>
+
+                <form name="institucionEdit" id="institucionEdit">
+
+                    <div id="modalPanel1Edit">
+                        <div class="form-group">
+
+                            <div>
+                                <label class="control-label col-md-3">NIT</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="number" name="nitEdit" id="nitEdit" ng-required="true" ng-maxlength="10" ng-model="Institucion.NIT" />
+                                    <span ng-if="institucionEdit.nitEdit.$error.maxlength" class="text-danger">El NIT puede tener máximo 10 caracteres </span>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <div class="form-group">
+
+                            <div>
+                                <label class="control-label col-md-3">Código DANE</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="number" name="daneEdit" id="daneEdit" ng-required="true" ng-maxlength="10" ng-model="Institucion.Codigo_DANE" />
+                                    <span ng-if="institucionEdit.daneEdit.$error.maxlength" class="text-danger">El Código DANE puede tener máximo 10 caracteres </span>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Nombre</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="nombreEdit" id="nombreEdit" ng-required="true" ng-maxlength="50" ng-model="Institucion.Nombre_Colegio" />
+                                    <span ng-if="institucionEdit.nombreEdit.$error.maxlength" class="text-danger">El nombre puede tener máximo 50 caracteres </span>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Dirección</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="direccionEdit" id="direccionEdit" ng-required="true" ng-model="Institucion.Direccion" />
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Correo</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="email" name="correoEdit" id="correoEdit" ng-required="true" ng-maxlength="50" ng-model="Institucion.Correo_Colegio" />
+                                    <span class="text-danger" ng-if="institucionEdit.correoEdit.$error.email">Debe ingresar un email válido</span>
+                                    <span ng-if="institucionEdit.correoEdit.$error.maxlength" class="text-danger">El correo puede tener máximo 50 caracteres </span>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">N° Resolución</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="number" name="resolucionEdit" id="resolucionEdit" ng-required="true" ng-maxlength="10" ng-model="Institucion.Num_Resolucion" />
+                                    <span ng-if="institucionEdit.resolucionEdit.$error.maxlength" class="text-danger">El numero de resolución puede tener máximo 10 caracteres </span>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+
+                            <div>
+                                <label class="control-label col-md-3">Municipio</label>
+                                <div class="col-md-9">
+                                    <select style="width:100%;" class="form-control select2" name="municipioEdit" id="municipioEdit" ng-required="true" ng-model="Institucion.Municipio">
+                                        <option value=""></option>
+                                        <option ng-repeat="municipio in Municipio" title="{{municipio.NombreMunicipio}}" value="{{municipio.IdMunicipio}}">{{municipio.NombreMunicipio | uppercase}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Tipo</label>
+                                <div class="col-md-9">
+                                    <select style="width:100%;" class="form-control select2" type="text" name="tipoEdit" id="tipoEdit" ng-required="true" ng-model="Institucion.Tipo">
+                                        <option value=""></option>
+                                        <option value="PUBLICO">PUBLICO</option>
+                                        <option value="PRIVADO">PRIVADO</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Categoría</label>
+                                <div class="col-md-9">
+                                    <select style="width:100%;" class="form-control select2" type="text" name="CategoriaEdit" id="CategoriaEdit" ng-required="true" ng-model="Institucion.Categoria">
+                                        <option value=""></option>
+                                        <option value="TÉCNICA">TÉCNICA</option>
+                                        <option value="ACADÉMICA">ACADÉMICA</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                    </div>
+
+                    <div id="modalPanel2Edit">
+                        <div class="form-group">
+
+                            <div>
+                                <label class="control-label col-md-3">Nombre</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="nombreRectorMEdit" id="nombreRectorMEdit" ng-required="true" ng-model="Institucion.Nombre_Rector" />
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Apellidos</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="apellidosRectorMEdit" id="apellidosRectorMEdit" ng-required="true" ng-maxlength="50" ng-model="Institucion.Apellidos_Rector" />
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Teléfono</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="telefonoRectorMEdit" id="telefonoRectorMEdit" ng-minlength="7" ng-required="true" ng-model="Institucion.Telefono_Rector" />
+                                    <span ng-if="institucionEdit.telefonoRectorMEdit.$error.minlength" class="text-danger">El teléfono puede tener mínimo 7 caracteres </span>
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Correo</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="email" name="correoRectorMEdit" id="correoRectorMEdit" ng-required="true" ng-maxlength="50" ng-model="Institucion.Correo_Rector" />
+                                    <span class="text-danger" ng-if="institucionEdit.correoRectorMEdit.$error.email">Debe ingresar un email válido</span>
+                                    <span ng-if="institucionEdit.correoRectorMEdit.$error.maxlength" class="text-danger">El correo puede tener máximo 50 caracteres </span>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                    </div>
+
+                    <div id="modalPanel3Edit">
+                        <div class="form-group">
+
+                            <div>
+                                <label class="control-label col-md-3">Nombre</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="nombreCoordMEdit" id="nombreCoordMEdit" ng-required="true" ng-model="Institucion.Nombre_Coordinador" />
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Apellidos</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="apellidosCoordMEdit" id="apellidosCoordMEdit" ng-required="true" ng-maxlength="50" ng-model="Institucion.Apellidos_Coordinador" />
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Teléfono</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="telefonoCoordMEdit" ng-minlength="7" id="telefonoCoordMEdit" ng-required="true" ng-model="Institucion.Telefono_Coordinador" />
+                                    <span ng-if="institucionEdit.telefonoCoordMEdit.$error.minlength" class="text-danger">El teléfono puede tener mínimo 7 caracteres </span>
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Correo</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="email" name="correoCoordMEdit" id="correoCoordMEdit" ng-required="true" ng-maxlength="50" ng-model="Institucion.Correo_Coordinador" />
+                                    <span class="text-danger" ng-if="institucionEdit.correoCoordMEdit.$error.email">Debe ingresar un email válido</span>
+                                    <span ng-if="institucionEdit.correoCoordMEdit.$error.maxlength" class="text-danger">El correo puede tener máximo 50 caracteres </span>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button style="float:left" id="atras1Edit" class="btn btn-info">Anterior</button>
+                <button style="float:left" id="atras2Edit" class="btn btn-info">Anterior</button>
+                <button style="float:left" id="siguiente1Edit" class="btn btn-info">Siguiente</button>
+                <button style="float:left" id="siguiente2Edit" class="btn btn-info">Siguiente</button>
+                <button class="btn btn-success" ng-disabled="!institucionEdit.$valid" ng-click="GuardarModificacion()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Eliminar Registro Programa-->
+<div class="modal fade" id="modalInhabilitarPrograma" role="dialog">
+    <div class="modal-dialog" style="width: 400px;">
+        <!--Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center>
+                    <h4 style="color:#1C75BB;">
+                        CONFIRMAR INHABILITACIÓN
+                    </h4>
+                </center>
+
+            </div>
+            <div class="modal-body" overflow auto;">
+                <div class="form-group">
+                    <label>¿Está seguro que desea inhabilitar el registro? </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success  btn-default" data-dismiss="modal" ng-click="inhabilitarPrograma()">Aceptar</button>
+                <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal editar Programa-->
+<div class="modal fade" id="ModalEditarPrograma" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Editar Empresa</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="Programa1" id="Programa1">
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Nombre del Programa</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="NomProgEdit" id="NomProgEdit" ng-required="true" ng-model="Programa.NombrePrograma" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Código</label>
+                            <div class="col-md-9">
+                                <input type="number" class="form-control" name="CodProgEdit" id="CodProgEdit" ng-required="true" ng-maxlength="10" ng-model="Programa.Codigo_Programa" />
+                                <span ng-if="Programa1.CodProgEdit.$error.maxlength" class="text-danger">El Código puede tener máximo 10 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Red Tecnológica</label>
+                            <div class="col-md-9" style="margin-bottom:4%">
+                                <textarea class="form-control" name="RedTecEdit" id="RedTecEdit" ng-required="true" ng-model="Programa.Red_Tecnologica"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Versión</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="VerProgEdit" id="VerProgEdit" ng-required="true" ng-model="Programa.Version_Programa" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="!Programa1.$valid" ng-click="GuardarEdicionPrograma()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal registrar Programa-->
+<div class="modal fade" id="ModalRegistrarPrograma" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Editar Empresa</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="Programa" id="Programa">
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Nombre del Programa</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="NomProg" id="NomProg" ng-required="true" ng-model="Programa.NombrePrograma" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Código</label>
+                            <div class="col-md-9">
+                                <input type="number" class="form-control" name="CodProg" id="CodProg" ng-required="true" ng-maxlength="10" ng-model="Programa.Codigo_Programa" />
+                                <span ng-if="Programa1.CodProg.$error.maxlength" class="text-danger">El Código puede tener máximo 10 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Red Tecnológica</label>
+                            <div class="col-md-9" style="margin-bottom:4%">
+                                <textarea class="form-control" name="RedTec" id="RedTec" ng-required="true" ng-model="Programa.Red_Tecnologica"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Versión</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="VerProg" id="VerProg" ng-required="true" ng-model="Programa.Version_Programa" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="!Programa.$valid" ng-click="GuardarPrograma()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal filtrar programas-->
+<div class="modal fade" id="filtrarProgramacion" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Ver Programas Activos en la Institución</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="FiltrarProgramacion" id="FiltrarProgramacion">
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Institución Educativa</label>
+                            <div class="col-md-9">
+                                <select style="width:100%;" class="form-control select2" name="InstFiltro" id="InstFiltro" ng-required="true" ng-model="IdInst.Id">
+                                    <option value=""></option>
+                                    <option ng-repeat="inst in Inst" title="{{inst.Nombre_Colegio}}" value="{{inst.Id}}">{{inst.Nombre_Colegio | uppercase}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <table class="table table-bordered" id="tablaresultadofiltro">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody class="searchable">
+                            <tr class="paginationclass" ng-repeat="datalist in datalistsInstFilter">
+                                <td>{{datalist.Codigo_Programa | uppercase}}</td>
+                                <td>{{datalist.NombrePrograma | uppercase}}</td>
+                                <td><button class="btn {{datalist.Clase}}" ng-click="estadoInstProg(datalist.IdProg, datalist.IdInst)">{{datalist.Estado | uppercase}}</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button style="float:left" class="btn btn-warning" id="btnLimpiarFiltro">Limpiar</button>
+                <button class="btn btn-success" id="btnBuscarFiltro" ng-disabled="!FiltrarProgramacion.$valid" ng-click="Hola()">Buscar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal agregar programas a una institucion-->
+<div class="modal fade" id="modalAgregarProgramas" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Agregar Programas a la Institución</h4></center>
+            </div>
+            <div class="modal-body" id="bodyAdd" style="height:550px">
+                <form name="AddProg" id="AddProg">
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Institución Educativa</label>
+                            <div class="col-md-8">
+                                <select style="width:100%;" class="form-control select2" name="InstAddProg" id="InstAddProg" ng-required="true" ng-model="Inst.Id">
+                                    <option value=""></option>
+                                    <option ng-repeat="inst in Inst" title="{{inst.Nombre_Colegio}}" value="{{inst.Id}}">{{inst.Nombre_Colegio | uppercase}}</option>
+                                </select>
+                            </div>
+                            <div style="margin-left:-3%" class="col-md-1">
+                                <button id="AddSelect" class="btn btn-success" ng-disabled="!AddProg.$valid" ng-click="hola()"><i class="glyphicon glyphicon-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </form>
+                <hr />
+                <form name="AddProg1" id="AddProg1">
+                    <div class="form-group">
+
+                        <div id="selectProg">
+                            <label class="control-label col-md-3">Programa</label>
+                            <div class="col-md-8">
+                                <select style="width:100%;" class="form-control select2" name="ProgAddProg" id="ProgAddProg" ng-required="true" ng-model="Inst.Prog">
+                                    <option value=""></option>
+                                    <option ng-repeat="prog in datalistsProg" class="{{prog.Id}}" title="{{prog.NombrePrograma}}" value="{{prog.Id}}">{{prog.NombrePrograma | uppercase}}</option>
+                                </select>
+                            </div>
+                            <div style="margin-left:-3%" class="col-md-1">
+                                <button id="AddSelect1" class="btn btn-success" ng-disabled="!AddProg1.$valid" ng-click="addProg()"><i class="glyphicon glyphicon-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <br />
+                <br />
+                <br />
+                <br />
+
+
+                <div class="col-md-12" id="divTabla">
+                    <table class="table table-bordered table-striped">
+                        <tbody class="searchable">
+                            <tr class="paginationclass" ng-repeat="datalist in AddProgs">
+                                <td>{{datalist.Programa | uppercase}}</td>
+                                <td style="width:10%"><button class="btn btn-danger" ng-click="remove($index)"><i class="glyphicon glyphicon-remove"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br />
+
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" id="btnLimpiar" style="float:left">Limpiar</button>
+                <input id="excelInstProgI" type="file" accept=".xlsx" style="display: none;" />
+                <button class="btn btn-warning" id="excelInstProg" style="float:left">Subir Excel</button>
+                <button class="btn btn-success" ng-click="AddProgramas()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal registrar Docente par-->
+<div class="modal fade" id="ModalRegistrarDocentePar" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Registrar Docente Par</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="DocentePar" id="DocentePar">
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Nombre</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="nombreDPar" id="nombreDPar" ng-required="true" ng-model="DocentePar.Nombres" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Apellidos</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="apellidosDPar" id="apellidosDPar" ng-required="true" ng-maxlength="50" ng-model="DocentePar.Apellidos" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Correo</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="email" name="correoDPar" id="correoDPar" ng-required="true" ng-maxlength="50" ng-model="DocentePar.Email" />
+                                <span class="text-danger" ng-if="DocentePar.correoDPar.$error.email">Debe ingresar un email válido</span>
+                                <span ng-if="DocentePar.correoDPar.$error.maxlength" class="text-danger">El correo puede tener máximo 50 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Teléfono</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="cedulaDPar" id="cedulaDPar" ng-required="true" ng-minlength="7" ng-model="DocentePar.Telefono" />
+                                <span ng-if="DocentePar.cedulaDPar.$error.minlength" class="text-danger">El teléfono puede tener mínimo 7 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Institución</label>
+                            <div class="col-md-9">
+                                <select style="width:100%;" class="form-control select2" name="InstDPar" id="InstDPar" ng-required="true" ng-model="DocentePar.Id_Institucion">
+                                    <option value=""></option>
+                                    <option ng-repeat="inst in Inst" title="{{inst.Nombre_Colegio}}" value="{{inst.Id}}">{{inst.Nombre_Colegio | uppercase}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Programa</label>
+                            <div class="col-md-9">
+                                <select style="width:100%;" class="form-control select2" name="ProgDPar" id="ProgDPar" ng-required="true" ng-model="DocentePar.Id_Programa">
+                                    <option value=""></option>
+                                    <option ng-repeat="prog in Prog" title="{{prog.NombrePrograma}}" value="{{prog.Id}}">{{prog.NombrePrograma | uppercase}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="!DocentePar.$valid" ng-click="GuardarDocentePar()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal editar Docente Par-->
+<div class="modal fade" id="ModalEditarDocentePar" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Editar Docente Par</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="DocenteParEdit" id="DocenteParEdit">
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Nombre</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="nombreDParEdit" id="nombreDParEdit" ng-required="true" ng-model="DocentePar.Nombres" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Apellidos</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="apellidosDParEdit" id="apellidosDParEdit" ng-required="true" ng-maxlength="50" ng-model="DocentePar.Apellidos" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Correo</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="email" name="correoDParEdit" id="correoDParEdit" ng-required="true" ng-maxlength="50" ng-model="DocentePar.Email" />
+                                <span class="text-danger" ng-if="DocenteParEdit.correoDParEdit.$error.email">Debe ingresar un email válido</span>
+                                <span ng-if="DocenteParEdit.correoDParEdit.$error.maxlength" class="text-danger">El correo puede tener máximo 50 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Teléfono</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="cedulaDParEdit" id="cedulaDParEdit" ng-required="true" ng-minlength="7" ng-model="DocentePar.Telefono" />
+                                <span ng-if="DocenteParEdit.cedulaDParEdit.$error.minlength" class="text-danger">El teléfono puede tener mínimo 7 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Institución</label>
+                            <div class="col-md-9">
+                                <select style="width:100%;" class="form-control select2" name="InstDParEdit" id="InstDParEdit" ng-change="cargarSelectPrograma2()" ng-required="true" ng-model="DocentePar.Id_Institucion">
+                                    <option value=""></option>
+                                    <option ng-repeat="inst in Inst" title="{{inst.Nombre_Colegio}}" value="{{inst.Id}}">{{inst.Nombre_Colegio | uppercase}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Programa</label>
+                            <div class="col-md-9">
+                                <select style="width:100%;" class="form-control select2" name="ProgDParEdit" id="ProgDParEdit" ng-required="true" ng-model="DocentePar.Id_Programa">
+                                    <option value=""></option>
+                                    <option ng-repeat="prog in Prog" title="{{prog.NombrePrograma}}" value="{{prog.Id}}">{{prog.NombrePrograma | uppercase}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="!DocenteParEdit.$valid" ng-click="GuardarEdicionDocentePar()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal ver toda la informacion del instructor-->
+<div class="modal fade" id="modalViewInfo" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Información del Instructor</h4></center>
+            </div>
+            <div class="modal-body">
+
+                <div class="row" id="InfoProg">
+                    <div class="col-md-12">
+                        <center>
+                            <h4 id="nombreView"></h4>
+                        </center>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+
+                    <div class="col-md-12 txt">
+                        <center>
+                            <b class="txt2">Cédula: </b>
+                            <span class="text-info" id="cedulaView"></span>
+                        </center>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="col-md-12 txt">
+                        <center>
+                            <b class="txt2">Correo misena: </b>
+                            <span class="text-info" id="misenaView"></span>
+                        </center>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="col-md-12 txt">
+                        <center>
+                            <b class="txt2">Correo Personal: </b>
+                            <span class="text-info" id="personalView"></span>
+                        </center>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="col-md-12 txt">
+                        <center>
+                            <b class="txt2">Municipio: </b>
+                            <span class="text-info" id="municipioView"></span>
+                        </center>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="col-md-12 txt">
+                        <center>
+                            <b class="txt2">Teléfono Fijo:</b> <span class="text-info" id="fijoView"></span>
+                            <b class="txt2">Celular: </b> <span class="text-info" id="celView"></span>
+                        </center>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="col-md-12 txt">
+                        <center>
+                            <b class="txt2">Área: </b>
+                            <span class="text-info" id="areaView"></span>
+                        </center>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="col-md-12 txt">
+                        <center>
+                            <b class="txt2">Profesión: </b>
+                            <span class="text-info" id="profesionView"></span>
+                        </center>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="col-md-12 txt">
+                        <center>
+                            <b class="txt2">Programa de Formación: </b>
+                            <span class="text-info" id="programaView"></span>
+                        </center>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal editar Instructor SENA-->
+<div class="modal fade" id="ModalEditarInstructor" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Editar Instructor SENA</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="InstructorEdit" id="InstructorEdit">
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Documento</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="CedulaInstrucEdit" id="CedulaInstrucEdit" ng-required="true" ng-minlength="7" ng-model="InstructorSENA.Cedula" />
+                                <span ng-if="InstructorEdit.CedulaInstrucEdit.$error.minlength" class="text-danger">El documento puede tener mínimo 7 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Nombres</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="nombreInstrucEdit" id="nombreInstrucEdit" ng-required="true" ng-model="InstructorSENA.Nombres" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Apellidos</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="apellidosInstrucEdit" id="apellidosInstrucEdit" ng-required="true" ng-maxlength="50" ng-model="InstructorSENA.Apellidos" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Correo Misena</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="correoMInstrucrEdit" id="correoMInstrucrEdit" ng-required="true" ng-maxlength="50" ng-model="InstructorSENA.Correo_Misena" />
+                                <span ng-if="InstructorEdit.correoMInstrucrEdit.$error.maxlength" class="text-danger">El correo puede tener máximo 50 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Correo Alternativo</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="email" name="correoAInstrucEdit" id="correoAInstrucEdit" ng-required="true" ng-maxlength="50" ng-model="InstructorSENA.Correo_Alternativo" />
+                                <span class="text-danger" ng-if="InstructorEdit.correoAInstrucEdit.$error.email">Debe ingresar un email válido</span>
+                                <span ng-if="InstructorEdit.correoAInstrucEdit.$error.maxlength" class="text-danger">El correo puede tener máximo 50 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Municipio</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="munInstrucEdit" id="munInstrucEdit" ng-required="true" ng-model="InstructorSENA.Municipio" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Teléfono Fijo</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="telFijoinstrucEdit" id="telFijoinstrucEdit" ng-required="true" ng-minlength="7" ng-model="InstructorSENA.Telefono_Fijo" />
+                                <span ng-if="InstructorEdit.telFijoinstrucEdit.$error.minlength" class="text-danger">El teléfono puede tener mínimo 7 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Celular</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="CelInstrucEdit" id="CelInstrucEdit" ng-required="true" ng-minlength="7" ng-model="InstructorSENA.Celular" />
+                                <span ng-if="InstructorEdit.CelInstrucEdit.$error.minlength" class="text-danger">El Celular puede tener mínimo 7 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Área</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="areaInstrucEdit" id="areaInstrucEdit" ng-required="true" ng-model="InstructorSENA.Area" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Profesión</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="profInstrucEdit" id="profInstrucEdit" ng-required="true" ng-model="InstructorSENA.Profesion" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Programa de Formación</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="ProgFormInstrucEdit" id="ProgFormInstrucEdit" ng-required="true" ng-model="InstructorSENA.Programa_Formacion" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="!InstructorEdit.$valid" ng-click="GuardarEdicionInstructor()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Registrar Instructor SENA-->
+<div class="modal fade" id="ModalRegistrarInstructor" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Registrar Instructor SENA</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="Instructor" id="Instructor">
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Documento</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="CedulaInstruc" id="CedulaInstruc" ng-required="true" ng-minlength="7" ng-model="InstructorSENA.Cedula" />
+                                <span ng-if="Instructor.CedulaInstruc.$error.minlength" class="text-danger">El documento puede tener mínimo 7 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Nombres</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="nombreInstruc" id="nombreInstruc" ng-required="true" ng-model="InstructorSENA.Nombres" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Apellidos</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="apellidosInstruc" id="apellidosInstruc" ng-required="true" ng-maxlength="50" ng-model="InstructorSENA.Apellidos" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Correo Misena</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="correoMInstrucr" id="correoMInstrucr" ng-required="true" ng-maxlength="50" ng-model="InstructorSENA.Correo_Misena" />
+                                <span ng-if="Instructor.correoMInstrucr.$error.maxlength" class="text-danger">El correo puede tener máximo 50 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Correo Alternativo</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="email" name="correoAInstruc" id="correoAInstruc" ng-required="true" ng-maxlength="50" ng-model="InstructorSENA.Correo_Alternativo" />
+                                <span class="text-danger" ng-if="Instructor.correoAInstruc.$error.email">Debe ingresar un email válido</span>
+                                <span ng-if="Instructor.correoAInstruc.$error.maxlength" class="text-danger">El correo puede tener máximo 50 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Municipio</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="munInstruc" id="munInstruc" ng-required="true" ng-model="InstructorSENA.Municipio" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Teléfono Fijo</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="telFijoinstruc" id="telFijoinstruc" ng-required="true" ng-minlength="7" ng-model="InstructorSENA.Telefono_Fijo" />
+                                <span ng-if="Instructor.telFijoinstruc.$error.minlength" class="text-danger">El teléfono puede tener mínimo 7 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Celular</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="CelInstruc" id="CelInstruc" ng-required="true" ng-minlength="7" ng-model="InstructorSENA.Celular" />
+                                <span ng-if="Instructor.CelInstruc.$error.minlength" class="text-danger">El Celular puede tener mínimo 7 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Área</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="areaInstruc" id="areaInstruc" ng-required="true" ng-model="InstructorSENA.Area" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Profesión</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="profInstruc" id="profInstruc" ng-required="true" ng-model="InstructorSENA.Profesion" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Programa de Formación</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="ProgFormInstruc" id="ProgFormInstruc" ng-required="true" ng-model="InstructorSENA.Programa_Formacion" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="!Instructor.$valid" ng-click="GuardarInstructor()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal registrar Programacion-->
+<div class="modal fade" id="modalRegistrarProgramacion" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Registrar Programación</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="Programacion" id="Programacion">
+
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Hora de Inicio</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control datetimepicker3" name="final" id="inicialProg" ng-required="false" ng-model="MediaTecnica.Hora_Inicio" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Hora Final</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control datetimepicker3" name="Ffinal" id="finalProg" ng-required="false" ng-model="MediaTecnica.Hora_Fin" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Grado</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="gradoo" id="gradoo" ng-required="true" ng-model="MediaTecnica.Grado" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Ficha</label>
+                            <div class="col-md-9">
+                                <select style="width:100%" class="form-control select2" type="text" name="fichaa" id="fichaa" ng-required="true" ng-model="MediaTecnica.Ficha">
+                                    <option value=""></option>
+                                    <option ng-repeat="ficha in FichaMedia" value="{{ficha.Num_Ficha}}">{{ficha.Num_Ficha}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Instructor</label>
+                            <div class="col-md-9">
+                                <select style="width:100%" class="form-control select2" type="text" name="instructorr" id="instruc" ng-required="true" ng-model="MediaTecnica.Instructor">
+                                    <option value=""></option>
+                                    <option ng-repeat="instructor in InstMedia" value="{{instructor.Instruc}}">{{instructor.Instruc}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <hr />
+                    <div class="form-group row" style="width:100%;">
+                        <div class="col-md-12 text-center">
+                            <label>Días</label>
+                        </div>
+
+                        <div style="display:grid; grid-template-columns:repeat(7,1fr); width:98%; padding-left:1.5vw; padding-top:1.5vh;">
+                            <div class="col-md-2 text-center">
+                                <label>Lunes</label><br />
+                                <input type="checkbox" name="1" id="1Edit" ng-model="Dias.Lunes" />
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <label>Martes</label><br />
+                                <input type="checkbox" name="2" id="2Edit" ng-model="Dias.Martes" />
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <label>Miércoles</label><br />
+                                <input type="checkbox" name="3" id="3Edit" ng-model="Dias.Miercoles" />
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <label>Jueves</label><br />
+                                <input type="checkbox" name="4" id="4Edit" ng-model="Dias.Jueves" />
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <label>Viernes</label><br />
+                                <input type="checkbox" name="5" id="5Edit" ng-model="Dias.Viernes" />
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <label>Sábado</label><br />
+                                <input type="checkbox" name="6" id="6Edit" ng-model="Dias.Sabado" />
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <label>Domingo</label><br />
+                                <input type="checkbox" name="7" id="7Edit" ng-model="Dias.Domingo" />
+                            </div>
+                        </div>                       
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-click="GuardarProgramacion()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Filtrar Programacion-->
+<div class="modal fade" id="ModalFiltrarProgramacion" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Filtrar Programación</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="ProgramacionF" id="ProgramacionF">
+
+                    <div class="row">
+                        <div class="form-group" id="divInputInstruc">
+                            <label class="control-label col-md-3">Instructor</label>
+                            <div class="col-md-9">
+                                <select style="width:100%" class="form-control select2" type="text" name="instrucFil" id="instrucFil" ng-required="true">
+                                    <option value=""></option>
+                                    <option ng-repeat="instructor in PInstructor" class="{{instructor.Cedula}}" value="{{instructor.Nombre+' '+instructor.Apellido}}">{{instructor.Nombre +" "+instructor.Apellido}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-click="filtrarProgramacion()">Filtrar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal editar Programacion-->
+<div class="modal fade" id="ModalEditarProgramacion" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Editar Programación</h4></center>
+            </div>
+            <div class="modal-body">
+
+                <div class="row" id="InfoProggra">
+                    <div class="col-md-12">
+                        <center>
+                            <h3 id="nameInstruc"></h3>
+                        </center>
+                    </div>
+                    <br />                   
+                    <div class="col-md-12 txt">
+                        <center>
+                            de <span class="text-info" id="TextIni"></span> a
+                            <span class="text-info" id="TextFin"></span>
+                        </center>
+                    </div>
+                    <br />
+
+                    <div class="col-md-12 txt">
+                        <center>
+                            <span id="spnInst"> </span> <span class="text-info" id="TextInst"></span>
+                        </center>
+                    </div>
+                    <div class="col-md-12 txt">
+                        <center>
+                            Programa: <span class="text-info" id="TextProg"></span>
+                        </center>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="col-md-12 txt">
+                        <center>
+                            Ficha: <span class="text-info" id="TextFi"></span>
+                        </center>
+                    </div>
+                    <br />
+                    <br />
+                </div>
+
+                <form name="ProgramacionE" id="ProgramacionE">
+
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Hora de Inicio</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control datetimepicker3" name="final" id="inicialEdit" ng-required="true" ng-model="MediaTecnica.Hora_Inicio" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Hora Final</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control datetimepicker3" name="Ffinal" id="finalEdit" ng-required="true" ng-model="MediaTecnica.Hora_Fin" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Grado</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="gradoEdit" id="gradoedit" ng-required="true" ng-model="MediaTecnica.Grado" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Ficha</label>
+                            <div class="col-md-9">
+                                <select style="width:100%" class="form-control select2" type="text" name="fichaaE" id="fichaaE" ng-required="true" ng-model="MediaTecnica.Ficha">
+                                    <option value=""></option>
+                                    <option ng-repeat="ficha in FichaMedia" value="{{ficha.Num_Ficha}}">{{ficha.Num_Ficha}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Instructor</label>
+                            <div class="col-md-9">
+                                <select style="width:100%" class="form-control select2" type="text" name="instructor" id="instrucEdit" ng-required="true" ng-model="MediaTecnica.Instructor">
+                                    <option value=""></option>
+                                    <option ng-repeat="instructor in InstMedia" value="{{instructor.Instruc}}">{{instructor.Instruc}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <hr />
+                    <div class="form-group row">
+                        <div class="form-group row" style="width:100%;">
+                            <div class="col-md-12 text-center">
+                                <label>Días</label>
+                            </div>
+
+                            <div style="display:grid; grid-template-columns:repeat(7,1fr); width:98%; padding-left:1.5vw; padding-top:1.5vh;">
+                                <div class="text-center">
+                                    <label>Lunes</label><br />
+                                    <input type="checkbox" name="1" id="1Edit" ng-model="Dias.Lunes" />
+                                </div>
+                                <div class="text-center">
+                                    <label>Martes</label><br />
+                                    <input type="checkbox" name="2" id="2Edit" ng-model="Dias.Martes" />
+                                </div>
+                                <div class="text-center">
+                                    <label>Miércoles</label><br />
+                                    <input type="checkbox" name="3" id="3Edit" ng-model="Dias.Miercoles" />
+                                </div>
+                                <div class="text-center">
+                                    <label>Jueves</label><br />
+                                    <input type="checkbox" name="4" id="4Edit" ng-model="Dias.Jueves" />
+                                </div>
+                                <div class="text-center">
+                                    <label>Viernes</label><br />
+                                    <input type="checkbox" name="5" id="5Edit" ng-model="Dias.Viernes" />
+                                </div>
+                                <div class="text-center">
+                                    <label>Sábado</label><br />
+                                    <input type="checkbox" name="6" id="6Edit" ng-model="Dias.Sabado" />
+                                </div>
+                                <div class="text-center">
+                                    <label>Domingo</label><br />
+                                    <input type="checkbox" name="7" id="7Edit" ng-model="Dias.Domingo" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button style="float:left" class="btn btn-warning btnEditarProg" id="btnEditarProg">Editar</button>
+                <button class="btn btn-danger" id="btnEliminarProg">Eliminar</button>
+                <button class="btn btn-success" id="btnGuardarProg" ng-click="GuardarModificacionProgramacion()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Lista de checkeo-->
+<div class="modal fade" id="ModalLista" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center>
+                    <h4 style="font-weight: bold;">
+                        Verificación cumplimiento listas de chequeo
+                    </h4>
+                </center>
+            </div>
+            <div class="modal-body">
+                <form name="Lista" id="Lista">
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Institución</label>
+                        <div class="col-md-5">
+                            <select style="width:100%;" class="form-control select2" name="instiList" id="instiList" ng-required="true" ng-model="valInsti">
+                                <option value=""></option>
+                                <option ng-repeat="inst in Inst" title="{{inst.Nombre_Colegio}}" value="{{inst.Nombre_Colegio}}">{{inst.Nombre_Colegio | uppercase}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2"><button class="btn btn-success" ng-disabled="!Lista.$valid" ng-click="BuscarLista()">Buscar</button></div>
+                    </div>
+                    <br />
+                    <br />
+                </form>
+                <div id="tblLista">
+                    <hr />
+                    <h4 id="TitleLista"></h4>
+                    <div class="divTablaL" id="divTablaL">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Criterios de evaluación</th>
+                                    <th style="width:12%">¿Cumple?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Diseño curricular del programa de formación.</td>
+                                    <td><input type="checkbox" class="toggle" id="item1" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Proyecto Formativo – Generado como PDF de Sofía Plus. </td>
+                                    <td><input type="checkbox" class="toggle" id="item2" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Plan de trabajo concertado con el aprendiz para el desarrollo de la ruta de aprendizaje. </td>
+                                    <td><input type="checkbox" class="toggle" id="item3" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Guías de aprendizaje en formato vigente. Deben ser entregadas las guías de aprendizaje de todo el proce-so formativo.</td>
+                                    <td><input type="checkbox" class="toggle" id="item4" /></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Registros de asistencias e inasistencias de los apren-dices asociados a la ruta de aprendizaje.
+                                        Tener en cuenta que las inasistencias deben estar registradas en Sofía Plus, lo cual se verifica
+                                        con el reporte que comparte el apoyo administrativo de la coordinación académica.
+                                    </td>
+                                    <td><input type="checkbox" class="toggle" id="item5" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Planeación Pedagógica – Generar Excel de Sofía Plus. </td>
+                                    <td><input type="checkbox" class="toggle" id="item6" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Reporte de juicios de evaluación del programa. Con fecha de reporte un día antes de la entrega del in-forme. </td>
+                                    <td><input type="checkbox" class="toggle" id="item7" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Pantallazo de evidencia donde se identifique que todos los aprendices se encuentran asociados a la ruta de aprendizaje. </td>
+                                    <td><input type="checkbox" class="toggle" id="item8" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Pantallazos de aprendices asociados a la ruta. </td>
+                                    <td><input type="checkbox" class="toggle" id="item9" /></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Documento en Word donde se relacione el listado de aprendices que presenten novedades tales como:
+                                        llamado de atención verbal y/o escrito – Actividades complementarias pendientes (adjuntar el formato de actividad
+                                        complementaria diligenciado y firmado) – Planes de mejoramiento (adjuntar el formato de plan de mejoramiento diligenciado y firmado)
+                                    </td>
+                                    <td><input type="checkbox" class="toggle" id="item10" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Informe ejecutivo con el análisis cualitativo del grupo de formación y la IE.</td>
+                                    <td><input type="checkbox" class="toggle" id="item11" /></td>
+                                </tr>
+                                <tr>
+                                    <td>En las fichas de grado undécimo ningún aprendiz debe quedar en estado FORMACIÓN con el objetivo de hacer el respectivo cierre de la ficha.</td>
+                                    <td><input type="checkbox" class="toggle" id="item12" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Entrega de materiales y herramientas utilizados para el desarrollo de la formación.</td>
+                                    <td><input type="checkbox" class="toggle" id="item13" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Informe y producto del semillero de investigación </td>
+                                    <td><input type="checkbox" class="toggle" id="item14" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="divTablaL" id="divTablaLEdit">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Criterios de evaluación</th>
+                                    <th style="width:12%">¿Cumple?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Diseño curricular del programa de formación.</td>
+                                    <td id="item1Edit"></td>
+                                </tr>
+                                <tr>
+                                    <td>Proyecto Formativo – Generado como PDF de Sofía Plus. </td>
+                                    <td id="item2Edit"></td>
+                                </tr>
+                                <tr>
+                                    <td>Plan de trabajo concertado con el aprendiz para el desarrollo de la ruta de aprendizaje. </td>
+                                    <td id="item3Edit"></td>
+                                </tr>
+                                <tr>
+                                    <td>Guías de aprendizaje en formato vigente. Deben ser entregadas las guías de aprendizaje de todo el proce-so formativo.</td>
+                                    <td id="item4Edit"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Registros de asistencias e inasistencias de los apren-dices asociados a la ruta de aprendizaje.
+                                        Tener en cuenta que las inasistencias deben estar registradas en Sofía Plus, lo cual se verifica
+                                        con el reporte que comparte el apoyo administrativo de la coordinación académica.
+                                    </td>
+                                    <td id="item5Edit"></td>
+                                </tr>
+                                <tr>
+                                    <td>Planeación Pedagógica – Generar Excel de Sofía Plus. </td>
+                                    <td id="item6Edit"></td>
+                                </tr>
+                                <tr>
+                                    <td>Reporte de juicios de evaluación del programa. Con fecha de reporte un día antes de la entrega del in-forme. </td>
+                                    <td id="item7Edit"></td>
+                                </tr>
+                                <tr>
+                                    <td>Pantallazo de evidencia donde se identifique que todos los aprendices se encuentran asociados a la ruta de aprendizaje. </td>
+                                    <td id="item8Edit"></td>
+                                </tr>
+                                <tr>
+                                    <td>Pantallazos de aprendices asociados a la ruta. </td>
+                                    <td id="item9Edit"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Documento en Word donde se relacione el listado de aprendices que presenten novedades tales como:
+                                        llamado de atención verbal y/o escrito – Actividades complementarias pendientes (adjuntar el formato de actividad
+                                        complementaria diligenciado y firmado) – Planes de mejoramiento (adjuntar el formato de plan de mejoramiento diligenciado y firmado)
+                                    </td>
+                                    <td id="item10Edit"></td>
+                                </tr>
+                                <tr>
+                                    <td>Informe ejecutivo con el análisis cualitativo del grupo de formación y la IE.</td>
+                                    <td id="item11Edit"></td>
+                                </tr>
+                                <tr>
+                                    <td>En las fichas de grado undécimo ningún aprendiz debe quedar en estado FORMACIÓN con el objetivo de hacer el respectivo cierre de la ficha.</td>
+                                    <td id="item12Edit"></td>
+                                </tr>
+                                <tr>
+                                    <td>Entrega de materiales y herramientas utilizados para el desarrollo de la formación.</td>
+                                    <td id="item13Edit"></td>
+                                </tr>
+                                <tr>
+                                    <td>Informe y producto del semillero de investigación </td>
+                                    <td id="item14Edit"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <form name="observ">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label>Observaciones</label>
+                            </div>
+                            <div class="col-md-12">
+                                <textarea style="height:100px;" name="TextObserv" id="TextObserv" class="form-control" ng-maxlength="400" ng-model="ListaC.Observaciones"></textarea>
+                                <span ng-if="observ.TextObserv.$error.maxlength" class="text-danger">la observación puede tener máximo 400 caracteres</span>
+                            </div>
+                        </div>
+                    </form>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button style="float:left" class="btn btn-warning editarL" id="btnEditList">Editar</button>
+                <button class="btn" id="btnReporteLista" ng-click="GenerarReporteLista()" title="Generar Reporte" style="float:left;border-color:#286090;color:#286090;"><i class="glyphicon glyphicon-download-alt"></i></button>
+                <button type="button" class="btn btn-success" disabled id="btnGuardarLista">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Registro aprendices-->
+<div class="modal fade" id="ModalAprendiz" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Registrar Aprendiz</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="Aprendiz" id="Aprendiz">
+                    <div class="row">
+                        <div class="form-group">
+
+                            <div>
+                                <label class="control-label col-md-3">Tipo Documento</label>
+                                <div class="col-md-9">
+                                    <select style="width:100%;" class="form-control select2" name="TipoDoc" id="TipoDoc" ng-required="true" ng-model="Aprendices.TipoDocumento">
+                                        <option value=""></option>
+                                        <option value="TI">TI</option>
+                                        <option value="CC">CC</option>
+                                        <option value="CE">CE</option>
+                                        <option value="PASAPORTE">PASAPORTE</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+
+                            <div>
+                                <label class="control-label col-md-3">Ficha</label>
+                                <div class="col-md-9">
+                                    <select style="width:100%;" class="form-control select2" name="fichaAprendiz" id="fichaAprendiz" ng-required="true" ng-model="Aprendices.Ficha">
+                                        <option value=""></option>
+                                        <option ng-repeat="Ficha in Ficha" title="{{Ficha.Num_Ficha}}" value="{{Ficha.Id}}">{{Ficha.Num_Ficha | uppercase}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+
+                            <div class="form-group">
+
+                                <div>
+                                    <label class="control-label col-md-3">Institución</label>
+                                    <div class="col-md-9">
+                                        <select style="width:100%;" class="form-control select2" name="fichaTecnica" id="fichaTecnica" ng-required="true" ng-model="Aprendices.Colegios">
+                                            <option value=""></option>
+                                            <option ng-repeat="inst in Inst" title="{{inst.Nombre_Colegio}}" value="{{inst.Id}}">{{inst.Nombre_Colegio | uppercase}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Documento</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="number" name="Doc" id="Doc" ng-required="true" ng-maxlength="11" ng-model="Aprendices.Documento" />
+                                    <span ng-if="Aprendiz.Doc.$error.maxlength" class="text-danger">El documento puede tener máximo 11 caracteres</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Nombre</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="Nom" id="Nom" ng-required="true" ng-model="Aprendices.Nombre" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Apellido</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="Apellido" id="Apellido" ng-required="true" ng-model="Aprendices.Apellido" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Correo</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="email" name="Email" id="Email" ng-required="true" ng-model="Aprendices.Email" />
+                                    <span class="text-danger" ng-if="Aprendiz.Email.$error.email">Debe ingresar un correo válido</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Teléfono Aprendiz</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="telRegistroAprendiz" id="telRegistroAprendiz" ng-required="true" ng-maxlength="10" ng-model="Aprendices.Telefono" />
+                                    <span ng-if="Aprendiz.tel.$error.maxlength" class="text-danger">El teléfono puede tener máximo 10 caracteres</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Nombres Acudientes</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="AcudienteNombre" id="AcudienteNombre" ng-required="true" ng-model="Aprendices.NombreAcudiente" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Teléfono Acudiente</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="tel" id="Tel" ng-required="true" ng-maxlength="10" ng-model="Aprendices.TelAcudiente" />
+                                    <span ng-if="Aprendiz.tel.$error.maxlength" class="text-danger">El teléfono puede tener máximo 10 caracteres</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Dirección</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="Ape" id="Ape" ng-required="true" ng-model="Aprendices.Direccion" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="!Aprendiz.$valid" ng-click="GuardarAprendiz()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal filtrar aprendices-->
+<div class="modal fade" id="ModalFiltrarAprendices" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Filtrar Aprendices</h4></center>
+            </div>
+            <br />
+            <div class="row">
+                <div class="form-group">
+                    <div style="width:97%; margin-left:1%;">
+                        <label class="control-label col-md-3">Institución</label>
+                        <div class="col-md-9">
+                            <select style="width:100%;" class="form-control select2" name="filInstitucion" id="filInstitucion" ng-required="true" ng-model="FiltrarAprendiz.Colegios" ng-change="cargarFichas(FiltrarAprendiz)">
+                                <option value=""></option>
+                                <option ng-repeat="inst in Inst" title="{{inst.Nombre_Colegio}}" value="{{inst.Id}}">{{inst.Nombre_Colegio | uppercase}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="form-group">
+                    <div style="width:97%; margin-left:1%;">
+                        <label class="control-label col-md-3">Ficha</label>
+                        <div class="col-md-9">
+                            <select style="width:100%;" class="form-control select2" name="FilFicha" id="FilFicha" ng-required="true" ng-model="FiltrarAprendiz.ficha" ng-change="cerrarFiltro(FiltrarAprendiz)">
+                                <option value=""></option>
+                                <option ng-repeat="Ficha in Ficha" title="{{Ficha.Num_Ficha}}" value="{{Ficha.Id}}">{{Ficha.Num_Ficha | uppercase}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="form-group">
+                    <div style="width:97%; margin-left:1%;">
+                        <label class="control-label col-md-3">Estado</label>
+                        <div class="col-md-9">
+                            <select style="width:100%" class="form-control select2" type="text" name="AprenEstado" id="AprenEstado" ng-required="true" ng-model="FiltrarAprendiz.Estado">
+                                <option value=""></option>
+                                <option value="Activo">Activo</option>
+                                <option value="Cancelado">Cancelado</option>
+                                <option value="Retirado">Retirado</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-click="FiltrarAprendices()">Filtrar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal Editar aprendices-->
+<div class="modal fade" id="ModalAprendizEdit" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Editar Aprendiz</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="AprendizEdit" id="AprendizEdit">
+                    <div class="row">
+                        <div class="form-group">
+
+                            <div>
+                                <label class="control-label col-md-3">Tipo Documento</label>
+                                <div class="col-md-9">
+                                    <select style="width:100%;" class="form-control select2" name="TipoDocEditAprendiz" id="TipoDocEditAprendiz" ng-required="true" ng-model="Aprendices.TipoDocumento">
+                                        <option value=""></option>
+                                        <option value="TI">TI</option>
+                                        <option value="CC">CC</option>
+                                        <option value="CE">CE</option>
+                                        <option value="PASAPORTE">PASAPORTE</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+
+                            <div>
+                                <label class="control-label col-md-3">Ficha</label>
+                                <div class="col-md-9">
+                                    <select style="width:100%;" class="form-control select2" name="FichaEditAprendiz" id="ListaFichas" ng-required="true" ng-model="Aprendices.Ficha">
+                                        <option ng-repeat="ficha in Ficha" title="{{ficha.Num_Ficha}}" value="{{ficha.Num_Ficha}}">{{ficha.Num_Ficha | uppercase}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+
+                            <div class="form-group">
+
+                                <div>
+                                    <label class="control-label col-md-3">Institución</label>
+                                    <div class="col-md-9">
+                                        <select style="width:100%;" class="form-control select2" name="ColegioEdit" id="ListaColegios" ng-required="true" ng-model="Aprendices.Colegios">                                            
+                                            <option ng-repeat="inst in Inst" title="{{inst.Nombre_Colegio}}" value="{{inst.Nombre_Colegio}}">{{inst.Nombre_Colegio | uppercase}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Documento</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="number" name="DocEdit" id="DocEdit" ng-required="true" ng-maxlength="11" ng-model="Aprendices.Documento" />
+                                    <span ng-if="Aprendiz.DocEdit.$error.maxlength" class="text-danger">El documento puede tener máximo 11 caracteres</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Nombre</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="NomEdit" id="NomEdit" ng-required="true" ng-model="Aprendices.Nombre" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Apellido</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="ApeEdit" id="ApeEdit" ng-required="true" ng-model="Aprendices.Apellido" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Correo</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="email" name="EmailEdit" id="EmailEdit" ng-required="true" ng-model="Aprendices.Email" />
+                                    <span class="text-danger" ng-if="Aprendiz.EmailEdit.$error.email">Debe ingresar un correo válido</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Teléfono Aprendiz</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="telAprendiz" id="telAprendiz" ng-required="true" ng-maxlength="10" ng-model="Aprendices.Telefono" />
+                                    <span ng-if="Aprendiz.tel.$error.maxlength" class="text-danger">El teléfono puede tener máximo 10 caracteres</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Nombres Acudientes</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="NomAcudiiente" id="NomAcudiiente" ng-required="true" ng-model="Aprendices.NombreAcudiente" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Teléfono Acudiente</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="TelAcudiente" id="TelAcudiente" ng-required="true" ng-maxlength="10" ng-model="Aprendices.TelAcudiente" />
+                                    <span ng-if="Aprendiz.tel.$error.maxlength" class="text-danger">El teléfono puede tener máximo 10 caracteres</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Dirección</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="DirEditAprendiz" id="DirEditAprendiz" ng-required="true" ng-model="Aprendices.Direccion" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="!AprendizEdit.$valid" ng-click="GuardarAprendizEdit()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Estado aprendices-->
+<div class="modal fade" id="ModalAprendizEstado" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Editar Estado del Aprendiz</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="AprendizEstado" id="AprendizEstado">
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Estado</label>
+                                <div class="col-md-9">
+                                    <select style="width:100%" class="form-control select2" type="text" name="AprenEstado" id="AprenEstado" ng-required="true" ng-model="Aprendices.Estado">
+                                        <option value=""></option>
+                                        <option value="Activo">Activo</option>
+                                        <option value="Cancelado">Cancelado</option>
+                                        <option value="Retirado">Retirado</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Descripción</label>
+                                <div class="col-md-9">
+                                    <textarea class="form-control" name="descripEstado" id="descripEstado" ng-required="true" ng-maxlength="200" ng-model="Novedades.Descripcion"></textarea>
+                                    <span ng-if="AprendizEstado.descripEstado.$error.maxlength" class="text-danger">En este campo solo se permiten 200 caracteres</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="!AprendizEstado.$valid" ng-click="GuardarAprendizEstado()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Registro Fichas-->
+<div class="modal fade" id="ModalFicha" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Registrar Ficha</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="Ficha" id="Ficha">
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">N° de Ficha</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="number" name="numFic" id="numFic" ng-required="true" ng-maxlength="10" ng-model="Ficha.Num_Ficha" />
+                                    <span ng-if="Ficha.numFic.$error.maxlength" class="text-danger">La ficha puede tener máximo 10 caracteres</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Fecha Inicio</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="FechaIniFich" id="FechaIniFich" ng-model="Ficha.Fecha_Inicio" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Fecha Fin</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="FechaFinFicha" id="FechaFinFicha" ng-model="Ficha.Fecha_Fin" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">N° Aprendices</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="number" name="NumAprenFicha" id="NumAprenFicha" maxlength="2" ng-required="true" ng-model="Ficha.Num_Aprendices" />
+                                    <span class="text-danger" ng-if="Ficha.NumAprenFicha.$error.maxlength">Valor no válido</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Institución</label>
+                                <div class="col-md-9">
+                                    <select style="width:100%;" class="form-control select2" name="InstFicha" id="InstFicha" ng-required="true" ng-model="Ficha.Institucion">
+                                        <option value=""></option>
+                                        <option ng-repeat="inst in Inst" title="{{inst.Nombre_Colegio}}" value="{{inst.Id}}">{{inst.Nombre_Colegio | uppercase}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Programa</label>
+                            <div class="col-md-9">
+                                <select style="width:100%;" class="form-control select2" name="ProgFicha" id="ProgFicha" ng-required="true" ng-model="Ficha.Programa">
+                                    <option value=""></option>
+                                    <option ng-repeat="prog in selectdatalistsProg" class="{{prog.IdPrograma}}" title="{{prog.NombrePrograma}}" value="{{prog.IdPrograma}}">{{prog.NombrePrograma}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="!Ficha.$valid" ng-click="GuardarFicha()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Editar Fichas-->
+<div class="modal fade" id="ModalFichaEdit" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Editar Ficha</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="FichaEdit" id="FichaEdit">
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">N° de Ficha</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="number" name="numFic" id="numFicEdit" ng-required="trueEdit" ng-maxlength="10" ng-model="Ficha.Num_Ficha" />
+                                    <span ng-if="FichaEdit.numFicEdit.$error.maxlength" class="text-danger">La ficha puede tener máximo 10 caracteres</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Fecha Inicio</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="FechaIniFichEdit" id="FechaIniFichEdit" ng-model="Ficha.Fecha_Inicio" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Fecha Fin</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="FechaFinFichaEdit" id="FechaFinFichaEdit" ng-model="Ficha.Fecha_Fin" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">N° Aprendices</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="number" name="NumAprenFichaEdit" id="NumAprenFichaEdit" maxlength="2" ng-required="true" ng-model="Ficha.Num_Aprendices" />
+                                    <span class="text-danger" ng-if="FichaEdit.NumAprenFichaEdit.$error.maxlength">Valor no válido</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Institución</label>
+                                <div class="col-md-9">
+                                    <select style="width:100%;" class="form-control select2" name="InstFichaEdit" id="InstFichaEdit" ng-required="true" ng-model="Ficha.Institucion">
+                                        <option value=""></option>
+                                        <option ng-repeat="inst in Inst" title="{{inst.Nombre_Colegio}}" value="{{inst.Id}}">{{inst.Nombre_Colegio | uppercase}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Programa</label>
+                            <div class="col-md-9">
+                                <select style="width:100%;" class="form-control select2" name="ProgFichaEdit" id="ProgFichaEdit" ng-required="true" ng-model="Ficha.Programa">
+                                    <option value=""></option>
+                                    <option ng-repeat="prog in datalistsProg" class="{{prog.IdPrograma}}" title="{{prog.NombrePrograma}}" value="{{prog.IdPrograma}}">{{prog.NombrePrograma}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="!FichaEdit.$valid" ng-click="GuardarFichaEdit()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Eliminar Registro Ficha-->
+<div class="modal fade" id="modalInhabilitarFicha" role="dialog">
+    <div class="modal-dialog" style="width: 400px;">
+        <!--Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center>
+                    <h4 style="color:#1C75BB;">
+                        CONFIRMAR INHABILITACIÓN
+                    </h4>
+                </center>
+
+            </div>
+            <div class="modal-body" overflow auto;">
+                <div class="form-group">
+                    <label>¿Está seguro que desea inhabilitar el registro? </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success  btn-default" data-dismiss="modal" ng-click="inhabilitarFicha()">Aceptar</button>
+                <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Ver aprendices-->
+<div class="modal fade" id="ModalVerAprendices" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Ver Aprendices Asociados a la Ficha</h4></center>
+            </div>
+            <div class="modal-body">
+                <h4 class="text-center" id="TituloVerA"></h4>
+                <br />
+                <div class="col-md-12">
+                    <div class="col-md-3" style="float:right">
+                        <input type="text" class="form-control" ng-model="filtroAprendices" />
+                    </div>
+                    <div class="col-md-1" style="float:right">
+                        <label class="control-label">Buscar: </label>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Documento</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Correo</th>
+                            <th>Teléfono</th>
+                        </tr>
+                    </thead>
+                    <tbody id="BodyVerApren">
+                        <tr ng-repeat="Af in AprendiceFicha | filter: filtroAprendices" ng-click="novedadFciha(Af.Id)">
+                            <td>{{Af.Documento}}</td>
+                            <td>{{Af.Nombre}}</td>
+                            <td>{{Af.Apellido}}</td>
+                            <td>{{Af.Email}}</td>
+                            <td>{{Af.Telefono}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Ficha aprendices-->
+<div class="modal fade" id="ModalAprendizFicha" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Editar Estado del Aprendiz</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="AprendizFicha" id="AprendizFicha">
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Ficha</label>
+                                <div class="col-md-9">
+                                    <select style="width:100%" type="text" class="form-control select2" name="fichaAprenEdit" id="fichaAprenEdit" ng-required="true" ng-model="Aprendices.Ficha">
+                                        <option value=""></option>
+                                        <option ng-repeat="ficha in PFichas" class="{{ficha.Id}}" value="{{ficha.Id}}">{{ficha.Num_Ficha+" - "+ficha.Programa}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Descripción</label>
+                                <div class="col-md-9">
+                                    <textarea class="form-control" name="descripEstadoFicha" id="descripEstadoFicha" ng-required="true" ng-maxlength="200" ng-model="Novedades.Descripcion"></textarea>
+                                    <span ng-if="AprendizFicha.descripEstado.$error.maxlength" class="text-danger">En este campo solo se permiten 200 caracteres</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="!AprendizFicha.$valid" ng-click="GuardarAprendizFicha()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Ver Novedades-->
+<div class="modal fade" id="ModalVerNovedades" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Novedades de la ficha</h4></center>
+            </div>
+            <div class="modal-body">
+                <h4 class="text-center" id="TituloVerA"></h4>
+                <br />
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Aprendiz</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="BodyVerNovedades">
+                        <tr ng-repeat="novedad in NovedadesFicha">
+                            <td>{{novedad.Aprendiz}}</td>
+                            <td>{{novedad.Descripcion}}{{novedad.NuevaFicha}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+
+
+</script>
+
+
+
+<style>
+    #barra_vertical {
+        float: left;
+        border-left: 1px solid #ccc;
+        width: 1px;
+        height: 280px;
+    }
+
+    .info {
+        margin-bottom: -10px;
+    }
+
+    #divTabla {
+        max-height: 310px;
+        overflow-y: auto;
+    }
+
+    .divTablaL {
+        max-height: 350px;
+        overflow-y: auto;
+    }
+</style>
+
+
+<style>
+    .txt {
+        font-size: 16px;
+    }
+
+    .txt2 {
+        font-size: 18px;
+    }
+</style>
+
+

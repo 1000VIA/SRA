@@ -1,0 +1,880 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HorarioBDV2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Alternativa_Practicas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Aprendiz" Type="Int32" />
+    <Property Name="Alternativa" Type="Int32" />
+    <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Ambiente">
+    <Key>
+      <PropertyRef Name="IdAmbiente" />
+    </Key>
+    <Property Name="IdAmbiente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdSede" Type="Int32" Nullable="false" />
+    <Property Name="Piso" Type="Int32" Nullable="false" />
+    <Property Name="Numero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdArea" Type="Int32" Nullable="false" />
+    <Property Name="Pantalla" Type="Boolean" Nullable="false" />
+    <Property Name="NumeroEquipos" Type="Int32" />
+    <Property Name="NumeroSillas" Type="Int32" />
+    <Property Name="NumeroMesas" Type="Int32" />
+    <NavigationProperty Name="Area" Relationship="Self.FK_Ambiente_Area" FromRole="Ambiente" ToRole="Area" />
+    <NavigationProperty Name="Sede" Relationship="Self.FK_Ambiente_Sede" FromRole="Ambiente" ToRole="Sede" />
+    <NavigationProperty Name="Ficha_Ambiente" Relationship="Self.FK_FIcha_Ambiente_Ambiente" FromRole="Ambiente" ToRole="Ficha_Ambiente" />
+  </EntityType>
+  <EntityType Name="Aprendices_Tecnica">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Documento" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Apellido" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Ficha" Type="Int32" Nullable="false" />
+    <Property Name="Direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TipoDocumento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NombreAcudiente" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TelAcudiente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Colegios" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Colegios1" Relationship="Self.FK__Aprendice__Coleg__2BFE89A6" FromRole="Aprendices_Tecnica" ToRole="Colegios" />
+    <NavigationProperty Name="Ficha_Tecnica" Relationship="Self.fk_Ficha" FromRole="Aprendices_Tecnica" ToRole="Ficha_Tecnica" />
+  </EntityType>
+  <EntityType Name="Aprendices_Titulada">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Documento" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Apellido" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Ficha" Type="Int32" />
+    <Property Name="TipoDocumento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Ficha_VTitulada" Relationship="Self.fk_FichaVT" FromRole="Aprendices_Titulada" ToRole="Ficha_VTitulada" />
+  </EntityType>
+  <EntityType Name="Area">
+    <Key>
+      <PropertyRef Name="IdArea" />
+    </Key>
+    <Property Name="IdArea" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Codigo" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Ambiente" Relationship="Self.FK_Ambiente_Area" FromRole="Area" ToRole="Ambiente" />
+    <NavigationProperty Name="Coordinacion" Relationship="Self.FK_Coordinacion_Area" FromRole="Area" ToRole="Coordinacion" />
+  </EntityType>
+  <EntityType Name="Colegios">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NIT" Type="Int32" />
+    <Property Name="Codigo_DANE" Type="Int32" />
+    <Property Name="Nombre_Colegio" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Correo_Colegio" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Num_Resolucion" Type="Int32" />
+    <Property Name="Municipio" Type="Int32" />
+    <Property Name="Tipo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Nombre_Rector" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Apellidos_Rector" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono_Rector" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Correo_Rector" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Nombre_Coordinador" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Apellidos_Coordinador" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono_Coordinador" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Correo_Coordinador" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="Boolean" />
+    <Property Name="Categoria" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Aprendices_Tecnica" Relationship="Self.FK__Aprendice__Coleg__2BFE89A6" FromRole="Colegios" ToRole="Aprendices_Tecnica" />
+  </EntityType>
+  <EntityType Name="Competencia">
+    <Key>
+      <PropertyRef Name="IdCompetencia" />
+    </Key>
+    <Property Name="IdCompetencia" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Codigo" Type="Int64" Nullable="false" />
+    <Property Name="Horas" Type="Int32" Nullable="false" />
+    <Property Name="IdPrograma" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Programa" Relationship="Self.FK_Competencia_Programa" FromRole="Competencia" ToRole="Programa" />
+    <NavigationProperty Name="Resultado_Aprendizaje" Relationship="Self.FK_Resultado_Aprendizaje_Competencia" FromRole="Competencia" ToRole="Resultado_Aprendizaje" />
+  </EntityType>
+  <EntityType Name="Competencias_Basicas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Hora_Inicio" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Hora_Final" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_Inicio" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_Final" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Num_Ficha" Type="Int32" />
+    <Property Name="Instructor" Type="Int32" />
+    <Property Name="Dias" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Lugar" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Desc_Lugar" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="Boolean" />
+    <Property Name="Programa" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Coordinacion">
+    <Key>
+      <PropertyRef Name="IdCoordinacion" />
+    </Key>
+    <Property Name="IdCoordinacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre_Coordinacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cedula" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdUsuario" Type="Int32" />
+    <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdArea" Type="Int32" />
+    <Property Name="Correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Area" Relationship="Self.FK_Coordinacion_Area" FromRole="Coordinacion" ToRole="Area" />
+    <NavigationProperty Name="Usuario" Relationship="Self.FK_Coordinacion_Usuario" FromRole="Coordinacion" ToRole="Usuario" />
+  </EntityType>
+  <EntityType Name="Departamento">
+    <Key>
+      <PropertyRef Name="IdDepartamento" />
+    </Key>
+    <Property Name="IdDepartamento" Type="Int32" Nullable="false" />
+    <Property Name="NombreDepartamento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Docente_Par">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombres" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="Apellidos" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Id_Institucion" Type="Int32" />
+    <Property Name="Id_Programa" Type="Int32" />
+    <Property Name="Telefono" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Empresa">
+    <Key>
+      <PropertyRef Name="NIT" />
+    </Key>
+    <Property Name="NIT" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="Boolean" />
+    <Property Name="Encargado" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono_Encargado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Tipo_Poblacion" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Ficha">
+    <Key>
+      <PropertyRef Name="IdFicha" />
+    </Key>
+    <Property Name="IdFicha" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdPrograma" Type="Int32" Nullable="false" />
+    <Property Name="Ficha1" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NumAprendices" Type="Int32" Nullable="false" />
+    <Property Name="Estado" Type="Boolean" />
+    <Property Name="TipoFormacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FechaInicio" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="FechaFin" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Jornada" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Ficha_Ambiente" Relationship="Self.FK_FIcha_Ambiente_Ficha" FromRole="Ficha" ToRole="Ficha_Ambiente" />
+    <NavigationProperty Name="Programa" Relationship="Self.FK_Ficha_Programa" FromRole="Ficha" ToRole="Programa" />
+  </EntityType>
+  <EntityType Name="Ficha_Ambiente">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdFicha" Type="Int32" Nullable="false" />
+    <Property Name="IdAmbiente" Type="Int32" Nullable="false" />
+    <Property Name="IdInstructor" Type="Int32" Nullable="false" />
+    <Property Name="FechaInicio" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="FechaFin" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="HoraInicio" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="HoraFin" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="Color" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdResultado" Type="Int32" Nullable="false" />
+    <Property Name="Estado" Type="Boolean" Nullable="false" />
+    <Property Name="Jornada" Type="Int32" />
+    <Property Name="DiaSemana" Type="Int32" />
+    <Property Name="ProgramacionPrincipal" Type="Int32" />
+    <Property Name="Lunes" Type="Boolean" />
+    <Property Name="Martes" Type="Boolean" />
+    <Property Name="Miercoles" Type="Boolean" />
+    <Property Name="Jueves" Type="Boolean" />
+    <Property Name="Viernes" Type="Boolean" />
+    <Property Name="Transversal" Type="Boolean" />
+    <Property Name="NombreEmpresa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Ambiente" Relationship="Self.FK_FIcha_Ambiente_Ambiente" FromRole="Ficha_Ambiente" ToRole="Ambiente" />
+    <NavigationProperty Name="Ficha" Relationship="Self.FK_FIcha_Ambiente_Ficha" FromRole="Ficha_Ambiente" ToRole="Ficha" />
+    <NavigationProperty Name="Resultado_Aprendizaje" Relationship="Self.FK_FIcha_Ambiente_Resultado_Aprendizaje" FromRole="Ficha_Ambiente" ToRole="Resultado_Aprendizaje" />
+  </EntityType>
+  <EntityType Name="Ficha_CBasicas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Num_Ficha" Type="Int32" />
+    <Property Name="Programa" Type="Int32" />
+    <Property Name="Num_Aprendices" Type="Int32" />
+    <Property Name="Fecha_Inicio" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_Fin" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Ficha_PEspecial">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Num_Ficha" Type="Int32" />
+    <Property Name="Programa" Type="Int32" />
+    <Property Name="Num_Aprendices" Type="Int32" />
+    <Property Name="Fecha_Inicio" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_Fin" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Caracterizacion" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Ficha_Tecnica">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Num_Ficha" Type="Int32" />
+    <Property Name="Fecha_Inicio" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_Fin" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Num_Aprendices" Type="Int32" />
+    <Property Name="Institucion" Type="Int32" />
+    <Property Name="Programa" Type="Int32" />
+    <Property Name="Estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Aprendices_Tecnica" Relationship="Self.fk_Ficha" FromRole="Ficha_Tecnica" ToRole="Aprendices_Tecnica" />
+  </EntityType>
+  <EntityType Name="Ficha_VComplementaria">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Num_Ficha" Type="Int32" />
+    <Property Name="Num_Aprendices" Type="Int32" />
+    <Property Name="Programa" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_Inicio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_Fin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Retirados" Type="Int32" />
+    <Property Name="Aprobados" Type="Int32" />
+    <Property Name="Porc_Certificacion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="No_Aprobados" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Ficha_VTitulada">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Num_Ficha" Type="Int32" />
+    <Property Name="Num_Aprendices" Type="Int32" />
+    <Property Name="Programa" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Inicio_Lectiva" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Inicio_Productiva" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Fin_Productiva" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Num_Retirados" Type="Int32" />
+    <Property Name="Num_Certificados" Type="Int32" />
+    <Property Name="Porc_Certificacion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Etapa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Num_Cancelados" Type="Int32" />
+    <Property Name="Cambio_Ficha" Type="Int32" />
+    <NavigationProperty Name="Aprendices_Titulada" Relationship="Self.fk_FichaVT" FromRole="Ficha_VTitulada" ToRole="Aprendices_Titulada" />
+  </EntityType>
+  <EntityType Name="Historial_Contratos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Num_Contrato" Type="Int32" />
+    <Property Name="Inicio_Contrato" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Fin_Contrato" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Adicion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Institucion_Programa">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id_Institucion" Type="Int32" />
+    <Property Name="Id_Programa" Type="Int32" />
+    <Property Name="Estado" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Instituciones">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono_Institucion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Encargado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono_Encargado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Instructor">
+    <Key>
+      <PropertyRef Name="IdInstructor" />
+    </Key>
+    <Property Name="IdInstructor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdUsuario" Type="Int32" />
+    <Property Name="Cedula" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="Boolean" Nullable="false" />
+    <Property Name="TipoContrato" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EnvioCorreo" Type="Boolean" />
+    <Property Name="Num_Contrato" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Inicio_Contrato" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Fin_Contrato" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Adicion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Area" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Usuario" Relationship="Self.FK_Instructor_Usuario" FromRole="Instructor" ToRole="Usuario" />
+  </EntityType>
+  <EntityType Name="Instructor_Ficha_VirtualC">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Instructor" Type="Int32" />
+    <Property Name="Ficha" Type="Int32" />
+    <Property Name="Estado" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Instructor_Ficha_VirtualT">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Instructor" Type="Int32" />
+    <Property Name="Ficha" Type="Int32" />
+    <Property Name="Estado" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Instructor_Tecnica">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Cedula" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Nombres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Apellidos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Correo_Misena" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Correo_Alternativo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Municipio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono_Fijo" Type="String" MaxLength="33" FixedLength="false" Unicode="false" />
+    <Property Name="Celular" Type="String" MaxLength="33" FixedLength="false" Unicode="false" />
+    <Property Name="Area" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Programa_Formacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Profesion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Num_Contrato" Type="Int32" />
+    <Property Name="Fecha_Inicio_Contrato" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_Fin_Contrato" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Instructores_Ficha">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id_Ficha" Type="Int32" />
+    <Property Name="Lider" Type="Int32" />
+    <Property Name="Tecnico" Type="Int32" />
+    <Property Name="Emprendimiento" Type="Int32" />
+    <Property Name="Salud_Ocupacional" Type="Int32" />
+    <Property Name="Cultura_Fisica" Type="Int32" />
+    <Property Name="Medio_Ambiente" Type="Int32" />
+    <Property Name="Etica" Type="Int32" />
+    <Property Name="Comunicacion" Type="Int32" />
+    <Property Name="Ingles" Type="Int32" />
+    <Property Name="TIC" Type="Int32" />
+  </EntityType>
+  <EntityType Name="ListaChequeoTecnica">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Observaciones" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Institucion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Criterio1" Type="Boolean" />
+    <Property Name="Criterio2" Type="Boolean" />
+    <Property Name="Criterio3" Type="Boolean" />
+    <Property Name="Criterio4" Type="Boolean" />
+    <Property Name="Criterio5" Type="Boolean" />
+    <Property Name="Criterio6" Type="Boolean" />
+    <Property Name="Criterio7" Type="Boolean" />
+    <Property Name="Estado" Type="Boolean" />
+    <Property Name="Criterio8" Type="Boolean" />
+    <Property Name="Criterio9" Type="Boolean" />
+    <Property Name="Criterio10" Type="Boolean" />
+    <Property Name="Criterio11" Type="Boolean" />
+    <Property Name="Criterio12" Type="Boolean" />
+    <Property Name="Criterio13" Type="Boolean" />
+    <Property Name="Criterio14" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Media_Tecnica">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Hora_Inicio" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Hora_Fin" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Grado" Type="Int32" />
+    <Property Name="Ficha" Type="Int32" />
+    <Property Name="Instructor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Dias" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Municipio">
+    <Key>
+      <PropertyRef Name="IdMunicipio" />
+    </Key>
+    <Property Name="IdMunicipio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NombreMunicipio" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdDepartamento" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Sede" Relationship="Self.FK_Sede_Municipio" FromRole="Municipio" ToRole="Sede" />
+  </EntityType>
+  <EntityType Name="Novedades">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ficha" Type="Int32" />
+    <Property Name="Aprendiz" Type="Int32" />
+    <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Nueva_Ficha" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Novedades_Tecnica">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ficha" Type="Int32" />
+    <Property Name="Aprendiz" Type="Int32" />
+    <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Nueva_Ficha" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Poblacion_Especial">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Hora_Inicio" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Hora_Final" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Num_Ficha" Type="Int32" />
+    <Property Name="Instructor" Type="Int32" />
+    <Property Name="Empresa" Type="Int32" />
+    <Property Name="Dias" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_Inicio" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_Final" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="Boolean" />
+    <Property Name="Programa" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Tipo_Curso" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Programa">
+    <Key>
+      <PropertyRef Name="IdPrograma" />
+    </Key>
+    <Property Name="IdPrograma" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CodigoPrograma" Type="Int32" Nullable="false" />
+    <Property Name="Nivel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Version_Programa" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="NombrePrograma" Type="String" MaxLength="400" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Area" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Competencia" Relationship="Self.FK_Competencia_Programa" FromRole="Programa" ToRole="Competencia" />
+    <NavigationProperty Name="Ficha" Relationship="Self.FK_Ficha_Programa" FromRole="Programa" ToRole="Ficha" />
+  </EntityType>
+  <EntityType Name="Programa_Tecnica">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Codigo_Programa" Type="Int32" />
+    <Property Name="Red_Tecnologica" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Version_Programa" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="NombrePrograma" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Resultado_Aprendizaje">
+    <Key>
+      <PropertyRef Name="IdResultado" />
+    </Key>
+    <Property Name="IdResultado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Codigo" Type="Int32" Nullable="false" />
+    <Property Name="Resultado" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdCompetencia" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="Competencia" Relationship="Self.FK_Resultado_Aprendizaje_Competencia" FromRole="Resultado_Aprendizaje" ToRole="Competencia" />
+    <NavigationProperty Name="Ficha_Ambiente" Relationship="Self.FK_FIcha_Ambiente_Resultado_Aprendizaje" FromRole="Resultado_Aprendizaje" ToRole="Ficha_Ambiente" />
+  </EntityType>
+  <EntityType Name="Sede">
+    <Key>
+      <PropertyRef Name="IdSede" />
+    </Key>
+    <Property Name="IdSede" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre_Sede" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdMunicipio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Codigo" Type="Int32" />
+    <Property Name="TipoSede" Type="Int32" />
+    <NavigationProperty Name="Ambiente" Relationship="Self.FK_Ambiente_Sede" FromRole="Sede" ToRole="Ambiente" />
+    <NavigationProperty Name="Municipio" Relationship="Self.FK_Sede_Municipio" FromRole="Sede" ToRole="Municipio" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="IdUsuario" />
+    </Key>
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NombreUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TipoUsuario" Type="Int32" Nullable="false" />
+    <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Coordinacion" Relationship="Self.FK_Coordinacion_Usuario" FromRole="Usuario" ToRole="Coordinacion" />
+    <NavigationProperty Name="Instructor" Relationship="Self.FK_Instructor_Usuario" FromRole="Usuario" ToRole="Instructor" />
+  </EntityType>
+  <EntityType Name="Virtualidad_Complementaria">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Fecha_Inicio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_Fin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Hora_Inicio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Hora_Fin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Instructor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Ficha" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Dias" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Virtualidad_Titulada">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Fecha_Inicio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_Fin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Hora_Inicio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Hora_Fin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Instructor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Ficha" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Dias" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Solicitud">
+    <Key>
+      <PropertyRef Name="IdSolicitud" />
+      <PropertyRef Name="IdFicha_Ambiente" />
+      <PropertyRef Name="IdCoordinacion" />
+    </Key>
+    <Property Name="IdSolicitud" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdFicha_Ambiente" Type="Int32" Nullable="false" />
+    <Property Name="IdCoordinacion" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Ambiente_Area">
+    <End Role="Area" Type="Self.Area" Multiplicity="1" />
+    <End Role="Ambiente" Type="Self.Ambiente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="IdArea" />
+      </Principal>
+      <Dependent Role="Ambiente">
+        <PropertyRef Name="IdArea" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ambiente_Sede">
+    <End Role="Sede" Type="Self.Sede" Multiplicity="1" />
+    <End Role="Ambiente" Type="Self.Ambiente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sede">
+        <PropertyRef Name="IdSede" />
+      </Principal>
+      <Dependent Role="Ambiente">
+        <PropertyRef Name="IdSede" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FIcha_Ambiente_Ambiente">
+    <End Role="Ambiente" Type="Self.Ambiente" Multiplicity="1" />
+    <End Role="Ficha_Ambiente" Type="Self.Ficha_Ambiente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ambiente">
+        <PropertyRef Name="IdAmbiente" />
+      </Principal>
+      <Dependent Role="Ficha_Ambiente">
+        <PropertyRef Name="IdAmbiente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Aprendice__Coleg__2BFE89A6">
+    <End Role="Colegios" Type="Self.Colegios" Multiplicity="1" />
+    <End Role="Aprendices_Tecnica" Type="Self.Aprendices_Tecnica" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Colegios">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Aprendices_Tecnica">
+        <PropertyRef Name="Colegios" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Ficha">
+    <End Role="Ficha_Tecnica" Type="Self.Ficha_Tecnica" Multiplicity="1" />
+    <End Role="Aprendices_Tecnica" Type="Self.Aprendices_Tecnica" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ficha_Tecnica">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Aprendices_Tecnica">
+        <PropertyRef Name="Ficha" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_FichaVT">
+    <End Role="Ficha_VTitulada" Type="Self.Ficha_VTitulada" Multiplicity="0..1" />
+    <End Role="Aprendices_Titulada" Type="Self.Aprendices_Titulada" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ficha_VTitulada">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Aprendices_Titulada">
+        <PropertyRef Name="Ficha" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Coordinacion_Area">
+    <End Role="Area" Type="Self.Area" Multiplicity="0..1" />
+    <End Role="Coordinacion" Type="Self.Coordinacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="IdArea" />
+      </Principal>
+      <Dependent Role="Coordinacion">
+        <PropertyRef Name="IdArea" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Competencia_Programa">
+    <End Role="Programa" Type="Self.Programa" Multiplicity="1" />
+    <End Role="Competencia" Type="Self.Competencia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Programa">
+        <PropertyRef Name="IdPrograma" />
+      </Principal>
+      <Dependent Role="Competencia">
+        <PropertyRef Name="IdPrograma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Resultado_Aprendizaje_Competencia">
+    <End Role="Competencia" Type="Self.Competencia" Multiplicity="1" />
+    <End Role="Resultado_Aprendizaje" Type="Self.Resultado_Aprendizaje" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Competencia">
+        <PropertyRef Name="IdCompetencia" />
+      </Principal>
+      <Dependent Role="Resultado_Aprendizaje">
+        <PropertyRef Name="IdCompetencia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Coordinacion_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+    <End Role="Coordinacion" Type="Self.Coordinacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="Coordinacion">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FIcha_Ambiente_Ficha">
+    <End Role="Ficha" Type="Self.Ficha" Multiplicity="1" />
+    <End Role="Ficha_Ambiente" Type="Self.Ficha_Ambiente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ficha">
+        <PropertyRef Name="IdFicha" />
+      </Principal>
+      <Dependent Role="Ficha_Ambiente">
+        <PropertyRef Name="IdFicha" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ficha_Programa">
+    <End Role="Programa" Type="Self.Programa" Multiplicity="1" />
+    <End Role="Ficha" Type="Self.Ficha" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Programa">
+        <PropertyRef Name="IdPrograma" />
+      </Principal>
+      <Dependent Role="Ficha">
+        <PropertyRef Name="IdPrograma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FIcha_Ambiente_Resultado_Aprendizaje">
+    <End Role="Resultado_Aprendizaje" Type="Self.Resultado_Aprendizaje" Multiplicity="1" />
+    <End Role="Ficha_Ambiente" Type="Self.Ficha_Ambiente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Resultado_Aprendizaje">
+        <PropertyRef Name="IdResultado" />
+      </Principal>
+      <Dependent Role="Ficha_Ambiente">
+        <PropertyRef Name="IdResultado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Instructor_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+    <End Role="Instructor" Type="Self.Instructor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="Instructor">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sede_Municipio">
+    <End Role="Municipio" Type="Self.Municipio" Multiplicity="1" />
+    <End Role="Sede" Type="Self.Sede" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Municipio">
+        <PropertyRef Name="IdMunicipio" />
+      </Principal>
+      <Dependent Role="Sede">
+        <PropertyRef Name="IdMunicipio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HorarioBDV2Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Alternativa_Practicas" EntityType="Self.Alternativa_Practicas" />
+    <EntitySet Name="Ambiente" EntityType="Self.Ambiente" />
+    <EntitySet Name="Aprendices_Tecnica" EntityType="Self.Aprendices_Tecnica" />
+    <EntitySet Name="Aprendices_Titulada" EntityType="Self.Aprendices_Titulada" />
+    <EntitySet Name="Area" EntityType="Self.Area" />
+    <EntitySet Name="Colegios" EntityType="Self.Colegios" />
+    <EntitySet Name="Competencia" EntityType="Self.Competencia" />
+    <EntitySet Name="Competencias_Basicas" EntityType="Self.Competencias_Basicas" />
+    <EntitySet Name="Coordinacion" EntityType="Self.Coordinacion" />
+    <EntitySet Name="Departamento" EntityType="Self.Departamento" />
+    <EntitySet Name="Docente_Par" EntityType="Self.Docente_Par" />
+    <EntitySet Name="Empresa" EntityType="Self.Empresa" />
+    <EntitySet Name="Ficha" EntityType="Self.Ficha" />
+    <EntitySet Name="Ficha_Ambiente" EntityType="Self.Ficha_Ambiente" />
+    <EntitySet Name="Ficha_CBasicas" EntityType="Self.Ficha_CBasicas" />
+    <EntitySet Name="Ficha_PEspecial" EntityType="Self.Ficha_PEspecial" />
+    <EntitySet Name="Ficha_Tecnica" EntityType="Self.Ficha_Tecnica" />
+    <EntitySet Name="Ficha_VComplementaria" EntityType="Self.Ficha_VComplementaria" />
+    <EntitySet Name="Ficha_VTitulada" EntityType="Self.Ficha_VTitulada" />
+    <EntitySet Name="Historial_Contratos" EntityType="Self.Historial_Contratos" />
+    <EntitySet Name="Institucion_Programa" EntityType="Self.Institucion_Programa" />
+    <EntitySet Name="Instituciones" EntityType="Self.Instituciones" />
+    <EntitySet Name="Instructor" EntityType="Self.Instructor" />
+    <EntitySet Name="Instructor_Ficha_VirtualC" EntityType="Self.Instructor_Ficha_VirtualC" />
+    <EntitySet Name="Instructor_Ficha_VirtualT" EntityType="Self.Instructor_Ficha_VirtualT" />
+    <EntitySet Name="Instructor_Tecnica" EntityType="Self.Instructor_Tecnica" />
+    <EntitySet Name="Instructores_Ficha" EntityType="Self.Instructores_Ficha" />
+    <EntitySet Name="ListaChequeoTecnica" EntityType="Self.ListaChequeoTecnica" />
+    <EntitySet Name="Media_Tecnica" EntityType="Self.Media_Tecnica" />
+    <EntitySet Name="Municipio" EntityType="Self.Municipio" />
+    <EntitySet Name="Novedades" EntityType="Self.Novedades" />
+    <EntitySet Name="Novedades_Tecnica" EntityType="Self.Novedades_Tecnica" />
+    <EntitySet Name="Poblacion_Especial" EntityType="Self.Poblacion_Especial" />
+    <EntitySet Name="Programa" EntityType="Self.Programa" />
+    <EntitySet Name="Programa_Tecnica" EntityType="Self.Programa_Tecnica" />
+    <EntitySet Name="Resultado_Aprendizaje" EntityType="Self.Resultado_Aprendizaje" />
+    <EntitySet Name="Sede" EntityType="Self.Sede" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+    <EntitySet Name="Virtualidad_Complementaria" EntityType="Self.Virtualidad_Complementaria" />
+    <EntitySet Name="Virtualidad_Titulada" EntityType="Self.Virtualidad_Titulada" />
+    <EntitySet Name="Solicitud" EntityType="Self.Solicitud" />
+    <AssociationSet Name="FK_Ambiente_Area" Association="Self.FK_Ambiente_Area">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="Ambiente" EntitySet="Ambiente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ambiente_Sede" Association="Self.FK_Ambiente_Sede">
+      <End Role="Sede" EntitySet="Sede" />
+      <End Role="Ambiente" EntitySet="Ambiente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FIcha_Ambiente_Ambiente" Association="Self.FK_FIcha_Ambiente_Ambiente">
+      <End Role="Ambiente" EntitySet="Ambiente" />
+      <End Role="Ficha_Ambiente" EntitySet="Ficha_Ambiente" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Aprendice__Coleg__2BFE89A6" Association="Self.FK__Aprendice__Coleg__2BFE89A6">
+      <End Role="Colegios" EntitySet="Colegios" />
+      <End Role="Aprendices_Tecnica" EntitySet="Aprendices_Tecnica" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Ficha" Association="Self.fk_Ficha">
+      <End Role="Ficha_Tecnica" EntitySet="Ficha_Tecnica" />
+      <End Role="Aprendices_Tecnica" EntitySet="Aprendices_Tecnica" />
+    </AssociationSet>
+    <AssociationSet Name="fk_FichaVT" Association="Self.fk_FichaVT">
+      <End Role="Ficha_VTitulada" EntitySet="Ficha_VTitulada" />
+      <End Role="Aprendices_Titulada" EntitySet="Aprendices_Titulada" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Coordinacion_Area" Association="Self.FK_Coordinacion_Area">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="Coordinacion" EntitySet="Coordinacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Competencia_Programa" Association="Self.FK_Competencia_Programa">
+      <End Role="Programa" EntitySet="Programa" />
+      <End Role="Competencia" EntitySet="Competencia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Resultado_Aprendizaje_Competencia" Association="Self.FK_Resultado_Aprendizaje_Competencia">
+      <End Role="Competencia" EntitySet="Competencia" />
+      <End Role="Resultado_Aprendizaje" EntitySet="Resultado_Aprendizaje" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Coordinacion_Usuario" Association="Self.FK_Coordinacion_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Coordinacion" EntitySet="Coordinacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FIcha_Ambiente_Ficha" Association="Self.FK_FIcha_Ambiente_Ficha">
+      <End Role="Ficha" EntitySet="Ficha" />
+      <End Role="Ficha_Ambiente" EntitySet="Ficha_Ambiente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ficha_Programa" Association="Self.FK_Ficha_Programa">
+      <End Role="Programa" EntitySet="Programa" />
+      <End Role="Ficha" EntitySet="Ficha" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FIcha_Ambiente_Resultado_Aprendizaje" Association="Self.FK_FIcha_Ambiente_Resultado_Aprendizaje">
+      <End Role="Resultado_Aprendizaje" EntitySet="Resultado_Aprendizaje" />
+      <End Role="Ficha_Ambiente" EntitySet="Ficha_Ambiente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Instructor_Usuario" Association="Self.FK_Instructor_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Instructor" EntitySet="Instructor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sede_Municipio" Association="Self.FK_Sede_Municipio">
+      <End Role="Municipio" EntitySet="Municipio" />
+      <End Role="Sede" EntitySet="Sede" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,275 @@
+﻿
+<div>
+    <div style="position:absolute; margin-top:48.7%; margin-left:50%; transform:translateX(-50%);">
+        <footer class="text-center" style="color:white; font-weight:600; font-size:18px; z-index:5;">Fábrica de Software - 2018</footer>
+    </div>
+    <div class="Principal Transicion" style="padding-top: 75px !important;">
+        <div class="col-md-12">
+
+            <br />
+            <br />
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2 style="padding:0% 0% 2% 1%;">Programas</h2>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-3" style="float:right;">
+                                <!--<button ng-click="BorrarSeleccionados()">Eliminar</button>-->
+                                <input class="form-control" ng-keyup="FiltrarT($event)" id="BuscarT" />
+                            </div>
+                            <input id="fileUploadWebIns" type="file" accept=".xlsx" style="display: none;" />
+                            <button class="btn btn-default" id="excel" ng-click="UploadFileWebIns()" title="Subir Archivo Excel " disabled style="height: 34px; color:burlywood">
+                                <i class="glyphicon glyphicon-folder-open"></i>
+                            </button>
+                            <button class="btn btn-default" type="button" id="nuevo" ng-click="agregarRegistro()" title="Agregar Programa" style="height: 34px;color:green">
+                                <i class="glyphicon glyphicon-plus"></i>
+                            </button>
+                            <button class="btn btn-default" type="button" id="eliminar" ng-click="CambiarEstadoSeleccionados()" title="Inhabilitar Programas" style="height: 34px;color:red">
+                                <i class="glyphicon glyphicon-trash"></i>
+                            </button>
+                            <button class="btn btn-default" type="button" id="modificar" ng-click="Modificar()" title="Editar Registro" style="height: 34px; color:blue">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </button>
+                            <br />
+                            <br />
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th style="width:20px"></th>
+                                        <th class="paginationclass" style="font-weight:bold;">Código Programa</th>
+                                        <th class="paginationclass" style="font-weight:bold;">Nivel</th>
+                                        <th class="paginationclass" style="font-weight:bold;">Versión</th>
+                                        <th class="paginationclass" style="font-weight:bold;">Nombre Programa</th>
+                                        <th class="paginationclass" style="font-weight:bold;">Área</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="searchable">
+                                    <tr class="paginationclass" ng-repeat="datalist in datalistsProg | pagination: curPage * pageSize | limitTo: pageSize | filter:searchText">
+                                        <td><input ng-model="datalist.Seleccionado" type="checkbox" id="{{datalist.IdPrograma}}" /></td>
+                                        <td>{{datalist.CodigoPrograma }}</td>
+                                        <td>{{datalist.Nivel}}</td>
+                                        <td>{{datalist.Version_Programa}}</td>
+                                        <td>{{datalist.NombrePrograma }}</td>
+                                        <td>{{datalist.Area }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="pagination pagination-centered" ng-show="datalistsProg.length" style="float:right">
+                                <ul class="pagination-controle pagination">
+                                    <li>
+                                        <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                                ng-click="curPage=curPage-1">
+                                            Anterior
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <span>Pág {{curPage + 1}} de {{ numberOfPages() }}</span>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="btn btn-primary"
+                                                ng-disabled="curPage >= datalistsProg.length/pageSize - 1"
+                                                ng-click="curPage = curPage+1">
+                                            Siguiente
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal registrar Programa-->
+<div class="modal fade" id="ModalRegistrar" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Agregar Programa</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="programa" id="programa">
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Código</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="number" name="CodigoPrograma" id="CodigoPrograma" ng-required="true" ng-maxlength="12" ng-model="Programa.CodigoPrograma" />
+                                <span ng-if="programa.CodigoPrograma.$error.maxlength" class="text-danger">El código puede tener máximo 12 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Nivel</label>
+                        <div class="col-md-9">
+                            <select class="form-control select2" id="nivel" ng-required="true" ng-model="Programa.Nivel" style="width:100%">
+                                <option value=""></option>
+                                <option value="TÉCNICO">TÉCNICO</option>
+                                <option value="TECNÓLOGO">TECNÓLOGO</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3" l>Versión</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="version" id="version" ng-required="true" ng-model="Programa.Version_Programa" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Programa</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="nombre" id="nombre" ng-required="true" ng-model="Programa.NombrePrograma" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Área</label>
+                            <div class="col-md-9">
+                                <select class="form-control select2" style="width:100%" id="listas" ng-required="true" ng-model="Programa.Area">
+                                    <option value=""></option>
+                                    <option value="COMPLEMENTARIA VIRTUAL">COMPLEMENTARIA VIRTUAL</option>
+                                    <option value="TITULADA VIRTUAL">TITULADA VIRTUAL</option>
+                                    <option value="POBLACION ESPECIAL">POBLACION ESPECIAL</option>
+                                    <option value="COMPETENCIAS BÁSICAS">COMPETENCIAS BÁSICAS</option>
+                                    <option value="MEDIA TÉCNICA">MEDIA TÉCNICA</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="!programa.$valid" ng-click="GuardarPrograma()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Eliminar Registro-->
+<div class="modal fade" id="modalInhabilitarPrograma" role="dialog">
+    <div class="modal-dialog" style="width: 400px;">
+        <!--Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center>
+                    <h4 style="color:#1C75BB;">
+                        CONFIRMAR INHABILITACIÓN
+                    </h4>
+                </center>
+
+            </div>
+            <div class="modal-body" overflow auto;">
+                <div class="form-group">
+                    <label>¿Está seguro que desea inhabilitar el registro? </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success  btn-default" data-dismiss="modal" ng-click="inhabilitarPrograma()">Aceptar</button>
+                <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Editar Programa-->
+<div class="modal fade" id="ModalEditar" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Editar Programa</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="programa1" id="programa1">
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Código</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="number" name="CodigoPrograma1" id="CodigoPrograma1" ng-required="true" ng-maxlength="12" ng-model="Programa.CodigoPrograma" />
+                                <span ng-if="programa1.CodigoPrograma1.$error.maxlength" class="text-danger">El código puede tener máximo 12 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Nivel</label>
+                        <div class="col-md-9">
+                            <select class="form-control select2" id="nivel1" ng-required="true" ng-model="Programa.Nivel" style="width:100%">
+                                <option value=""></option>
+                                <option value="TÉCNICO">TÉCNICO</option>
+                                <option value="TECNÓLOGO">TECNÓLOGO</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3" l>Versión</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="version1" id="version1" ng-required="true" ng-model="Programa.Version_Programa" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Programa</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="nombre1" id="nombre1" ng-required="true" ng-model="Programa.NombrePrograma" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Área</label>
+                            <div class="col-md-9">
+                                <select class="form-control select2" style="width:100%" id="listas1" ng-required="true" ng-model="Programa.Area">
+                                    <option value=""></option>
+                                    <option value="COMPLEMENTARIA VIRTUAL">COMPLEMENTARIA VIRTUAL</option>
+                                    <option value="TITULADA VIRTUAL">TITULADA VIRTUAL</option>
+                                    <option value="POBLACION ESPECIAL">POBLACION ESPECIAL</option>
+                                    <option value="COMPETENCIAS BÁSICAS">COMPETENCIAS BÁSICAS</option>
+                                    <option value="MEDIA TÉCNICA">MEDIA TÉCNICA</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="!programa1.$valid" ng-click="GuardarEdicionPrograma()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,2070 @@
+﻿<div>
+    <div style="position:absolute; margin-top:48.7%; margin-left:50%; transform:translateX(-50%);">
+        <footer class="text-center" style="color:white; font-weight:600; font-size:18px; z-index:5;">Fábrica de Software - 2018</footer>
+    </div>
+    <div id="Prueba" class="Principal Transicion" style="padding-top: 75px !important;">
+        <div class="col-md-12">
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2 style="padding:0% 0% 2% 1%;">Virtualidad <small class="text">Titulada</small></h2>
+
+                    <div class="col-md-3" style="float:right;">
+                        <!--<button ng-click="BorrarSeleccionados()">Eliminar</button>-->
+                        <input class="form-control" ng-keyup="Filtrar($event)" id="Buscar" />
+                        <input class="form-control" ng-keyup="Filtrar2($event)" id="Buscar2" />
+                        <input type="hidden" class="form-control" ng-keyup="Filtrar3($event)" id="Buscar3" />
+                    </div>
+
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item active" id="btn1">
+                            <a class="nav-link" data-toggle="tab" role="tab">Instructores</a>
+                        </li>
+                        <li class="nav-item" id="btn2">
+                            <a class="nav-link" data-toggle="tab" role="tab">Fichas</a>
+                        </li>
+                        <li class="nav-item" id="btnA">
+                            <a class="nav-link" data-toggle="tab" role="tab">Aprendices</a>
+                        </li>
+                        <li class="nav-item" id="btn3">
+                            <a class="nav-link" data-toggle="tab" role="tab">Calendario</a>
+                        </li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                        <div class="tab-content">
+
+                            <div class="tab-pane active" id="tab1" role="tabpanel">
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <!--<input id="fileUploadWeb" type="file" accept=".xlsx" style="display: none;" />
+                                        <button class="btn btn-default" id="excel" ng-click="UploadFileWeb()" title="Subir Archivo Excel " style="height: 34px; color:burlywood">
+                                            <i class="glyphicon glyphicon-folder-open"></i>
+                                        </button>
+                                        <button class="btn btn-default" type="button" id="nuevo" ng-click="agregarRegistro()" title="Agregar Instructor" style="height: 34px;color:green">
+                                            <i class="glyphicon glyphicon-plus"></i>
+                                        </button>
+                                        <button class="btn btn-default" type="button" id="eliminar" ng-click="CambiarEstadoSeleccionados()" title="Inhabilitar Registros" style="height: 34px;color:red">
+                                            <i class="glyphicon glyphicon-trash"></i>
+                                        </button>
+                                        <button class="btn btn-default" type="button" id="modificar" ng-click="Modificar()" title="Editar Registro" style="height: 34px; color:blue">
+                                            <i class="glyphicon glyphicon-pencil"></i>
+                                        </button>-->
+                                        <!--<button class="btn btn-default" type="button" id="addFichas" ng-click="modalAgregarFichas()" title="Asociar fichas a un instructor" style="height: 34px; color:green">
+                                            <i class="glyphicon glyphicon-list"></i>
+                                        </button>-->
+                                        <button class="btn btn-default" type="button" id="verDetalle" ng-click="verFichasInstruc()" title="Ver fichas del instructor" style="height: 34px; color:sandybrown">
+                                            <i class="glyphicon glyphicon-eye-open"></i>
+                                        </button>
+                                        <button class="btn btn-default" type="button" id="verHoras" ng-click="verHorasInstruc()" title="Ver horas programadas del instructor" style="height: 34px; color:purple">
+                                            <i class="glyphicon glyphicon-time"></i>
+                                        </button>
+                                        <br />
+                                        <br />
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:20px"></th>
+                                                    <th class="paginationclass" style="font-weight:bold;">Cédula</th>
+                                                    <th class="paginationclass" style="font-weight:bold;">Nombre</th>
+                                                    <th class="paginationclass" style="font-weight:bold;">Apellidos</th>
+                                                    <th class="paginationclass" style="font-weight:bold;">Email</th>
+                                                    <th class="paginationclass" style="font-weight:bold;">Teléfono</th>
+                                                    <th class="paginationclass" style="font-weight:bold;">Tipo Viculación</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="searchable">
+                                                <tr class="paginationclass" ng-repeat="datalist in datalistsI | pagination: curPage * pageSize | limitTo: pageSize | filter:searchText">
+                                                    <td><input ng-model="datalist.Seleccionado" type="checkbox" id="{{datalist.IdInstructor}}" /></td>
+                                                    <td>{{datalist.Cedula }}</td>
+                                                    <td>{{datalist.Nombre}}</td>
+                                                    <td>{{datalist.Apellido}}</td>
+                                                    <td>{{datalist.Email }}</td>
+                                                    <td>{{datalist.Telefono }}</td>
+                                                    <td>{{datalist.TipoContrato}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div class="pagination pagination-centered" ng-show="datalistsI.length" style="float:right">
+                                            <ul class="pagination-controle pagination">
+                                                <li>
+                                                    <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                                            ng-click="curPage=curPage-1">
+                                                        Anterior
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <span>Pág {{curPage + 1}} de {{ numberOfPages() }}</span>
+                                                </li>
+                                                <li>
+                                                    <button type="button" class="btn btn-primary"
+                                                            ng-disabled="curPage >= datalistsI.length/pageSize - 1"
+                                                            ng-click="curPage = curPage+1">
+                                                        Siguiente
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane active" id="tab2" role="tabpanel">
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input id="fileUploadWeb" type="file" accept=".xlsx" style="display: none;" />
+                                        <button class="btn btn-default" id="excel" ng-click="UploadFileWeb2()" title="Subir Archivo Excel " style="height: 34px; color:burlywood">
+                                            <i class="glyphicon glyphicon-folder-open"></i>
+                                        </button>
+                                        <button class="btn btn-default" type="button" id="nuevo" ng-click="agregarRegistro2()" title="Agregar Ficha" style="height: 34px;color:green">
+                                            <i class="glyphicon glyphicon-plus"></i>
+                                        </button>
+                                        <button class="btn btn-default" type="button" id="modificar" ng-click="Modificar2()" title="Editar Registro" style="height: 34px; color:blue">
+                                            <i class="glyphicon glyphicon-pencil"></i>
+                                        </button>
+                                        <button class="btn btn-default" type="button" id="verInstructor" ng-click="VerInstructoresFicha()" title="Ver Instructores asociados a la ficha" style="height: 34px; color:orange">
+                                            <i class="glyphicon glyphicon-user"></i>
+                                        </button>
+                                        <button class="btn btn-default" type="button" id="modificar" ng-click="verAprendices()" title="Ver Aprendices asociados a una ficha" style="height: 34px; color:chocolate">
+                                            <i class="glyphicon glyphicon-th-list"></i>
+                                        </button>
+                                        <button class="btn btn-default" type="button" id="modificar" ng-click="verNovedades()" title="Novedades" style="height: 34px; color:purple">
+                                            <i class="glyphicon glyphicon-star"></i>
+                                        </button>
+                                        <br />
+                                        <br />
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:20px"></th>
+                                                    <th class="paginationclass" style="font-weight:bold;">Ficha</th>
+                                                    <th class="paginationclass" style="font-weight:bold;"># Aprendices</th>
+                                                    <th class="paginationclass" style="font-weight:bold;">Programa</th>
+                                                    <th class="paginationclass" style="font-weight:bold;">Inicio Lectiva</th>
+                                                    <th class="paginationclass" style="font-weight:bold;">Inicio Productiva</th>
+                                                    <th class="paginationclass" style="font-weight:bold;">Fin Productiva</th>
+                                                    <th class="paginationclass" style="font-weight:bold;">Etapa</th>
+                                                    <th class="paginationclass" style="font-weight:bold;">Gestión</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="searchable">
+                                                <tr class="paginationclass" ng-repeat="datalist in datalistsFic | pagination: curPage * pageSize | limitTo: pageSize | filter:searchText">
+                                                    <td><input ng-model="datalist.Seleccionado" type="checkbox" id="{{datalist.Id}}" /></td>
+                                                    <td>{{datalist.Num_Ficha }}</td>
+                                                    <td>{{datalist.Num_Aprendices }}</td>
+                                                    <td>{{datalist.Programa }}</td>
+                                                    <td>{{datalist.Inicio_Lectiva }}</td>
+                                                    <td>{{datalist.Inicio_Productiva }}</td>
+                                                    <td>{{datalist.Fin_Productiva }}</td>
+                                                    <td class="success" ng-if="datalist.Etapa == 'Lectiva'">{{datalist.Etapa }}</td>
+                                                    <td class="warning" ng-if="datalist.Etapa == 'Finalizada'">{{datalist.Etapa }}</td>
+                                                    <td class="info" ng-if="datalist.Etapa == 'Productiva'">{{datalist.Etapa }}</td>
+                                                    <td style="width:8%">
+                                                        <button style="width:100%" ng-if="datalist.Etapa == 'Lectiva'" disabled class="btn btn-warning">Gestionar</button>
+                                                        <button style="width:100%" ng-if="datalist.Etapa == 'Productiva'" disabled class="btn btn-warning">Gestionar</button>
+                                                        <button ng-if="datalist.Etapa == 'Finalizada' && datalist.Num_Certificados == 0" ng-click="gestionFicha(datalist.Id)" class="btn btn-warning form-control">Gestionar</button>
+                                                        <button ng-if="datalist.Etapa == 'Finalizada' && datalist.Num_Certificados != 0" ng-click="VerFicha(datalist.Id)" class="btn btn-warning form-control">Ver</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="pagination pagination-centered" ng-show="datalistsFic.length" style="float:right">
+                                            <ul class="pagination-controle pagination">
+                                                <li>
+                                                    <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                                            ng-click="curPage=curPage-1">
+                                                        Anterior
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <span>Pág {{curPage + 1}} de {{ numberOfPages() }}</span>
+                                                </li>
+                                                <li>
+                                                    <button type="button" class="btn btn-primary"
+                                                            ng-disabled="curPage >= datalistsFic.length/pageSize - 1"
+                                                            ng-click="curPage = curPage+1">
+                                                        Siguiente
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="tabA" role="tabpanel">
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input id="fileUploadWeb" type="file" accept=".xlsx" style="display: none;" />
+                                        <button class="btn btn-default" id="excel" ng-click="UploadFileWeb2()" title="Subir Archivo Excel " style="height: 34px; color:burlywood">
+                                            <i class="glyphicon glyphicon-folder-open"></i>
+                                        </button>
+                                        <button class="btn btn-default" type="button" id="nuevo" ng-click="agregarRegistroA()" title="Agregar Ficha" style="height: 34px;color:green">
+                                            <i class="glyphicon glyphicon-plus"></i>
+                                        </button>
+                                        <button class="btn btn-default" type="button" id="modificar" ng-click="ModificarA()" title="Editar Registro" style="height: 34px; color:blue">
+                                            <i class="glyphicon glyphicon-pencil"></i>
+                                        </button>
+                                        <button class="btn btn-default" type="button" id="modificar" ng-click="cambiarEstadoA()" title="Cambiar Estado" style="height: 34px; color:red">
+                                            <i class="glyphicon glyphicon-refresh"></i>
+                                        </button>
+                                        <button class="btn btn-default" type="button" id="modificar" ng-click="cambiarFichaA()" title="Cambiar de Ficha" style="height: 34px; color:purple">
+                                            <i class="glyphicon glyphicon-random"></i>
+                                        </button>
+                                        <button class="btn btn-default" type="button" id="filtrar" ng-click="filtrarAprendices()" title="Filtrar Aprendices" style="height: 34px; color:black; position:absolute; right:2%;">
+                                            <i class="glyphicon glyphicon-filter"></i>
+                                        </button>
+                                        <br />
+                                        <br />
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:20px"></th>
+                                                    <th class="paginationclass" style="font-weight:bold;">Ficha</th>
+                                                    <th class="paginationclass" style="font-weight:bold;">Tipo Documento</th>
+                                                    <th class="paginationclass" style="font-weight:bold;">Documento</th>
+                                                    <th class="paginationclass" style="font-weight:bold;">Nombre</th>
+                                                    <th class="paginationclass" style="font-weight:bold;">Apellido</th>
+                                                    <th class="paginationclass" style="font-weight:bold;">Correo</th>
+                                                    <th class="paginationclass" style="font-weight:bold;">Teléfono</th>
+                                                    <th class="paginationclass" style="font-weight:bold;">Estado</th>
+                                                    <th class="paginationclass" style="font-weight:bold;">Descripción</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="searchable">
+                                                <tr class="paginationclass" ng-repeat="datalist in datalistsApren | pagination: curPage * pageSize | limitTo: pageSize | filter:searchText">
+                                                    <td><input ng-model="datalist.Seleccionado" type="checkbox" id="{{datalist.Id}}" /></td>
+                                                    <td>{{datalist.NumFicha}}</td>
+                                                    <td>{{datalist.TipoDocumento }}</td>
+                                                    <td>{{datalist.Documento }}</td>
+                                                    <td>{{datalist.Nombre}}</td>
+                                                    <td>{{datalist.Apellido}}</td>
+                                                    <td>{{datalist.Email}}</td>
+                                                    <td>{{datalist.Telefono}}</td>
+                                                    <td>{{datalist.Estado}}</td>
+                                                    <td>{{datalist.Descripcion}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="text-center" id="LabelAprendices">
+                                            <label style="font-size: 18px; font-weight: bold; ">No hay Coincidencia de Datos</label>
+                                        </div>
+                                        <div class="pagination pagination-centered" ng-show="datalistsApren.length" style="float:right">
+                                            <ul class="pagination-controle pagination">
+                                                <li>
+                                                    <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                                            ng-click="curPage=curPage-1">
+                                                        Anterior
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <span>Pág {{curPage + 1}} de {{ numberOfPages() }}</span>
+                                                </li>
+                                                <li>
+                                                    <button type="button" class="btn btn-primary"
+                                                            ng-disabled="curPage >= datalistsApren.length/pageSize - 1"
+                                                            ng-click="curPage = curPage+1">
+                                                        Siguiente
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane active" id="tab3" role="tabpanel">
+                                <br />
+                                <div class="col-md-2" style="padding-right:0px;">
+                                    <button class="btn btn-default coord" id="boton" style="width:100%; border-color:#286090;color:#286090;" ng-click="ModalProgramacion()">Registrar Programación</button>
+                                </div>
+                                <div class="col-md-2" style="padding-right:0px;">
+                                    <button class="btn btn-default coord" id="transversal" style="width:100%; border-color:#286090;color:#286090;" ng-click="ModalFiltrarProgramacion()">Filtrar Programación</button>
+                                </div>
+                                <div class="col-md-2" style="padding-right:0px;">
+                                    <button class="btn btn-default coord" id="borrarFiltro" style="width:100%; border-color:#286090;color:#286090;" ng-click="BorarFiltro()">Borrar Filtro</button>
+                                </div>
+
+                                <br />
+                                <br />
+
+                                <div id='wrap' class="panel-body">
+                                    <div id='calendar' class="col-md-12"></div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Modal Registro Ficha-->
+<div class="modal fade" id="ModalFicha" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Registrar Ficha</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="Ficha" id="Ficha">
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Ficha</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="number" name="NumFicha" id="NumFicha" ng-required="true" ng-maxlength="10"  ng-model="Ficha.Num_Ficha"  />
+                                <span ng-if="Ficha.NumFicha.$error.maxlength" class="text-danger">La ficha puede tener máximo 10 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3"># Aprendices</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="number" name="NumApren" id="NumApren" ng-required="true" ng-model="Ficha.Num_Aprendices" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Programa</label>
+                        <div class="col-md-9">
+                            <select class="form-control select2" id="Prog" ng-required="true" ng-model="Ficha.Programa" style="width:100%">
+                                <option value=""></option>
+                                <option ng-repeat="item in ProgramasT" value="{{item.NombrePrograma}}" title="{{item.Red_Tecnologica}}">{{item.NombrePrograma}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Inicio Lectiva</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="IniLec" id="IniLec" ng-model="Ficha.Inicio_Lectiva" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Inicio Productiva</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="IniProd" id="IniProd"  ng-model="Ficha.Inicio_Productiva" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Fin Productiva</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="FinProd" id="FinProd" ng-model="Ficha.Fin_Productiva" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="!Ficha.$valid" ng-click="GuardarFicha()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Editar Ficha-->
+<div class="modal fade" id="ModalFichaEdit" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Editar Ficha</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="FichaEdit" id="FichaEdit">
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Ficha</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="number" name="NumFichaEdit" id="NumFichaEdit" ng-required="true" ng-maxlength="10" ng-model="Ficha.Num_Ficha" />
+                                <span ng-if="FichaEdit.NumFichaEdit.$error.maxlength" class="text-danger">La ficha puede tener máximo 10 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3"># Aprendices</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="number" name="NumAprenEdit" id="NumAprenEdit" ng-required="true" ng-model="Ficha.Num_Aprendices" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Programa</label>
+                        <div class="col-md-9">
+                            <select class="form-control select2" id="ProgEdit" ng-required="true" ng-model="Ficha.Programa" style="width:100%">
+                                <option value=""></option>
+                                <option ng-repeat="item in ProgramasT" value="{{Ficha.Programa}}" title="{{Ficha.Programa}}">{{Ficha.Programa}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Inicio Lectiva</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="IniLecEdit" id="IniLecEdit" ng-model="Ficha.Inicio_Lectiva" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Inicio Productiva</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="IniProdEdit" id="IniProdEdit" ng-model="Ficha.Inicio_Productiva" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Fin Productiva</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="FinProdEdit" id="FinProdEdit" ng-model="Ficha.Fin_Productiva" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="!FichaEdit.$valid" ng-click="GuardarEdicionFicha()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal agregar fichas a un Instructor-->
+<div class="modal fade" id="modalAgregarFichas" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Asociar Fichas a un Instructor</h4></center>
+            </div>
+            <div class="modal-body" id="bodyAdd" style="height:400px">
+                <form name="AddProg" id="AddProg">
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label col-md-3">Instructor</label>
+                            <div class="col-md-8">
+                                <select style="width:100%;" class="form-control select2" name="InstAddProg" id="InstAddProg" ng-required="true" ng-model="Inst.Id">
+                                    <option value=""></option>
+                                    <option ng-repeat="instuc in datalistsI" value="{{instuc.Cedula}}">{{instuc.Nombre +" "+ instuc.Apellido}}</option>
+                                </select>
+                            </div>
+                            <div style="margin-left:-3%" class="col-md-1">
+                                <button id="AddSelect" class="btn btn-success" ng-disabled="!AddProg.$valid" ng-click="hola()"><i class="glyphicon glyphicon-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </form>
+                <hr />
+                <form name="AddProg1" id="AddProg1">
+                    <div class="form-group">
+
+                        <div id="selectProg">
+                            <label class="control-label col-md-3">Ficha</label>
+                            <div class="col-md-8">
+                                <select style="width:100%;" class="form-control select2" name="ProgAddProg" id="ProgAddProg" ng-required="true" ng-model="Inst.Prog">
+                                    <option value=""></option>
+                                    <option ng-repeat="ficha in FichasLectiva" class="{{ficha.Id}}" title="{{ficha.Programa}}" value="{{ficha.Id}}">{{ficha.Num_Ficha}}</option>
+                                </select>
+                            </div>
+                            <div style="margin-left:-3%" class="col-md-1">
+                                <button id="AddSelect1" class="btn btn-success" ng-disabled="!AddProg1.$valid" ng-click="addProg()"><i class="glyphicon glyphicon-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <br />
+                <br />
+                <br />
+                <br />
+
+
+                <div class="col-md-12" id="divTabla">
+                    <table class="table table-bordered table-striped">
+                        <tbody class="searchable">
+                            <tr class="paginationclass" ng-repeat="datalist in AddProgs">
+                                <td>{{datalist.Programa | uppercase}}</td>
+                                <td style="width:10%"><button class="btn btn-danger" ng-click="remove($index)"><i class="glyphicon glyphicon-remove"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br />
+
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" id="btnLimpiar" style="float:left">Limpiar</button>
+                <button class="btn btn-success" ng-click="AddProgramas()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal ver fichas del instructor-->
+<div class="modal fade" id="VerFichasInstruc" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Ver fichas asociadas al instructor</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="FiltrarProgramacion" id="FiltrarProgramacion">
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label text-center col-md-2">Instructor</label>
+                            <div class="col-md-5">
+                                <select style="width:100%;" class="form-control select2" name="InstVerFicha" id="InstVerFicha" ng-required="true" ng-model="Inst.Id">
+                                    <option value=""></option>
+                                    <option ng-repeat="instuc in datalistsI" id="{{instuc.Cedula}}" value="{{instuc.Cedula}}">{{instuc.Nombre +" "+ instuc.Apellido}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <h4 id="instrucFic"></h4>
+                    <div id="divTabla2">
+                        <table class="table table-bordered" id="tablaresultadofiltro">
+                            <thead>
+                                <tr>
+                                    <th>Ficha</th>
+                                    <th>Programa</th>
+                                    <th>Etapa</th>
+                                    <th>Fin Etapa</th>
+                                </tr>
+                            </thead>
+                            <tbody class="searchable">
+                                <tr class="paginationclass" ng-repeat="datalist in datalistsInstFilter">
+                                    <td>{{datalist.Ficha | uppercase}}</td>
+                                    <td>{{datalist.Programa | uppercase}}</td>
+                                    <td class="success" ng-if="datalist.Etapa == 'Lectiva'">{{datalist.Etapa | uppercase}}</td>
+                                    <td class="warning" ng-if="datalist.Etapa == 'Finalizada'">{{datalist.Etapa | uppercase}}</td>
+                                    <td class="info" ng-if="datalist.Etapa == 'Productiva'">{{datalist.Etapa | uppercase}}</td>
+                                    <td>{{datalist.Fecha | uppercase}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button style="float:left" class="btn btn-warning" id="btnLimpiarFiltro">Limpiar</button>
+                <button class="btn btn-success" id="btnBuscarFiltro" ng-disabled="!FiltrarProgramacion.$valid" ng-click="VerFichasI()">Buscar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Gestion de Fichas -->
+<div class="modal fade" id="ModalGestionFicha" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Gestionar Ficha</h4></center>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <h4>Ficha: <small class="text-info" id="smallFicha"></small> - Programa: <small class="text-info" id="smallProg"></small></h4>
+                    <h4>Aprendices Matriculados: <small class="text-info" id="smallNumA"></small></h4>
+                </div>
+                <br />
+                <br />
+                <br />
+                <br />
+                <form name="GestionFicha" id="GestionFicha">
+                    <div class="form-group">
+                        <label class="control-label text-center col-md-3"># Retirados</label>
+                        <div class="col-md-9">
+                            <input class="form-control" type="number" name="NumReti" id="NumReti" ng-change="valReti()" ng-required="true" ng-model="GestionFicha.Num_Retirados"  />
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label text-center col-md-3"># Cancelados</label>
+                        <div class="col-md-9">
+                            <input class="form-control" type="number" name="NumCance" id="NumCance" ng-change="valCance()" ng-required="true" ng-model="GestionFicha.Num_Cancelados" />
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label text-center col-md-3">Cambios de Ficha</label>
+                        <div class="col-md-9">
+                            <input class="form-control" type="number" name="CamFic" id="CamFic" ng-required="true" ng-change="CamFich()" ng-model="GestionFicha.Cambio_Ficha" />
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label text-center col-md-3"># Aprobados</label>
+                        <div class="col-md-9">
+                            <input class="form-control" type="number" name="NumCerti" id="NumCerti" ng-required="true" ng-change="CalcularCerti()" ng-model="GestionFicha.Num_Certificados" />
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label text-center col-md-3">% Certificación</label>
+                        <div class="col-md-9">
+                            <input class="form-control" type="text" value="%" name="NumCerti" id="NumCerti" ng-disabled="true" ng-required="true" ng-model="GestionFicha.Porc_Certificacion" />
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="!GestionFicha.$valid" ng-click="GuardarGestionFicha()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Gestion de Fichas -->
+<div class="modal fade" id="ModalVerFicha" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Ver Ficha</h4></center>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <h4>Ficha: <small class="text-info" id="smallFichaE"></small> - Programa: <small class="text-info" id="smallProgE"></small></h4>
+                    <h4>Aprendices Matriculados: <small class="text-info" id="smallNumAE"></small></h4>
+                </div>
+                <br />
+                <br />
+                <br />
+                <br />
+                <form name="GestionFichaE" id="GestionFichaE">
+                    <div class="form-group">
+                        <label class="control-label text-center col-md-3"># Retirados</label>
+                        <div class="col-md-9">
+                            <input class="form-control" type="number" name="NumReti" id="NumRetiE" ng-change="valReti()" ng-required="true" ng-model="GestionFicha.Num_Retirados" />
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label text-center col-md-3"># Cancelados</label>
+                        <div class="col-md-9">
+                            <input class="form-control" type="number" name="NumCanceE" id="NumCanceE" ng-change="valCance()" ng-required="true" ng-model="GestionFicha.Num_Cancelados" />
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label text-center col-md-3">Cambios de Ficha</label>
+                        <div class="col-md-9">
+                            <input class="form-control" type="number" name="CamFicE" id="CamFicE" ng-required="true" ng-change="CamFich()" ng-model="GestionFicha.Cambio_Ficha" />
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label text-center col-md-3"># Aprobados</label>
+                        <div class="col-md-9">
+                            <input class="form-control" type="number" name="NumCerti" id="NumCertiE" ng-required="true" ng-change="CalcularCerti()" ng-model="GestionFicha.Num_Certificados" />
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label text-center col-md-3">% Certificación</label>
+                        <div class="col-md-9">
+                            <input class="form-control" type="text" value="%" name="NumCerti" id="NumCertiE" ng-disabled="true" ng-required="true" ng-model="GestionFicha.Porc_Certificacion" />
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" style="float:left;" id="btnLimpiarVerFicha">Editar</button>
+                <button class="btn" id="btnReporteFichas" ng-click="GenerarReporteFicha()" title="Generar Reporte" style="float:left;border-color:#286090;color:#286090;"><i class="glyphicon glyphicon-download-alt"></i></button>
+                <button class="btn btn-success" id="btnGuardarFicha" ng-disabled="true" ng-click="GuardarGestionFicha()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Registro Programacion-->
+<div class="modal fade" id="ModalProgramacion" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Registrar Programación</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="Programacion" id="Programacion">
+
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Fecha de Inicio</label>
+                            <div class="col-md-9">
+                                <input class="form-control datetimepickerF" type="text" name="Finicio" id="Finicio" ng-model="Programacion.Fecha_Inicio" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Fecha Final</label>
+                            <div class="col-md-9">
+                                <input class="form-control datetimepickerFF" type="text" name="Finicio" id="Ffinal" ng-model="Programacion.Fecha_Fin" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Hora de Inicio</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control datetimepicker3" name="final" id="inicial" ng-model="Programacion.Hora_Inicio" />
+
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Hora Final</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control datetimepicker3" name="Ffinal" id="final" ng-model="Programacion.Hora_Fin" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Ficha</label>
+                            <div class="col-md-9">
+                                <select style="width:100%" type="text" class="form-control select2" name="ficha" id="ficha" ng-required="true" ng-model="Programacion.Ficha">
+                                    <option value=""></option>
+                                    <option ng-repeat="ficha in PFichas" class="{{ficha.Id}}" value="{{ficha.Id}}">{{ficha.Num_Ficha+" - "+ficha.Programa}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Instructor</label>
+                            <div class="col-md-9">
+                                <select style="width:100%" class="form-control select2" type="text" name="instructor" id="instruc" ng-required="true" ng-model="Programacion.Instructor">
+                                    <option value=""></option>
+                                    <option ng-repeat="instructor in PInstructor" class="{{instructor.Cedula}}" value="{{instructor.Cedula}}">{{instructor.Nombre +" "+instructor.Apellido}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-group row">
+                        <div class="form-group row" style="width:100%;">
+                            <div class="col-md-12 text-center">
+                                <label>Días</label>
+                            </div>
+
+                        <div style="display:grid; grid-template-columns:repeat(7,1fr); width:98%; padding-left:1.5vw; padding-top:1.5vh;">
+                            <div class="text-center">
+                                <label>Lunes</label><br />
+                                <input type="checkbox" name="1" id="1Edit" ng-model="Dias.Lunes" />
+                            </div>
+                            <div class="text-center">
+                                <label>Martes</label><br />
+                                <input type="checkbox" name="2" id="2Edit" ng-model="Dias.Martes" />
+                            </div>
+                            <div class="text-center">
+                                <label>Miércoles</label><br />
+                                <input type="checkbox" name="3" id="3Edit" ng-model="Dias.Miercoles" />
+                            </div>
+                            <div class="text-center">
+                                <label>Jueves</label><br />
+                                <input type="checkbox" name="4" id="4Edit" ng-model="Dias.Jueves" />
+                            </div>
+                            <div class="text-center">
+                                <label>Viernes</label><br />
+                                <input type="checkbox" name="5" id="5Edit" ng-model="Dias.Viernes" />
+                            </div>
+                            <div class="text-center">
+                                <label>Sábado</label><br />
+                                <input type="checkbox" name="6" id="6Edit" ng-model="Dias.Sabado" />
+                            </div>
+                            <div class="text-center">
+                                <label>Domingo</label><br />
+                                <input type="checkbox" name="7" id="7Edit" ng-model="Dias.Domingo" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="!Programacion.$valid" ng-click="GuardarProgramacion()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal editar Programacion-->
+<div class="modal fade" id="ModalEditarProgramacion" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Editar Programación</h4></center>
+            </div>
+            <div class="modal-body">
+
+                <div class="row" id="InfoProg">
+                    <div class="col-md-12">
+                        <center>
+                            <h3 id="nameInstruc"></h3>
+                        </center>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="col-md-12 txt">
+                        <center>
+                            Del <span class="text-info" id="TextIni"></span> al
+                            <span class="text-info" id="TextFin"></span>
+                        </center>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="col-md-12 txt">
+                        <center>
+                            Desde <span class="text-info" id="TextHIni"></span> hasta
+                            <span class="text-info" id="TextHFin"></span>
+                        </center>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="col-md-12 txt">
+                        <center>
+                            <span id="spnInst"></span> <span class="text-info" id="TextFi"></span>
+                        </center>
+                    </div>
+                    <br />
+                    <br />
+                </div>
+
+                <form name="ProgramacionE" id="ProgramacionE">
+
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Fecha de Inicio</label>
+                            <div class="col-md-9">
+                                <input class="form-control datetimepickerF" type="text" name="FinicioEdit" id="FinicioEdit" ng-model="Programacion.Fecha_Inicio" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Fecha Final</label>
+                            <div class="col-md-9">
+                                <input class="form-control datetimepickerFF" type="text" name="FinicioEdit" id="FfinalEdit" ng-model="Programacion.Fecha_Fin" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Hora de Inicio</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control datetimepicker3" name="finalEdit" id="inicialEdit" ng-model="Programacion.Hora_Inicio" />
+
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Hora Final</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control datetimepicker3" name="FfinalEdit" id="finalEdit" ng-model="Programacion.Hora_Fin" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Ficha</label>
+                            <div class="col-md-9">
+                                <select style="width:100%" type="text" class="form-control select2" name="fichaEdit" id="fichaEdit" ng-required="true" ng-model="Programacion.Ficha">
+                                    <option value=""></option>
+                                    <option ng-repeat="ficha in PFichas" class="{{ficha.Id}}" value="{{ficha.Id}}">{{ficha.Num_Ficha+" - "+ficha.Programa}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Instructor</label>
+                            <div class="col-md-9">
+                                <select style="width:100%" class="form-control select2" type="text" name="instructorEdit" id="instrucEdit" ng-required="true" ng-model="Programacion.Instructor">
+                                    <option value=""></option>
+                                    <option ng-repeat="instructor in PInstructor" class="{{instructor.Cedula}}" value="{{instructor.Cedula}}">{{instructor.Nombre +" "+instructor.Apellido}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <hr />
+                    <div class="form-group row">
+                        <div class="form-group row" style="width:100%;">
+                            <div class="col-md-12 text-center">
+                                <label>Días</label>
+                            </div>
+
+                            <div style="display:grid; grid-template-columns:repeat(7,1fr); width:98%; padding-left:1.5vw; padding-top:1.5vh;">
+                                <div class="text-center">
+                                    <label>Lunes</label><br />
+                                    <input type="checkbox" name="1" id="1Edit" ng-model="Dias.Lunes" />
+                                </div>
+                                <div class="text-center">
+                                    <label>Martes</label><br />
+                                    <input type="checkbox" name="2" id="2Edit" ng-model="Dias.Martes" />
+                                </div>
+                                <div class="text-center">
+                                    <label>Miércoles</label><br />
+                                    <input type="checkbox" name="3" id="3Edit" ng-model="Dias.Miercoles" />
+                                </div>
+                                <div class="text-center">
+                                    <label>Jueves</label><br />
+                                    <input type="checkbox" name="4" id="4Edit" ng-model="Dias.Jueves" />
+                                </div>
+                                <div class="text-center">
+                                    <label>Viernes</label><br />
+                                    <input type="checkbox" name="5" id="5Edit" ng-model="Dias.Viernes" />
+                                </div>
+                                <div class="text-center">
+                                    <label>Sábado</label><br />
+                                    <input type="checkbox" name="6" id="6Edit" ng-model="Dias.Sabado" />
+                                </div>
+                                <div class="text-center">
+                                    <label>Domingo</label><br />
+                                    <input type="checkbox" name="7" id="7Edit" ng-model="Dias.Domingo" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button style="float:left" class="btn btn-warning btnEditarProg" id="btnEditarProg">Editar</button>
+                <button class="btn btn-danger" id="btnEliminarProg">Eliminar</button>
+                <button class="btn btn-success" id="btnGuardarProg" ng-click="GuardarModificacionProgramacion()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Filtrar Programacion-->
+<div class="modal fade" id="ModalFiltrarProgramacion" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Filtrar Programación</h4></center>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button style="width:100%" id="btnInstrucFiltro" class="btn btn-primary">Instructor</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button style="width:100%" id="btnProgFiltro" class="btn btn-primary">Ficha</button>
+                    </div>
+                </div>
+                <br />
+                <form name="ProgramacionF" id="ProgramacionF">
+
+                    <div class="row">
+                        <div class="form-group" id="divInputInstruc">
+                            <label class="control-label col-md-3">Instructor</label>
+                            <div class="col-md-9">
+                                <select style="width:100%" class="form-control select2" type="text" name="instrucFil" id="instrucFil" ng-required="true" ng-model="Programacion.Instructor">
+                                    <option value=""></option>
+                                    <option ng-repeat="instructor in PInstructor" class="{{instructor.Cedula}}" value="{{instructor.Cedula}}">{{instructor.Nombre +" "+instructor.Apellido}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="divInputProg">
+                            <label class="control-label col-md-3">Fichas</label>
+                            <div class="col-md-9">
+                                <select style="width:100%" type="text" class="form-control select2" name="fichaFil" id="fichaFil" ng-required="true" ng-model="Programacion.Ficha">
+                                    <option value=""></option>
+                                    <option ng-repeat="ficha in PFichas" class="{{ficha.Id}}" value="{{ficha.Id}}">{{ficha.Num_Ficha+" - "+ficha.Programa}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-click="filtrarProgramacion()">Filtrar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal ver horas del instructor-->
+<div class="modal fade" id="VerHorasInstruc" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Ver horas programadas del instructor</h4></center>
+            </div>
+            <div class="modal-body">
+               <form id="formHorasI" name="formHorasI">
+                   <div class="form-group">
+                       <div>
+                           <label class="control-label text-center col-md-2">Instructor</label>
+                           <div class="col-md-5">
+                               <select style="width:100%;" class="form-control select2" name="InstVerHoras" id="InstVerHoras" ng-required="true" ng-model="Inst.Id">
+                                   <option value=""></option>
+                                   <option ng-repeat="instuc in datalistsI" id="{{instuc.Cedula}}" value="{{instuc.Cedula}}">{{instuc.Nombre +" "+ instuc.Apellido}}</option>
+                               </select>
+                           </div>
+                       </div>
+                   </div>
+                   <br />
+                   <br />
+                   <br />
+                   <div id="tblHoras" >
+                       <h4 id="h4InsHoras"></h4>
+                       <table class="table table-bordered">
+                           <thead>
+                               <tr>
+                                   <th style="width:16.6%;">Ener o</th>
+                                   <th style="width:16.6%;">Febrero</th>
+                                   <th style="width:16.6%;">Marzo</th>
+                                   <th style="width:16.6%;">Abril</th>
+                                   <th style="width:16.6%;">Mayo</th>
+                                   <th style="width:16.6%;">Junio</th>
+                               </tr>
+                           </thead>
+                           <tbody id="bodyTblHoras"></tbody>
+                       </table>
+                       <table class="table table-bordered">
+                           <thead>
+                               <tr>
+                                   <th style="width:16.6%;">Julio</th>
+                                   <th style="width:16.6%;">Agosto</th>
+                                   <th style="width:16.6%;">Septiembre</th>
+                                   <th style="width:16.6%;">Octubre</th>
+                                   <th style="width:16.6%;">Noviembre</th>
+                                   <th style="width:16.6%;">Diciembre</th>
+                               </tr>
+                           </thead>
+                           <tbody id="bodyTblHoras2"></tbody>
+                       </table>
+
+                   </div>
+               </form>                
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" id="btnBuscarFiltro" ng-disabled="!formHorasI.$valid" ng-click="VerHorasI()">Buscar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Instructores de una ficha-->
+<div class="modal fade" id="ModalInstructoresFicha" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Asociar Instructores a la ficha</h4></center>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <h3>Ficha: <small class="text-info" id="smallFichaInstruc"></small> - Programa: <small class="text-info" id="smallProgInstruc"></small></h3>
+                    <hr />
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <center>
+                            <form style="width:95%; text-align:left">
+                                <!--Instructor Lider-->
+                                <div class="form-group">
+                                    <label class="control-label col-md-12">Instructor Lider: <span id="spanF1" ng-click="span1()" style="cursor:pointer; margin-left:3%; color:red" class="glyphicon glyphicon-arrow-left"></span></label>
+                                    <div ng-if="val.Lider == false">
+                                        <div class="col-md-11">
+                                            <select style="width:100%;" class="form-control select2" name="SelectInstrucLider" id="selectInstF1">
+                                                <option value=""></option>
+                                                <option ng-repeat="instFic in InstructoresFicha" id="{{instFic.Cedula}}" title="{{instFic.Nombre+" "+instFic.Apellido}}" value="{{instFic.Cedula}}">{{instFic.Cedula+" - "+instFic.Nombre+" "+instFic.Apellido}}</option>
+                                            </select>
+                                        </div>
+                                        <div style="margin-left:-3%" class="col-md-1">
+                                            <button class="btn btn-success" ng-click="GuardarInstructoresFicha()"><i class="glyphicon glyphicon-floppy-saved"></i></button>
+                                        </div>
+
+                                    </div>
+                                    <div ng-if="val.Lider == true">
+                                        <div class="col-md-11">
+                                            <h4 class="text-info" id="h1Instruc1"></h4>
+                                        </div>
+                                        <div style="margin-left:-3%" class="col-md-1">
+                                            <button id="btnInstruc1" class="btn btn-primary" ng-click="btn1()"><i class="glyphicon glyphicon-pencil"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br /><br /><br /><br />
+                                <!--Instructor Tecnico-->
+                                <div class="form-group">
+                                    <label class="control-label col-md-12">Instructor Técnico: <span ng-click="span2()" id="spanF2" style="cursor:pointer; margin-left:3%; color:red" class="glyphicon glyphicon-arrow-left"></span></label>
+                                    <div ng-if="val.Tecnico == false">
+                                        <div class="col-md-11">
+                                            <select style="width:100%;" class="form-control select2" name="SelectInstrucLider" id="selectInstF2">
+                                                <option value=""></option>
+                                                <option ng-repeat="instFic in InstructoresFicha" id="{{instFic.Cedula}}" title="{{instFic.Nombre+" "+instFic.Apellido}}" value="{{instFic.Cedula}}">{{instFic.Cedula+" - "+instFic.Nombre+" "+instFic.Apellido}}</option>
+                                            </select>
+                                        </div>
+                                        <div style="margin-left:-3%" class="col-md-1">
+                                            <button class="btn btn-success" ng-click="GuardarInstructoresFicha()"><i class="glyphicon glyphicon-floppy-saved"></i></button>
+                                        </div>
+
+                                    </div>
+                                    <div ng-if="val.Tecnico == true">
+                                        <div class="col-md-11">
+                                            <h4 class="text-info" id="h1Instruc2"></h4>
+                                        </div>
+                                        <div style="margin-left:-3%" class="col-md-1">
+                                            <button id="btnInstruc2" class="btn btn-primary" ng-click="btn2()"><i class="glyphicon glyphicon-pencil"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br /><br /><br />
+                                <!--Instructor Emprendimiento-->
+                                <div class="form-group">
+                                    <label class="control-label col-md-12">Instructor Emprendimiento: <span ng-click="span3()" id="spanF3" style="cursor:pointer; margin-left:3%; color:red" class="glyphicon glyphicon-arrow-left"></span></label>
+                                    <div ng-if="val.Empren == false">
+                                        <div class="col-md-11">
+                                            <select style="width:100%;" class="form-control select2" name="SelectInstrucLider" id="selectInstF3">
+                                                <option value=""></option>
+                                                <option ng-repeat="instFic in InstructoresFicha" id="{{instFic.Cedula}}" title="{{instFic.Nombre+" "+instFic.Apellido}}" value="{{instFic.Cedula}}">{{instFic.Cedula+" - "+instFic.Nombre+" "+instFic.Apellido}}</option>
+                                            </select>
+                                        </div>
+                                        <div style="margin-left:-3%" class="col-md-1">
+                                            <button class="btn btn-success" ng-click="GuardarInstructoresFicha()"><i class="glyphicon glyphicon-floppy-saved"></i></button>
+                                        </div>
+
+                                    </div>
+                                    <div ng-if="val.Empren == true">
+                                        <div class="col-md-11">
+                                            <h4 class="text-info" id="h1Instruc3">></h4>
+                                        </div>
+                                        <div style="margin-left:-3%" class="col-md-1">
+                                            <button id="btnInstruc3" class="btn btn-primary" ng-click="btn3()"><i class="glyphicon glyphicon-pencil"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br /><br /><br />
+                                <!--Instructor salud ocupacional-->
+                                <div class="form-group">
+                                    <label class="control-label col-md-12">Instructor Salud Ocupacional: <span ng-click="span4()" id="spanF4" style="cursor:pointer; margin-left:3%; color:red" class="glyphicon glyphicon-arrow-left"></span></label>
+                                    <div ng-if="val.Ocupa == false">
+                                        <div class="col-md-11">
+                                            <select style="width:100%;" class="form-control select2" name="SelectInstrucLider" id="selectInstF4">
+                                                <option value=""></option>
+                                                <option ng-repeat="instFic in InstructoresFicha" id="{{instFic.Cedula}}" title="{{instFic.Nombre+" "+instFic.Apellido}}" value="{{instFic.Cedula}}">{{instFic.Cedula+" - "+instFic.Nombre+" "+instFic.Apellido}}</option>
+                                            </select>
+                                        </div>
+                                        <div style="margin-left:-3%" class="col-md-1">
+                                            <button class="btn btn-success" ng-click="GuardarInstructoresFicha()"><i class="glyphicon glyphicon-floppy-saved"></i></button>
+                                        </div>
+
+                                    </div>
+                                    <div ng-if="val.Ocupa == true">
+                                        <div class="col-md-11">
+                                            <h4 class="text-info" id="h1Instruc4">></h4>
+                                        </div>
+                                        <div style="margin-left:-3%" class="col-md-1">
+                                            <button id="btnInstruc4" class="btn btn-primary" ng-click="btn4()"><i class="glyphicon glyphicon-pencil"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br /><br /><br />
+                                <!--Instructor Cultura Fisica-->
+                                <div class="form-group">
+                                    <label class="control-label col-md-12">Instructor Cultura Física: <span ng-click="span5()" id="spanF5" style="cursor:pointer; margin-left:3%; color:red" class="glyphicon glyphicon-arrow-left"></span></label>
+                                    <div ng-if="val.Fisica == false">
+                                        <div class="col-md-11">
+                                            <select style="width:100%;" class="form-control select2" name="SelectInstrucLider" id="selectInstF5">
+                                                <option value=""></option>
+                                                <option ng-repeat="instFic in InstructoresFicha" id="{{instFic.Cedula}}" title="{{instFic.Nombre+" "+instFic.Apellido}}" value="{{instFic.Cedula}}">{{instFic.Cedula+" - "+instFic.Nombre+" "+instFic.Apellido}}</option>
+                                            </select>
+                                        </div>
+                                        <div style="margin-left:-3%" class="col-md-1">
+                                            <button class="btn btn-success" ng-click="GuardarInstructoresFicha()"><i class="glyphicon glyphicon-floppy-saved"></i></button>
+                                        </div>
+
+                                    </div>
+                                    <div ng-if="val.Fisica == true">
+                                        <div class="col-md-11">
+                                            <h4 class="text-info" id="h1Instruc5">></h4>
+                                        </div>
+                                        <div style="margin-left:-3%" class="col-md-1">
+                                            <button id="btnInstruc5" class="btn btn-primary" ng-click="btn5()"><i class="glyphicon glyphicon-pencil"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                        </center>
+                    </div>
+                    <div class="col-md-6">
+                        <center>
+                            <form style="width:95%; text-align:left">
+                                <!--Instructor Medio Ambiente-->
+                                <div class="form-group">
+                                    <label class="control-label col-md-12">Instructor Medio Ambiente: <span ng-click="span6()" id="spanF6" style="cursor:pointer; margin-left:3%; color:red" class="glyphicon glyphicon-arrow-left"></span></label>
+                                    <div ng-if="val.MedioA == false">
+                                        <div class="col-md-11">
+                                            <select style="width:100%;" class="form-control select2" name="SelectInstrucLider" id="selectInstF6">
+                                                <option value=""></option>
+                                                <option ng-repeat="instFic in InstructoresFicha" id="{{instFic.Cedula}}" title="{{instFic.Nombre+" "+instFic.Apellido}}" value="{{instFic.Cedula}}">{{instFic.Cedula+" - "+instFic.Nombre+" "+instFic.Apellido}}</option>
+                                            </select>
+                                        </div>
+                                        <div style="margin-left:-3%" class="col-md-1">
+                                            <button class="btn btn-success" ng-click="GuardarInstructoresFicha()"><i class="glyphicon glyphicon-floppy-saved"></i></button>
+                                        </div>
+
+                                    </div>
+                                    <div ng-if="val.MedioA == true">
+                                        <div class="col-md-11">
+                                            <h4 class="text-info" id="h1Instruc6">></h4>
+                                        </div>
+                                        <div style="margin-left:-3%" class="col-md-1">
+                                            <button id="btnInstruc6" class="btn btn-primary" ng-click="btn6()"><i class="glyphicon glyphicon-pencil"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br /><br /><br /><br />
+                                <!--Instructor Etica-->
+                                <div class="form-group">
+                                    <label class="control-label col-md-12">Instructor Ética: <span ng-click="span7()" id="spanF7" style="cursor:pointer; margin-left:3%; color:red" class="glyphicon glyphicon-arrow-left"></span></label>
+                                    <div ng-if="val.Etica == false">
+                                        <div class="col-md-11">
+                                            <select style="width:100%;" class="form-control select2" name="SelectInstrucLider" id="selectInstF7">
+                                                <option value=""></option>
+                                                <option ng-repeat="instFic in InstructoresFicha" id="{{instFic.Cedula}}" title="{{instFic.Nombre+" "+instFic.Apellido}}" value="{{instFic.Cedula}}">{{instFic.Cedula+" - "+instFic.Nombre+" "+instFic.Apellido}}</option>
+                                            </select>
+                                        </div>
+                                        <div style="margin-left:-3%" class="col-md-1">
+                                            <button class="btn btn-success" ng-click="GuardarInstructoresFicha()"><i class="glyphicon glyphicon-floppy-saved"></i></button>
+                                        </div>
+
+                                    </div>
+                                    <div ng-if="val.Etica == true">
+                                        <div class="col-md-11">
+                                            <h4 class="text-info" id="h1Instruc7">></h4>
+                                        </div>
+                                        <div style="margin-left:-3%" class="col-md-1">
+                                            <button id="btnInstruc7" class="btn btn-primary" ng-click="btn7()"><i class="glyphicon glyphicon-pencil"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br /><br /><br />
+                                <!--Instructor Comunicacion-->
+                                <div class="form-group">
+                                    <label class="control-label col-md-12">Instructor Comunicación: <span ng-click="span8()" id="spanF8" style="cursor:pointer; margin-left:3%; color:red" class="glyphicon glyphicon-arrow-left"></span></label>
+                                    <div ng-if="val.Comuni == false">
+                                        <div class="col-md-11">
+                                            <select style="width:100%;" class="form-control select2" name="SelectInstrucLider" id="selectInstF8">
+                                                <option value=""></option>
+                                                <option ng-repeat="instFic in InstructoresFicha" id="{{instFic.Cedula}}" title="{{instFic.Nombre+" "+instFic.Apellido}}" value="{{instFic.Cedula}}">{{instFic.Cedula+" - "+instFic.Nombre+" "+instFic.Apellido}}</option>
+                                            </select>
+                                        </div>
+                                        <div style="margin-left:-3%" class="col-md-1">
+                                            <button class="btn btn-success" ng-click="GuardarInstructoresFicha()"><i class="glyphicon glyphicon-floppy-saved"></i></button>
+                                        </div>
+
+                                    </div>
+                                    <div ng-if="val.Comuni == true">
+                                        <div class="col-md-11">
+                                            <h4 class="text-info" id="h1Instruc8">></h4>
+                                        </div>
+                                        <div style="margin-left:-3%" class="col-md-1">
+                                            <button id="btnInstruc8" class="btn btn-primary" ng-click="btn8()"><i class="glyphicon glyphicon-pencil"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br /><br /><br />
+                                <!--Instructor Ingles-->
+                                <div class="form-group">
+                                    <label class="control-label col-md-12">Instructor Inglés: <span ng-click="span9()" id="spanF9" style="cursor:pointer; margin-left:3%; color:red" class="glyphicon glyphicon-arrow-left"></span></label>
+                                    <div ng-if="val.Ingles == false">
+                                        <div class="col-md-11">
+                                            <select style="width:100%;" class="form-control select2" name="SelectInstrucLider" id="selectInstF9">
+                                                <option value=""></option>
+                                                <option ng-repeat="instFic in InstructoresFicha" id="{{instFic.Cedula}}" title="{{instFic.Nombre+" "+instFic.Apellido}}" value="{{instFic.Cedula}}">{{instFic.Cedula+" - "+instFic.Nombre+" "+instFic.Apellido}}</option>
+                                            </select>
+                                        </div>
+                                        <div style="margin-left:-3%" class="col-md-1">
+                                            <button class="btn btn-success" ng-click="GuardarInstructoresFicha()"><i class="glyphicon glyphicon-floppy-saved"></i></button>
+                                        </div>
+
+                                    </div>
+                                    <div ng-if="val.Ingles == true">
+                                        <div class="col-md-11">
+                                            <h4 class="text-info" id="h1Instruc9">></h4>
+                                        </div>
+                                        <div style="margin-left:-3%" class="col-md-1">
+                                            <button id="btnInstruc9" class="btn btn-primary" ng-click="btn9()"><i class="glyphicon glyphicon-pencil"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br /><br /><br />
+                                <!--Instructor Tic-->
+                                <div class="form-group">
+                                    <label class="control-label col-md-12">Instructor TIC: <span ng-click="span10()" id="spanF10" style="cursor:pointer; margin-left:3%; color:red" class="glyphicon glyphicon-arrow-left"></span></label>
+                                    <div ng-if="val.TIC == false">
+                                        <div class="col-md-11">
+                                            <select style="width:100%;" class="form-control select2" name="SelectInstrucLider" id="selectInstF10">
+                                                <option value=""></option>
+                                                <option ng-repeat="instFic in InstructoresFicha" id="{{instFic.Cedula}}" title="{{instFic.Nombre+" "+instFic.Apellido}}" value="{{instFic.Cedula}}">{{instFic.Cedula+" - "+instFic.Nombre+" "+instFic.Apellido}}</option>
+                                            </select>
+                                        </div>
+                                        <div style="margin-left:-3%" class="col-md-1">
+                                            <button class="btn btn-success" ng-click="GuardarInstructoresFicha()"><i class="glyphicon glyphicon-floppy-saved"></i></button>
+                                        </div>
+
+                                    </div>
+                                    <div ng-if="val.TIC == true">
+                                        <div class="col-md-11">
+                                            <h4 class="text-info" id="h1Instruc10">></h4>
+                                        </div>
+                                        <div style="margin-left:-3%" class="col-md-1">
+                                            <button id="btnInstruc10" class="btn btn-primary" ng-click="btn10()"><i class="glyphicon glyphicon-pencil"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                        </center>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Registro aprendices-->
+<div class="modal fade" id="ModalAprendiz" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Registrar Aprendiz</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="Aprendiz" id="Aprendiz">
+                    <div class="row">
+                        <div class="form-group">
+
+                            <div>
+                                <label class="control-label col-md-3">Tipo Documento</label>
+                                <div class="col-md-9">
+                                    <select style="width:100%;" class="form-control select2" name="TipoDoc" id="TipoDoc" ng-required="true" ng-model="Aprendices.TipoDocumento">
+                                        <option value=""></option>
+                                        <option value="TI">TI</option>
+                                        <option value="CC">CC</option>
+                                        <option value="CE">CE</option>
+                                        <option value="PASAPORTE">PASAPORTE</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Ficha</label>
+                                <div class="col-md-9">
+                                    <select style="width:100%" type="text" class="form-control select2" name="fichaApren" id="fichaApren" ng-required="true" ng-model="Aprendices.Ficha">
+                                        <option value=""></option>
+                                        <option ng-repeat="ficha in PFichas" class="{{ficha.Id}}" value="{{ficha.Id}}">{{ficha.Num_Ficha+" - "+ficha.Programa}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Documento</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="number" name="Doc" id="Doc" ng-required="true" ng-maxlength="11" ng-model="Aprendices.Documento" />
+                                    <span ng-if="Aprendiz.Doc.$error.maxlength" class="text-danger">El documento puede tener máximo 11 caracteres</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Nombre</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="Nom" id="Nom" ng-required="true" ng-model="Aprendices.Nombre" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Apellido</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="Ape" id="Ape" ng-required="true" ng-model="Aprendices.Apellido" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Correo</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="email" name="Email" id="Email" ng-required="true" ng-model="Aprendices.Email" />
+                                    <span class="text-danger" ng-if="Aprendiz.Email.$error.email">Debe ingresar un correo válido</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Teléfono</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="tel" id="Tel" ng-required="true" ng-maxlength="10" ng-model="Aprendices.Telefono" />
+                                    <span ng-if="Aprendiz.tel.$error.maxlength" class="text-danger">El teléfono puede tener máximo 10 caracteres</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                                   
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="!Aprendiz.$valid" ng-click="GuardarAprendiz()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal filtrar aprendices-->
+<div class="modal fade" id="ModalFiltrarAprendices" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Filtrar Aprendices</h4></center>
+            </div>
+            <br />
+            <div class="row">
+                <div class="form-group">
+                    <div style="width:97%; margin-left:1%;">
+                        <label class="control-label col-md-3">Tipo Documento</label>
+                        <div class="col-md-9">
+                            <select style="width:100%;" class="form-control select2" name="TipoDoc" id="TipoDoc" ng-required="true" ng-model="FiltrarAprendiz.TipoDocumento">
+                                <option value=""></option>
+                                <option value="TI">TI</option>
+                                <option value="CC">CC</option>
+                                <option value="CE">CE</option>
+                                <option value="PASAPORTE">PASAPORTE</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>           
+            <br />
+            <div class="row">
+                <div class="form-group">
+                    <div style="width:97%; margin-left:1%;">
+                        <label class="control-label col-md-3">Ficha</label>
+                        <div class="col-md-9">
+                            <select style="width:100%" type="text" class="form-control select2" name="fichaApren" id="fichaApren" ng-required="true" ng-model="FiltrarAprendiz.Ficha">
+                                <option value=""></option>
+                                <option ng-repeat="ficha in PFichas" class="{{ficha.Id}}" value="{{ficha.Id}}">{{ficha.Num_Ficha}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="form-group">
+                    <div style="width:97%; margin-left:1%;">
+                        <label class="control-label col-md-3">Estado</label>
+                        <div class="col-md-9">
+                            <select style="width:100%" class="form-control select2" type="text" name="AprenEstado" id="AprenEstado" ng-required="true" ng-model="FiltrarAprendiz.Estado">
+                                <option value=""></option>
+                                <option value="Activo">Activo</option>
+                                <option value="Cancelado">Cancelado</option>
+                                <option value="Retirado">Retirado</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-click="FiltrarAprendices()">Filtrar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Editar aprendices-->
+<div class="modal fade" id="ModalAprendizEdit" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Editar Aprendiz</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="AprendizEdit" id="AprendizEdit">
+                    <div class="row">
+                        <div class="form-group">
+
+                            <div>
+                                <label class="control-label col-md-3">Tipo Documento</label>
+                                <div class="col-md-9">
+                                    <select style="width:100%;" class="form-control select2" name="TipoDoc" id="TipoDoc" ng-required="true" ng-model="Aprendices.TipoDocumento">
+                                        <option value=""></option>
+                                        <option value="TI">TI</option>
+                                        <option value="CC">CC</option>
+                                        <option value="CE">CE</option>
+                                        <option value="PASAPORTE">PASAPORTE</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Ficha</label>
+                                <div class="col-md-9">
+                                    <select style="width:100%" type="text" class="form-control select2" name="fichaApren" id="fichaApren" ng-required="true" ng-model="Aprendices.Ficha">
+                                        <option value=""></option>
+                                        <option ng-repeat="ficha in PFichas" class="{{ficha.Id}}" value="{{ficha.Id}}">{{ficha.Num_Ficha+" - "+ficha.Programa}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Documento</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="number" name="Doc" id="Doc" ng-required="true" ng-maxlength="11" ng-model="Aprendices.Documento" />
+                                    <span ng-if="Aprendiz.Doc.$error.maxlength" class="text-danger">El documento puede tener máximo 11 caracteres</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Nombre</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="NomEdit" id="NomEdit" ng-required="true" ng-model="Aprendices.Nombre" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Apellido</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="ApeEdit" id="ApeEdit" ng-required="true" ng-model="Aprendices.Apellido" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Correo</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="email" name="EmailEdit" id="EmailEdit" ng-required="true" ng-model="Aprendices.Email" />
+                                    <span class="text-danger" ng-if="Aprendiz.EmailEdit.$error.email">Debe ingresar un correo válido</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Teléfono</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="number" name="telEdit" id="TelEdit" ng-required="true" ng-maxlength="10" ng-model="Aprendices.Telefono" />
+                                    <span ng-if="Aprendiz.telEdit.$error.maxlength" class="text-danger">El teléfono puede tener máximo 10 caracteres</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="!AprendizEdit.$valid" ng-click="GuardarAprendizEdit()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Estado aprendices-->
+<div class="modal fade" id="ModalAprendizEstado" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Editar Estado del Aprendiz</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="AprendizEstado" id="AprendizEstado">
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Estado</label>
+                                <div class="col-md-9">
+                                    <select style="width:100%" class="form-control select2" type="text" name="AprenEstado" id="AprenEstado" ng-required="true" ng-model="Aprendices.Estado">
+                                        <option value=""></option>
+                                        <option value="Activo">Activo</option>
+                                        <option value="Cancelado">Cancelado</option>
+                                        <option value="Retirado">Retirado</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Descripción</label>
+                                <div class="col-md-9">
+                                    <textarea class="form-control" name="descripEstado" id="descripEstado" ng-required="true" ng-maxlength="200" ng-model="Novedades.Descripcion"></textarea>
+                                    <span ng-if="AprendizEstado.descripEstado.$error.maxlength" class="text-danger">En este campo solo se permiten 200 caracteres</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="!AprendizEstado.$valid" ng-click="GuardarAprendizEstado()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Ficha aprendices-->
+<div class="modal fade" id="ModalAprendizFicha" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Editar Estado del Aprendiz</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="AprendizFicha" id="AprendizFicha">
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Ficha</label>
+                                <div class="col-md-9">
+                                    <select style="width:100%" type="text" class="form-control select2" name="fichaAprenEdit" id="fichaAprenEdit" ng-required="true" ng-model="Aprendices.Ficha">
+                                        <option value=""></option>
+                                        <option ng-repeat="ficha in PFichas" class="{{ficha.Id}}" value="{{ficha.Id}}">{{ficha.Num_Ficha+" - "+ficha.Programa}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Descripción</label>
+                                <div class="col-md-9">
+                                    <textarea class="form-control" name="descripEstado" id="descripEstado" ng-required="true" ng-maxlength="200" ng-model="Novedades.Descripcion"></textarea>
+                                    <span ng-if="AprendizFicha.descripEstado.$error.maxlength" class="text-danger">En este campo solo se permiten 200 caracteres</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="!AprendizFicha.$valid" ng-click="GuardarAprendizFicha()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Ver aprendices-->
+<div class="modal fade" id="ModalVerAprendices" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Ver Aprendices Asociados a la Ficha</h4></center>
+            </div>
+            <div class="modal-body">
+                <h4 class="text-center" id="TituloVerA"></h4>
+                <br />
+                <div class="col-md-12">
+                    <div class="col-md-3" style="float:right">
+                        <input type="text" class="form-control" ng-model="filtroAprendices" />
+                    </div>
+                    <div class="col-md-1" style="float:right">
+                        <label class="control-label">Buscar: </label>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Documento</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Correo</th>
+                            <th>Teléfono</th>
+                            <th id="thgestion">Gestión</th>
+                        </tr>
+                    </thead>
+                    <tbody id="BodyVerApren">
+                        <tr ng-repeat="Af in AprendiceFicha | filter: filtroAprendices">
+                            <td>{{Af.Documento}}</td>
+                            <td>{{Af.Nombre}}</td>
+                            <td>{{Af.Apellido}}</td>
+                            <td>{{Af.Email}}</td>
+                            <td>{{Af.Telefono}}</td>
+                            <td ng-show="columGestion == true">
+                                <button ng-click="alternaticaPractica(Af)" class="btn btn-warning"><i class="glyphicon glyphicon-th"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal REgistrar alternativa-->
+<div class="modal fade" id="ModalAlternativaPracticas" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Prácticas del aprendiz</h4></center>
+            </div>
+            <div class="modal-body">
+                <h4 id="tituloAlternativa" class="text-center"></h4>
+                <br />
+                <form name="Alternativa" id="Alternativa">
+                    <input type="hidden" id="idFicha" />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Alternativa</label>
+                                <div class="col-md-9">
+                                    <select style="width:100%;" class="form-control select2" name="alternativa" id="alternativa" ng-required="true" ng-model="Alternativa.Alternativa">
+                                        <option value=""></option>
+                                        <option value="1">Desempeño en una empresa a través del Contrato de Aprendizaje</option>
+                                        <option value="2">Desempeño a través de vinculación laboral o contractual</option>
+                                        <option value="3">Participación en un proyecto productivo o en Sena-Empresa o en Sena Proveedor Sena o en producción de centros</option>
+                                        <option value="4">De apoyo a una unidad productiva familiar</option>
+                                        <option value="5">De apoyo a una institución estatal nacional, territorial o a una ONG o a una entidad sin ánimo de lucro</option>
+                                        <option value="6">Monitorias</option>
+                                        <option value="7">Pasantías</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Descripción</label>
+                                <div class="col-md-9">
+                                    <textarea class="form-control" name="descripcion" id="descripcion" ng-required="true" ng-maxlength="200" ng-model="Alternativa.Descripcion"></textarea>
+                                    <span ng-if="Alternativa.descripcion.$error.maxlength" class="text-danger">En este campo solo se permiten 200 caracteres</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-disabled="!Alternativa.$valid" ng-click="GuardarAlternativa()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Editar Alternativa-->
+<div class="modal fade" id="ModalAlternativaPracticasEdit" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Prácticas del aprendiz</h4></center>
+            </div>
+            <div class="modal-body">
+                <h4 id="tituloAlternativaEdit" class="text-center"></h4>
+                <br />
+                <form name="AlternativaEdit" id="AlternativaEdit">
+                    <input type="hidden" id="idFichaEdit" />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Alternativa</label>
+                                <div class="col-md-9">
+                                    <select style="width:100%;" class="form-control select2" name="alternativaEdit" id="alternativaEdit" ng-required="true" ng-model="Alternativa.Alternativa">
+                                        <option value=""></option>
+                                        <option value="1">Desempeño en una empresa a través del Contrato de Aprendizaje</option>
+                                        <option value="2">Desempeño a través de vinculación laboral o contractual</option>
+                                        <option value="3">Participación en un proyecto productivo o en Sena-Empresa o en Sena Proveedor Sena o en producción de centros</option>
+                                        <option value="4">De apoyo a una unidad productiva familiar</option>
+                                        <option value="5">De apoyo a una institución estatal nacional, territorial o a una ONG o a una entidad sin ánimo de lucro</option>
+                                        <option value="6">Monitorias</option>
+                                        <option value="7">Pasantías</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label col-md-3">Descripción</label>
+                                <div class="col-md-9">
+                                    <textarea class="form-control" name="descripcionEdit" id="descripcionEdit" ng-required="true" ng-maxlength="200" ng-model="Alternativa.Descripcion"></textarea>
+                                    <span ng-if="AlternativaEdit.descripcionEdit.$error.maxlength" class="text-danger">En este campo solo se permiten 200 caracteres</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" style="float: left;" id="btnEditarAlternativa">Editar</button>
+                <button type="button" class="btn btn-success" id="btnGuardarAlternativaEdit" ng-disabled="!AlternativaEdit.$valid" ng-click="GuardarAlternativaEdit()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Ver Novedades-->
+<div class="modal fade" id="ModalVerNovedades" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Novedades de la ficha</h4></center>
+            </div>
+            <div class="modal-body">
+                <h4 class="text-center" id="TituloVerA"></h4>
+                <br />
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Aprendiz</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="BodyVerNovedades">
+                        <tr ng-repeat="novedad in NovedadesFicha">
+                            <td>{{novedad.Aprendiz}}</td>
+                            <td>{{novedad.Descripcion}}{{novedad.NuevaFicha}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style type="text/css">
+
+    .sub-menu{
+        width:100%; 
+        display: inline-block; 
+        position:fixed;
+        margin-top: 2%;
+        margin-left: -22.5%;
+    }
+
+    #divTabla {
+        max-height:160px;
+        overflow-y: auto;
+    }
+
+    #divTabla2{
+        max-height:350px;
+        overflow-y: auto;
+    }
+
+
+</style>
+
+<script type="text/javascript">
+
+    var cont;
+    var m = [];
+    $(document).ready(function () {
+        cont = 1;
+        $('.dropdown').children('.sub-menu').slideUp();
+        $('#Buscar').show();
+        $('#Buscar2').hide();
+        $('#Buscar3').hide();
+        $('#Buscar4').hide();
+        $('#tab1').show();
+        $('#tab2').hide();
+        $('#tab3').hide();
+        $('#tab4').hide();
+        $('#tab5').hide();
+
+    }); // end ready
+
+    $('.panel-body').hover(
+        function () {
+            $('.dropdown').children('.sub-menu').slideUp(200);
+        }
+    );
+
+    $('.Principal').hover(
+        function () {
+            $('.dropdown').children('.sub-menu').slideUp(200);
+        }
+    );
+
+    $('.boton').hover(
+        function () {
+            $('.dropdown').children('.sub-menu').slideUp(200);
+        }
+    );
+
+    $('.dropdown').click(
+            function () {
+                $(this).children('.sub-menu').slideDown(200);
+            }
+        );
+
+</script>

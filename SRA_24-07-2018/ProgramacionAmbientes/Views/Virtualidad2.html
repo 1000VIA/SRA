@@ -1,0 +1,1207 @@
+﻿<div>
+    <div style="position:absolute; margin-top:48.7%; margin-left:50%; transform:translateX(-50%);">
+        <footer class="text-center" style="color:white; font-weight:600; font-size:18px; z-index:5;">Fábrica de Software - 2018</footer>
+    </div>
+    <div id="Prueba" class="Principal Transicion" style="padding-top: 75px !important;">
+        <div class="col-md-12">
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2 style="padding:0% 0% 2% 1%;">Virtualidad <small class="text">Complementaria</small></h2>
+
+                    <div class="col-md-3" style="float:right;">
+                        <!--<button ng-click="BorrarSeleccionados()">Eliminar</button>-->
+                        <input class="form-control" ng-keyup="Filtrar($event)" id="Buscar" />
+                        <input class="form-control" ng-keyup="Filtrar2($event)" id="Buscar2" />
+                    </div>
+
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item active" id="btn1">
+                            <a class="nav-link" data-toggle="tab" role="tab">Instructores</a>
+                        </li>
+                        <li class="nav-item" id="btn2">
+                            <a class="nav-link" data-toggle="tab" role="tab">Fichas</a>
+                        </li>
+                        <li class="nav-item" id="btn3">
+                            <a class="nav-link" data-toggle="tab" role="tab">Calendario</a>
+                        </li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+
+                        <div class="tab-pane active" id="tab1" role="tabpanel">
+                            <br />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!--<input id="fileUploadWeb" type="file" accept=".xlsx" style="display: none;" />
+                                    <button class="btn btn-default" id="excel" ng-click="UploadFileWeb()" title="Subir Archivo Excel " style="height: 34px; color:burlywood">
+                                        <i class="glyphicon glyphicon-folder-open"></i>
+                                    </button>
+                                    <button class="btn btn-default" type="button" id="nuevo" ng-click="agregarRegistro()" title="Agregar Instructor" style="height: 34px;color:green">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                    </button>
+                                    <button class="btn btn-default" type="button" id="eliminar" ng-click="CambiarEstadoSeleccionados()" title="Inhabilitar Registros" style="height: 34px;color:red">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                    </button>
+                                    <button class="btn btn-default" type="button" id="modificar" ng-click="Modificar()" title="Editar Registro" style="height: 34px; color:blue">
+                                        <i class="glyphicon glyphicon-pencil"></i>
+                                    </button>-->
+                                    <!--<button class="btn btn-default" type="button" id="addFichas" ng-click="modalAgregarFichas()" title="Asociar fichas a un instructor" style="height: 34px; color:green">
+                                        <i class="glyphicon glyphicon-list"></i>
+                                    </button>-->
+                                    <button class="btn btn-default" type="button" id="verDetalle" ng-click="verFichasInstruc()" title="Ver fichas del instructor" style="height: 34px; color:sandybrown">
+                                        <i class="glyphicon glyphicon-eye-open"></i>
+                                    </button>
+                                    <br />
+                                    <br />
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:20px"></th>
+                                                <th class="paginationclass" style="font-weight:bold;">Cédula</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Nombre</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Apellidos</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Email</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Teléfono</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Tipo Viculación</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="searchable">
+                                            <tr class="paginationclass" ng-repeat="datalist in datalistsI | pagination: curPage * pageSize | limitTo: pageSize | filter:searchText">
+                                                <td><input ng-model="datalist.Seleccionado" type="checkbox" id="{{datalist.IdInstructor}}" /></td>
+                                                <td>{{datalist.Cedula }}</td>
+                                                <td>{{datalist.Nombre}}</td>
+                                                <td>{{datalist.Apellido}}</td>
+                                                <td>{{datalist.Email }}</td>
+                                                <td>{{datalist.Telefono }}</td>
+                                                <td>{{datalist.TipoContrato}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <div class="pagination pagination-centered" ng-show="datalistsI.length" style="float:right">
+                                        <ul class="pagination-controle pagination">
+                                            <li>
+                                                <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                                        ng-click="curPage=curPage-1">
+                                                    Anterior
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <span>Pág {{curPage + 1}} de {{ numberOfPages() }}</span>
+                                            </li>
+                                            <li>
+                                                <button type="button" class="btn btn-primary"
+                                                        ng-disabled="curPage >= datalistsI.length/pageSize - 1"
+                                                        ng-click="curPage = curPage+1">
+                                                    Siguiente
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane active" id="tab2" role="tabpanel">
+                            <br />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input id="fileUploadWeb" type="file" accept=".xlsx" style="display: none;" />
+                                    <button class="btn btn-default" id="excel" ng-click="UploadFileWeb2()" title="Subir Archivo Excel " style="height: 34px; color:burlywood">
+                                        <i class="glyphicon glyphicon-folder-open"></i>
+                                    </button>
+                                    <button class="btn btn-default" type="button" id="nuevo" ng-click="agregarRegistro2()" title="Agregar Ficha" style="height: 34px;color:green">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                    </button>
+                                    <button class="btn btn-default" type="button" id="modificar" ng-click="Modificar2()" title="Editar Registro" style="height: 34px; color:blue">
+                                        <i class="glyphicon glyphicon-pencil"></i>
+                                    </button>
+                                    <br />
+                                    <br />
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:20px"></th>
+                                                <th class="paginationclass" style="font-weight:bold;">Ficha</th>
+                                                <th class="paginationclass" style="font-weight:bold;"># Aprendices</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Programa</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Fecha de Inicio</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Fecha de Fin</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Estado</th>
+                                                <th class="paginationclass" style="font-weight:bold;">Gestión</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="searchable">
+                                            <tr class="paginationclass" ng-repeat="datalist in datalistsFic | pagination: curPage * pageSize | limitTo: pageSize | filter:searchText">
+                                                <td><input ng-model="datalist.Seleccionado" type="checkbox" id="{{datalist.Id}}" /></td>
+                                                <td>{{datalist.Num_Ficha }}</td>
+                                                <td>{{datalist.Num_Aprendices }}</td>
+                                                <td>{{datalist.Programa }}</td>
+                                                <td>{{datalist.Fecha_Inicio }}</td>
+                                                <td>{{datalist.Fecha_Fin }}</td>
+                                                <td class="success" ng-if="datalist.Estado == 'Activa'">{{datalist.Estado }}</td>
+                                                <td class="warning" ng-if="datalist.Estado == 'Finalizada'">{{datalist.Estado   }}</td>
+                                                <td style="width:8%">
+                                                    <button style="width:100%" ng-if="datalist.Estado == 'Activa'" disabled class="btn btn-warning">Gestionar</button>
+                                                    <button ng-if="datalist.Estado == 'Finalizada' && datalist.Aprobados == 0" ng-click="gestionFicha(datalist.Id)" class="btn btn-warning form-control">Gestionar</button>
+                                                    <button ng-if="datalist.Estado == 'Finalizada' && datalist.Aprobados != 0" ng-click="VerFicha(datalist.Id)" class="btn btn-warning form-control">Ver</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="pagination pagination-centered" ng-show="datalistsFic.length" style="float:right">
+                                        <ul class="pagination-controle pagination">
+                                            <li>
+                                                <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                                        ng-click="curPage=curPage-1">
+                                                    Anterior
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <span>Pág {{curPage + 1}} de {{ numberOfPages() }}</span>
+                                            </li>
+                                            <li>
+                                                <button type="button" class="btn btn-primary"
+                                                        ng-disabled="curPage >= datalistsFic.length/pageSize - 1"
+                                                        ng-click="curPage = curPage+1">
+                                                    Siguiente
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane active" id="tab3" role="tabpanel">
+                            <br />
+                            <div class="col-md-2" style="padding-right:0px;">
+                                <button class="btn btn-default coord" id="boton" style="width:100%; border-color:#286090;color:#286090;" ng-click="ModalProgramacion()">Registrar Programación</button>
+                            </div>
+                            <div class="col-md-2" style="padding-right:0px;">
+                                <button class="btn btn-default coord" id="transversal" style="width:100%; border-color:#286090;color:#286090;" ng-click="ModalFiltrarProgramacion()">Filtrar Programación</button>
+                            </div>
+                            <div class="col-md-2" style="padding-right:0px;">
+                                <button class="btn btn-default coord" id="borrarFiltro" style="width:100%; border-color:#286090;color:#286090;" ng-click="BorarFiltro()">Borrar Filtro</button>
+                            </div>
+
+                            <br />
+                            <br />
+
+                            <div id='wrap' class="panel-body">
+                                <div id='calendar' class="col-md-12"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Registro Instructor-->
+<div class="modal fade" id="ModalInstructor" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Registrar Instructor</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="instructor" id="instructor">
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Área</label>
+                            <div class="col-md-9">
+                                <select class="form-control select2" style="width:100%" id="listas" ng-required="true" ng-model="Instructor.IdArea">
+                                    <option value=""></option>
+                                    <option ng-repeat="area in Areas" class="{{area.Parametro4}}" value="{{area.Parametro1}}">{{area.Parametro4}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Cédula</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="number" name="cedulaInstructor" id="cedulaInstructor" ng-required="true" ng-maxlength="10" ng-model="Instructor.Cedula" />
+                                <span ng-if="instructor.cedulaInstructor.$error.maxlength" class="text-danger">La cédula puede tener máximo 10 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Nombre</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="nombreInstructor" id="nombreInstructor" ng-required="true" ng-maxlength="50" ng-model="Instructor.Nombre" />
+                                <span ng-if="instructor.nombreInstructor.$error.maxlength" class="text-danger">El nombre puede tener máximo 50 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Apellido</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="apellidoInstructor" id="apellidoInstructor" ng-required="true" ng-maxlength="50" ng-model="Instructor.Apellido" />
+                                <span ng-if="instructor.apellidoInstructor.$error.maxlength" class="text-danger">El apellido puede tener máximo 50 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Email</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="email" name="correoInstructor" id="correoInstructor" ng-required="true" ng-maxlength="50" ng-model="Instructor.Email" />
+                                <span class="text-danger" ng-if="instructor.correoInstructor.$error.email">Debe ingresar un email válido</span>
+                                <span ng-if="instructor.correoInstructor.$error.maxlength" class="text-danger">El correo puede tener máximo 50 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Teléfono</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="number" name="telefono" id="telefono" ng-required="true" ng-maxlength="10" ng-model="Instructor.Telefono" />
+                                <span ng-if="instructor.telefono.$error.maxlength" class="text-danger">El teléfono puede tener máximo 10 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Tipo de Viculación</label>
+                        <div class="col-md-9">
+                            <select class="form-control select2" id="1listas" ng-required="true" ng-model="Instructor.TipoContrato" style="width:100%">
+                                <option value=""></option>
+                                <option ng-repeat="contrato in Contrato" value="{{contrato.Tipo}}">{{contrato.Nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <br />
+                        <label>¿El instructor es transversal?</label>
+                        <input style="margin-left:5px;" type="checkbox" ng-model="Instructor.TipoInstructor" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="!instructor.$valid" ng-click="GuardarInstructor()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Eliminar Registro-->
+<div class="modal fade" id="modalInhabilitarInstructor" role="dialog">
+    <div class="modal-dialog" style="width: 400px;">
+        <!--Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center>
+                    <h4 style="color:#1C75BB;">
+                        CONFIRMAR INHABILITACIÓN
+                    </h4>
+                </center>
+
+            </div>
+            <div class="modal-body" overflow auto;">
+                <div class="form-group">
+                    <label>¿Está seguro que desea inhabilitar el registro? </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success  btn-default" data-dismiss="modal" ng-click="inhabilitarInstructor()">Aceptar</button>
+                <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Editar Instructor-->
+<div class="modal fade" id="ModalEditar" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Editar Instructor</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="instructor1" id="instructor1">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Área</label>
+                        <div class="col-md-9">
+                            <select class="form-control select2" id="listas1" ng-required="true" ng-model="Instructor.IdArea" style="width:100%;">
+                                <option value=""></option>
+                                <option ng-repeat="area in Areas" class="{{area.Parametro4}}" value="{{area.Parametro1}}">{{area.Parametro4}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Cédula</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="number" name="cedulaInstructor" id="cedulaInstructor1" ng-required="true" ng-maxlength="10" ng-model="Instructor.Cedula" />
+                                <span ng-if="instructor1.cedulaInstructor.$error.maxlength" class="text-danger">La cédula puede tener máximo 10 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Nombre</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="nombreInstructor" id="nombreInstructor1" ng-required="true" ng-maxlength="50" ng-model="Instructor.Nombre" />
+                                <span ng-if="instructor1.nombreInstructor.$error.maxlength" class="text-danger">El nombre puede tener máximo 50 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3" l>Apellido</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="apellidoInstructor" id="apellidoInstructor1" ng-required="true" ng-maxlength="50" ng-model="Instructor.Apellido" />
+                                <span ng-if="instructor1.apellidoInstructor.$error.maxlength" class="text-danger">El apellido puede tener máximo 50 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Email</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="email" name="correoInstructor" id="correoInstructor1" ng-required="true" ng-maxlength="50" ng-model="Instructor.Email" />
+                                <span class="text-danger" ng-if="instructor1.correoInstructor.$error.email">Debe ingresar un email válido</span>
+                                <span ng-if="instructor1.correoInstructor.$error.maxlength" class="text-danger">El correo puede tener máximo 50 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Teléfono</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="number" name="telefono" id="telefono1" ng-required="true" ng-maxlength="10" ng-model="Instructor.Telefono" />
+                                <span ng-if="instructor1.telefono.$error.maxlength" class="text-danger">El teléfono puede tener máximo 10 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Tipo de Viculación</label>
+                        <div class="col-md-9">
+                            <select class="form-control select2" id="listas11" ng-required="true" ng-model="Instructor.TipoContrato" style="width:100%;">
+                                <option value=""></option>
+                                <option ng-repeat="contrato in Contrato" value="{{contrato.Tipo}}">{{contrato.Nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <br />
+                        <label>¿El instructor es transversal?</label>
+                        <input style="margin-left:5px;" type="checkbox" ng-model="Instructor.TipoInstructor" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" style="float:left" id="btnVerContrato">Ver Contrato</button>
+                <button class="btn btn-success" ng-disabled="!instructor1.$valid" ng-click="GuardarEdicionInstructor()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Registro Ficha-->
+<div class="modal fade" id="ModalFicha" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Registrar Ficha</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="Ficha" id="Ficha">
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Ficha</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="number" name="NumFicha" id="NumFicha" ng-required="true" ng-maxlength="10" ng-model="Ficha.Num_Ficha" />
+                                <span ng-if="Ficha.NumFicha.$error.maxlength" class="text-danger">La ficha puede tener máximo 10 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3"># Aprendices</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="number" name="NumApren" id="NumApren" ng-required="true" ng-model="Ficha.Num_Aprendices" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Programa</label>
+                        <div class="col-md-9">
+                            <select class="form-control select2" id="Prog" ng-required="true" ng-model="Ficha.Programa" style="width:100%">
+                                <option value=""></option>
+                                <option ng-repeat="item in ProgramasT" value="{{item.NombrePrograma}}" title="{{item.Red_Tecnologica}}">{{item.NombrePrograma}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Fecha Inicio</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="IniLec" id="IniLec" ng-model="Ficha.Fecha_Inicio" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Fecha Fin</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="FinLec" id="FinLec" ng-model="Ficha.Fecha_Fin" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="!Ficha.$valid" ng-click="GuardarFicha()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Editar Ficha-->
+<div class="modal fade" id="ModalFichaEdit" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Editar Ficha</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="FichaEdit" id="FichaEdit">
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Ficha</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="number" name="NumFichaEdit" id="NumFichaEdit" ng-required="true" ng-maxlength="10" ng-model="Ficha.Num_Ficha" />
+                                <span ng-if="FichaEdit.NumFichaEdit.$error.maxlength" class="text-danger">La ficha puede tener máximo 10 caracteres </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3"># Aprendices</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="number" name="NumAprenEdit" id="NumAprenEdit" ng-required="true" ng-model="Ficha.Num_Aprendices" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Programa</label>
+                        <div class="col-md-9">
+                            <select class="form-control select2" id="ProgEdit" ng-required="true" ng-model="Ficha.Programa" style="width:100%">
+                                <option value=""></option>
+                                <option ng-repeat="item in ProgramasT" value="{{item.NombrePrograma}}" title="{{item.Red_Tecnologica}}">{{item.NombrePrograma}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Fecha Inicio</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="IniLecEdit" id="IniLecEdit" ng-model="Ficha.Fecha_Inicio" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Fecha Fin</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="FinLecEdit" id="FinLecEdit" ng-model="Ficha.Fecha_Fin" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="!FichaEdit.$valid" ng-click="GuardarEdicionFicha()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Gestion de Fichas -->
+<div class="modal fade" id="ModalGestionFicha" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Gestionar Ficha</h4></center>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <h4>Ficha: <small class="text-info" id="smallFicha"></small> - Programa: <small class="text-info" id="smallProg"></small></h4>
+                    <h4>Aprendices Matriculados: <small class="text-info" id="smallNumA"></small></h4>
+                </div>
+                <br />
+                <br />
+                <br />
+                <br />
+                <form name="GestionFicha" id="GestionFicha">
+                    <div class="form-group">
+                        <label class="control-label text-center col-md-3"># Retirados</label>
+                        <div class="col-md-9">
+                            <input class="form-control" type="number" name="NumReti" id="NumReti" ng-change="valReti()" ng-required="true" ng-model="GestionFicha.Retirados" />
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label text-center col-md-3"># No Aprobados</label>
+                        <div class="col-md-9">
+                            <input class="form-control" type="number" name="NumNoCerti" id="NumNoCerti" ng-required="true" ng-change="CalcularNoCerti()" ng-model="GestionFicha.No_Aprobados" />
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label text-center col-md-3"># Aprobados</label>
+                        <div class="col-md-9">
+                            <input class="form-control" type="number" name="NumCerti" id="NumCerti" ng-required="true" ng-change="CalcularCerti()" ng-model="GestionFicha.Aprobados" />
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label text-center col-md-3">% Certificación</label>
+                        <div class="col-md-9">
+                            <input class="form-control" type="text" value="%" name="NumCerti" id="NumCerti" ng-disabled="true" ng-required="true" ng-model="GestionFicha.Porc_Certificacion" />
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="!GestionFicha.$valid" ng-click="GuardarGestionFicha()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Gestion de Fichas -->
+<div class="modal fade" id="ModalVerFicha" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Ver Ficha</h4></center>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <h4>Ficha: <small class="text-info" id="smallFichaE"></small> - Programa: <small class="text-info" id="smallProgE"></small></h4>
+                    <h4>Aprendices Matriculados: <small class="text-info" id="smallNumAE"></small></h4>
+                </div>
+                <br />
+                <br />
+                <br />
+                <br />
+                <form name="GestionFichaE" id="GestionFichaE">
+                    <div class="form-group">
+                        <label class="control-label text-center col-md-3"># Retirados</label>
+                        <div class="col-md-9">
+                            <input class="form-control" type="number" name="NumReti" id="NumRetiE" ng-change="valReti()" ng-required="true" ng-model="GestionFicha.Retirados" />
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label text-center col-md-3"># No Arobabos</label>
+                        <div class="col-md-9">
+                            <input class="form-control" type="number" name="NumNoCerti" id="NumNoCertiE" ng-required="true" ng-change="CalcularNoCerti()" ng-model="GestionFicha.No_Aprobados" />
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label text-center col-md-3"># Aprobados</label>
+                        <div class="col-md-9">
+                            <input class="form-control" type="number" name="NumCerti" id="NumCertiE" ng-required="true" ng-change="CalcularCerti()" ng-model="GestionFicha.Aprobados" />
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label text-center col-md-3">% Certificación</label>
+                        <div class="col-md-9">
+                            <input class="form-control" type="text" value="%" name="NumCerti" id="NumCertiE" ng-disabled="true" ng-required="true" ng-model="GestionFicha.Porc_Certificacion" />
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" style="float:left;" id="btnLimpiarVerFicha">Editar</button>
+                <button class="btn" id="btnReporteFichas" ng-click="GenerarReporteFicha()" title="Generar Reporte" style="float:left;border-color:#286090;color:#286090;"><i class="glyphicon glyphicon-download-alt"></i></button>
+                <button class="btn btn-success" id="btnGuardarFicha" ng-disabled="true" ng-click="GuardarGestionFicha()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Registro Programacion-->
+<div class="modal fade" id="ModalProgramacion" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Registrar Programación</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="Programacion" id="Programacion">
+
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Fecha de Inicio</label>
+                            <div class="col-md-9">
+                                <input class="form-control datetimepickerF" type="text" name="Finicio" id="Finicio" ng-model="Programacion.Fecha_Inicio" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Fecha Final</label>
+                            <div class="col-md-9">
+                                <input class="form-control datetimepickerFF" type="text" name="Finicio" id="Ffinal" ng-model="Programacion.Fecha_Fin" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Hora de Inicio</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control datetimepicker3" name="final" id="inicial" ng-model="Programacion.Hora_Inicio" />
+
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Hora Final</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control datetimepicker3" name="Ffinal" id="final" ng-model="Programacion.Hora_Fin" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Ficha</label>
+                            <div class="col-md-9">
+                                <select style="width:100%" type="text" class="form-control select2" name="ficha" id="ficha" ng-required="true" ng-model="Programacion.Ficha">
+                                    <option value=""></option>
+                                    <option ng-repeat="ficha in PFichas" class="{{ficha.Id}}" value="{{ficha.Id}}">{{ficha.Num_Ficha+" - "+ficha.Programa}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Instructor</label>
+                            <div class="col-md-9">
+                                <select style="width:100%" class="form-control select2" type="text" name="instructor" id="instruc" ng-required="true" ng-model="Programacion.Instructor">
+                                    <option value=""></option>
+                                    <option ng-repeat="instructor in PInstructor" class="{{instructor.Cedula}}" value="{{instructor.Cedula}}">{{instructor.Nombre +" "+instructor.Apellido}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-group row" style="width:100%;">
+                        <div class="col-md-12 text-center">
+                            <label>Días</label>
+                        </div>
+
+                        <div style="display:grid; grid-template-columns:repeat(7,1fr); width:98%; padding-left:1.5vw; padding-top:1.5vh;">
+                            <div class="text-center">
+                                <label>Lunes</label><br />
+                                <input type="checkbox" name="1" id="1Edit" ng-model="Dias.Lunes" />
+                            </div>
+                            <div class="text-center">
+                                <label>Martes</label><br />
+                                <input type="checkbox" name="2" id="2Edit" ng-model="Dias.Martes" />
+                            </div>
+                            <div class="text-center">
+                                <label>Miércoles</label><br />
+                                <input type="checkbox" name="3" id="3Edit" ng-model="Dias.Miercoles" />
+                            </div>
+                            <div class="text-center">
+                                <label>Jueves</label><br />
+                                <input type="checkbox" name="4" id="4Edit" ng-model="Dias.Jueves" />
+                            </div>
+                            <div class="text-center">
+                                <label>Viernes</label><br />
+                                <input type="checkbox" name="5" id="5Edit" ng-model="Dias.Viernes" />
+                            </div>
+                            <div class="text-center">
+                                <label>Sábado</label><br />
+                                <input type="checkbox" name="6" id="6Edit" ng-model="Dias.Sabado" />
+                            </div>
+                            <div class="text-center">
+                                <label>Domingo</label><br />
+                                <input type="checkbox" name="7" id="7Edit" ng-model="Dias.Domingo" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="!Programacion.$valid" ng-click="GuardarProgramacion()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal editar Programacion-->
+<div class="modal fade" id="ModalEditarProgramacion" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Editar Programación</h4></center>
+            </div>
+            <div class="modal-body">
+
+                <div class="row" id="InfoProg">
+                    <div class="col-md-12">
+                        <center>
+                            <h3 id="nameInstruc"></h3>
+                        </center>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="col-md-12 txt">
+                        <center>
+                            Del <span class="text-info" id="TextIni"></span> al
+                            <span class="text-info" id="TextFin"></span>
+                        </center>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="col-md-12 txt">
+                        <center>
+                            Desde <span class="text-info" id="TextHIni"></span> hasta
+                            <span class="text-info" id="TextHFin"></span>
+                        </center>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="col-md-12 txt">
+                        <center>
+                            <span id="spnInst"></span> <span class="text-info" id="TextFi"></span>
+                        </center>
+                    </div>
+                    <br />
+                    <br />
+                </div>
+
+                <form name="ProgramacionE" id="ProgramacionE">
+
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Fecha de Inicio</label>
+                            <div class="col-md-9">
+                                <input class="form-control datetimepickerF" type="text" name="FinicioEdit" id="FinicioEdit" ng-model="Programacion.Fecha_Inicio" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Fecha Final</label>
+                            <div class="col-md-9">
+                                <input class="form-control datetimepickerFF" type="text" name="FinicioEdit" id="FfinalEdit" ng-model="Programacion.Fecha_Fin" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Hora de Inicio</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control datetimepicker3" name="finalEdit" id="inicialEdit" ng-model="Programacion.Hora_Inicio" />
+
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Hora Final</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control datetimepicker3" name="FfinalEdit" id="finalEdit" ng-model="Programacion.Hora_Fin" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Ficha</label>
+                            <div class="col-md-9">
+                                <select style="width:100%" type="text" class="form-control select2" name="fichaEdit" id="fichaEdit" ng-required="true" ng-model="Programacion.Ficha">
+                                    <option value=""></option>
+                                    <option ng-repeat="ficha in PFichas" class="{{ficha.Id}}" value="{{ficha.Id}}">{{ficha.Num_Ficha+" - "+ficha.Programa}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Instructor</label>
+                            <div class="col-md-9">
+                                <select style="width:100%" class="form-control select2" type="text" name="instructorEdit" id="instrucEdit" ng-required="true" ng-model="Programacion.Instructor">
+                                    <option value=""></option>
+                                    <option ng-repeat="instructor in PInstructor" class="{{instructor.Cedula}}" value="{{instructor.Cedula}}">{{instructor.Nombre +" "+instructor.Apellido}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <hr />
+                    <div class="form-group row">
+                        <div class="form-group row" style="width:100%;">
+                            <div class="col-md-12 text-center">
+                                <label>Días</label>
+                            </div>
+
+                            <div style="display:grid; grid-template-columns:repeat(7,1fr); width:98%; padding-left:1.5vw; padding-top:1.5vh;">
+                                <div class="text-center">
+                                    <label>Lunes</label><br />
+                                    <input type="checkbox" name="1" id="1Edit" ng-model="Dias.Lunes" />
+                                </div>
+                                <div class="text-center">
+                                    <label>Martes</label><br />
+                                    <input type="checkbox" name="2" id="2Edit" ng-model="Dias.Martes" />
+                                </div>
+                                <div class="text-center">
+                                    <label>Miércoles</label><br />
+                                    <input type="checkbox" name="3" id="3Edit" ng-model="Dias.Miercoles" />
+                                </div>
+                                <div class="text-center">
+                                    <label>Jueves</label><br />
+                                    <input type="checkbox" name="4" id="4Edit" ng-model="Dias.Jueves" />
+                                </div>
+                                <div class="text-center">
+                                    <label>Viernes</label><br />
+                                    <input type="checkbox" name="5" id="5Edit" ng-model="Dias.Viernes" />
+                                </div>
+                                <div class="text-center">
+                                    <label>Sábado</label><br />
+                                    <input type="checkbox" name="6" id="6Edit" ng-model="Dias.Sabado" />
+                                </div>
+                                <div class="text-center">
+                                    <label>Domingo</label><br />
+                                    <input type="checkbox" name="7" id="7Edit" ng-model="Dias.Domingo" />
+                                </div>
+                            </div>
+                        </div>
+                    </div></form>
+
+            </div>
+            <div class="modal-footer">
+                <button style="float:left" class="btn btn-warning btnEditarProg" id="btnEditarProg">Editar</button>
+                <button class="btn btn-danger" id="btnEliminarProg">Eliminar</button>
+                <button class="btn btn-success" id="btnGuardarProg" ng-click="GuardarModificacionProgramacion()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Filtrar Programacion-->
+<div class="modal fade" id="ModalFiltrarProgramacion" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Filtrar Programación</h4></center>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button style="width:100%" id="btnInstrucFiltro" class="btn btn-primary">Instructor</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button style="width:100%" id="btnProgFiltro" class="btn btn-primary">Ficha</button>
+                    </div>
+                </div>
+                <br />
+                <form name="ProgramacionF" id="ProgramacionF">
+
+                    <div class="row">
+                        <div class="form-group" id="divInputInstruc">
+                            <label class="control-label col-md-3">Instructor</label>
+                            <div class="col-md-9">
+                                <select style="width:100%" class="form-control select2" type="text" name="instrucFil" id="instrucFil" ng-required="true" ng-model="Programacion.Instructor">
+                                    <option value=""></option>
+                                    <option ng-repeat="instructor in PInstructor" class="{{instructor.Cedula}}" value="{{instructor.Cedula}}">{{instructor.Nombre +" "+instructor.Apellido}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="divInputProg">
+                            <label class="control-label col-md-3">Fichas</label>
+                            <div class="col-md-9">
+                                <select style="width:100%" type="text" class="form-control select2" name="fichaFil" id="fichaFil" ng-required="true" ng-model="Programacion.Ficha">
+                                    <option value=""></option>
+                                    <option ng-repeat="ficha in PFichas" class="{{ficha.Id}}" value="{{ficha.Id}}">{{ficha.Num_Ficha+" - "+ficha.Programa}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-click="filtrarProgramacion()">Filtrar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal ver fichas del instructor-->
+<div class="modal fade" id="VerFichasInstruc" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Ver fichas asociadas al instructor</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="FiltrarProgramacion" id="FiltrarProgramacion">
+                    <div class="form-group">
+
+                        <div>
+                            <label class="control-label text-center col-md-2">Instructor</label>
+                            <div class="col-md-5">
+                                <select style="width:100%;" class="form-control select2" name="InstVerFicha" id="InstVerFicha" ng-required="true" ng-model="Inst.Id">
+                                    <option value=""></option>
+                                    <option ng-repeat="instuc in datalistsI" id="{{instuc.Cedula}}" value="{{instuc.Cedula}}">{{instuc.Nombre +" "+ instuc.Apellido}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <h4 id="instrucFic"></h4>
+                    <div id="divTabla2">
+                        <table class="table table-bordered" id="tablaresultadofiltro">
+                            <thead>
+                                <tr>
+                                    <th>Ficha</th>
+                                    <th>Programa</th>
+                                    <th style="width:35%">Fecha Terminación</th>
+                                </tr>
+                            </thead>
+                            <tbody class="searchable">
+                                <tr class="paginationclass" ng-repeat="datalist in datalistsInstFilter">
+                                    <td>{{datalist.Ficha | uppercase}}</td>
+                                    <td>{{datalist.Programa | uppercase}}</td>
+                                    <td>{{datalist.Fecha | uppercase}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button style="float:left" class="btn btn-warning" id="btnLimpiarFiltro">Limpiar</button>
+                <button class="btn btn-success" id="btnBuscarFiltro" ng-disabled="!FiltrarProgramacion.$valid" ng-click="VerFichasI()">Buscar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Contrato del Instructor-->
+<div class="modal fade" id="ModalContrato" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 style="font-weight: bold;">Contrato del instructor</h4></center>
+            </div>
+            <div class="modal-body">
+                <form name="FormContrato" id="FormContrato">
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">N° Contrato</label>
+                            <div class="col-md-9">
+                                <input class="form-control adic" type="text" name="NumContr" id="NumContr" ng-required="true" ng-model="Instructor.Num_Contrato" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Inicio Contrato</label>
+                            <div class="col-md-9">
+                                <input class="form-control adic" type="text" name="iniContr" id="iniContr" ng-required="true" ng-model="Instructor.Inicio_Contrato" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Fin Contrato</label>
+                            <div class="col-md-9">
+                                <input class="form-control adic" type="text" name="FinContr" id="FinContr" ng-required="true" ng-model="Instructor.Fin_Contrato" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </form>
+                <div id="divAdicion">
+                    <hr />
+                    <div class="form-group">
+                        <div>
+                            <label class="control-label col-md-3">Fecha Adición</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="AdiContr" id="AdiContr" ng-required="true" ng-model="Instructor.Adicion" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </div>
+                <br />
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" id="btnContratoRenovar" style="float:left">Renovar</button>
+                <button class="btn btn-primary" id="btnContratoAdicion" style="float:left">Adición</button>
+                <button class="btn btn-success" id="btnGuardarFicha" ng-click="GuardarEdicionContrato()">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style type="text/css">
+    .sub-menu {
+        width: 100%;
+        display: inline-block;
+        position: fixed;
+        margin-top: 2%;
+        margin-left: -22.5%;
+    }
+</style>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('.dropdown').children('.sub-menu').slideUp();
+
+    }); // end ready
+    $('.panel-body').hover(
+        function () {
+            $('.dropdown').children('.sub-menu').slideUp(200);
+        }
+    );
+
+    $('.Principal').hover(
+        function () {
+            $('.dropdown').children('.sub-menu').slideUp(200);
+        }
+    );
+
+    $('.boton').hover(
+        function () {
+            $('.dropdown').children('.sub-menu').slideUp(200);
+        }
+    );
+
+    $('.dropdown').click(
+        function () {
+            $(this).children('.sub-menu').slideDown(200);
+        }
+    );
+
+</script>
